@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="publicarCasa.css">
+    <link rel="shortcut icon" href="/Proyecto//Iconos/3870064_apartment_block_building_city_city_scrapper_icon.svg">
+  <script src="https://kit.fontawesome.com/1d80f98c36.js" crossorigin="anonymous"></script>
+  <script src="/Proyecto/js.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="div_titulo">
+            <a href="/Proyecto/index.html">
+          <div class="logo"> <img src="/Proyecto/Iconos/logo.png" alt=""></div> </a>
+          <a href="/Proyecto/index.html"> <h1 class="titulo">Darkom</h1>
+        </a>
+        </div>
+        <div class="lista_header">
+          <ul class="ul_header">
+            <li class="li_header">
+              <span><a class="div_favoritos" href="">Favoritos</a></span>
+            </li>
+            <li class="li_header">
+              <span><a class="div_publicar" href="/PublicarCasa/publicarCasa.html">Publicar casa</a></span>
+            </li>
+            <li class="li_header">
+              <button class="div_iniciar_sesion" onclick="openForm()">Iniciar Sesión</button>
+      
+              <div class="myform" id="myform">
+                
+                <div class="modal">
+                  <h1>Iniciar Sesión</h1>
+                  <form action="" method="post">
+                    <label for="" name="name"><b>Nombre:</b></label><br>
+                    <input type="text" name="name" required />
+                    <br><br>
+                    <label for="" name="name"><b>Contraseña:</b></label><br>
+                    <input type="password" name="pass" id="pass" required>
+                    <br><br>
+                    <label for="" name="email"><b>Email:</b></label><br>
+                    <input type="text" name="email" id="email" required />
+                    <br><br>
+                    <input type="submit" value="Enviar" name="submit" class="submit_iniciar_sesion div_iniciar_sesion">
+                    <button type="button" class="div_iniciar_sesion div_cerrar_form  " onclick="closeForm()">Cerrar</button>
+                  </form>
+                </div>
+              
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+
+
+      <main>
+        <div class="div_general">
+          <form action="" method="post">
+          <div class="tipo_casa">
+            <h2>Tipo de casa</h2>
+            <div class="iconos_opciones_casa">
+              <label for="casa">
+                <input type="radio" name="opciones_casa" class="casa" id="casa">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+                  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                  <rect x="10" y="12" width="4" height="4" />
+                </svg>
+              </label>
+
+
+
+              <label for="piso">
+                <input type="radio" name="opciones_casa" class="piso" id="piso">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-building-community" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M8 9l5 5v7h-5v-4m0 4h-5v-7l5 -5m1 1v-6a1 1 0 0 1 1 -1h10a1 1 0 0 1 1 1v17h-8" />
+                  <line x1="13" y1="7" x2="13" y2="7.01" />
+                  <line x1="17" y1="7" x2="17" y2="7.01" />
+                  <line x1="17" y1="11" x2="17" y2="11.01" />
+                  <line x1="17" y1="15" x2="17" y2="15.01" />
+                </svg>
+              </label>
+            </div>
+            <div class="opciones_casa">
+              <input type="radio" name="opciones_casa" id="">
+              <input type="radio" name="opciones_casa" id="">
+            </div>
+          </div>
+
+
+          <div class="modalidades" >
+            <h2>Tipo de alquiler</h2>
+            <label for="alquilar"> Alquilar
+              <input type="checkbox" name="" id="">
+            </label>
+
+
+
+
+            </form>
+          </div>
+          
+              
+   
+
+
+
+
+
+
+        </div>
+      </main>
+
+
+
+      <footer>
+        <div class="footer">
+          <div class="titulo_footer">
+            <h1><a href="index.html" class="enlace_titulo_footer">Darkom</a></h1>
+    
+          </div>
+          <br>
+          <div class="footer_columnas">
+            <div class="footer_columna1">
+              <ul>
+                <li class="titulo_lista_footer">¿Buscas alojamiento?</li>
+                <br>
+                <li class="li_footer">Pisos en Getafe</li>
+                <br>
+                <li class="li_footer">Pisos en Fuenlabrada</li>
+                <br>
+    
+              </ul>
+    
+    
+            </div>
+            <div class="footer_columna2">
+              <ul>
+                <li class="titulo_lista_footer">¿Buscas inquilinos?</li>
+                <br>
+                <li class="li_footer">Guia para publicar</li>
+                <br>
+                <li class="li_footer">Ventajas de usarnos</li>
+                <br>
+    
+              </ul>
+            </div>
+            <div class="footer_columna3">
+              <ul>
+                <li class="titulo_lista_footer">Acerca de nosotros</li>
+                <br>
+                <li class="li_footer">Quienes somos</li>
+                <br>
+                <li class="li_footer">Contacta con nosotros</li>
+                <br>
+    
+              </ul>
+    
+            </div>
+    
+          </div>
+          <div class="iconos_footer">
+            <a href="#"><i class="fa-brands fa-2x fa-square-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-2x fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-2x fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-2x fa-youtube"></i></a>
+            <a href="#"><i class="fa-brands fa-2x fa-twitter"></i></a>
+          </div>
+          <div class="logo_footer">
+            <img src="/Proyecto/Iconos/logo.png" alt="">
+          </div>
+        </div>
+        
+        
+      </footer>
+</body>
+</html>

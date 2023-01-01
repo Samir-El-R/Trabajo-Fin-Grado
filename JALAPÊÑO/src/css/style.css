@@ -1,0 +1,546 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+* {
+  font-family: "DM Serif Display";
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Comienzo header */
+
+body {
+  background-color: #d1d5dd;
+}
+
+/* Cabecera logo/titulo */
+
+header {
+  display: flex;
+  color: rgb(0, 0, 0);
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  background-color: #f1efef;
+}
+
+.div_titulo {
+  display: flex;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  padding-left: 10%;
+}
+
+.logo {
+  padding-right: 20px;
+}
+
+/* FIN Cabecera logo/titulo*/
+
+
+
+
+/* Menu header */
+
+.lista_header {
+  width: 50%;
+  letter-spacing: 0.5px;
+}
+
+.ul_header {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.li_header {
+  list-style: none;
+  font-weight: bold;
+  border-radius: 8px;
+  padding-top: 28px;
+  margin-top: 5px;
+}
+
+.div_iniciar_sesion {
+  margin-top: -14px;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 12px;
+  background-color: #2799ad;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 3s;
+}
+
+/* Iniciar Sesion */
+
+.myform {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 9;
+}
+
+.modal {
+  background-color: #d1d5dd;
+  width: 600px;
+  height: auto;
+  max-height: 100%;
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.submit_iniciar_sesion {
+  font-weight: 400;
+}
+
+.div_cerrar_form {
+  background-color: black;
+}
+
+/* FIN Iniciar Sesion */
+
+
+/* FIN  Menu header */
+
+
+/* Final header */
+
+/* ----------------------------------------------------------------- INDEX  -----------------------------------------------------------------*/
+
+
+
+
+/* Inicio Main */
+
+.in_main {
+  height: 500px;
+  color: antiquewhite;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+/* Imagen de detras del buscador y buscador */
+
+
+/* DIV para imagen */
+
+.in_fondo {
+  margin-top: 50px;
+  height: 400px;
+  background-position: center;
+  justify-content: center;
+  width: 100%;
+  background-image: url(../img/Imagenes/fotocasa.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+}
+
+/* DIV buscador */
+
+
+.in_encima {
+  display: grid;
+  height: 200px;
+  width: 60%;
+  color: black;
+  background-color: #2799ad;
+  position: absolute;
+  margin-top: 300px;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.in_buscador {
+  display: flex;
+  grid-area: busca;
+  background-color: black;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 14px;
+  margin-right: 5%;
+}
+
+.slogan {
+  margin-top: 30px;
+  display: block;
+  font-size: 230%;
+  justify-content: center;
+  text-align: center;
+  font-weight: bolder;
+}
+
+/* Empieza formulario buscador */
+
+
+.in_form {
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-template-areas: "habi busca";
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  gap: 10%;
+}
+
+.in_tipo_casa {
+  margin-left: 12%;
+  border: none;
+  height: 50px;
+  border: 0px;
+  width: 100%;
+  font-size: large;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.in_buscador > .buscador {
+  padding-left: 1%;
+  width: 90%;
+  height: 50px;
+  font-size: medium;
+  border-radius: 14px;
+  border: none;
+  border-style: hidden;
+}
+
+.in_buscador > .buscador:focus {
+  outline: none;
+}
+
+.in_buscador > .buscar {
+  color: white;
+  height: 80%;
+  width: 100px;
+  border: 0px;
+  margin-right: 5px;
+  font-size: medium;
+  font-weight: bold;
+  border-radius: 14px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* FIN formulario buscador */
+
+
+/* Fin de buscador */
+
+
+/* Inicio de usos */
+
+
+.modalidades {
+  padding-top: 130px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  gap: 150px;
+}
+
+.alquilar {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  display: flex;
+  text-align: center;
+  height: 300px;
+  width: 550px;
+  justify-content: center;
+}
+
+.poner_casa {
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+  height: 300px;
+  width: 550px;
+}
+
+.imagen_info {
+  padding-left: 25px;
+  padding-top: 50px;
+  width: 200px;
+  height: 200px;
+}
+
+.texto_info {
+  padding: 40px 40px;
+}
+
+
+/* FIN de usos */
+
+
+/* Inicio DIV SUGERENCIAS */
+
+
+.div_supercontenedor {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 80px;
+}
+
+.div_contenedor {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  height: 350px;
+  width: 65%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.div_infracontenedor {
+  padding: 50px 40px;
+}
+
+.div_imagen_sugerencias {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 400px;
+}
+
+.titulo_sugerencias {
+  text-align: center;
+}
+
+.texto_sugerencia {
+  text-align: center;
+}
+
+.imagen_sugerencias {
+  height: 300px;
+  width: 300px;
+  padding-right: 40px;
+}
+
+
+/* FIN DIV SUGERENCIAS */
+
+
+/* fin main */
+
+
+
+
+
+/* --------------------------------------------------------------- PUBLICAR CASA -------------------------------------------------------------*/
+
+/* Inicion Main publicar casa */
+.pub.main {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+.pub_general {
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  width: 40%;
+  height: 450px;
+  padding: 25px 80px;
+  justify-content: center;
+}
+.pub_tipo_casa {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 30px;
+}
+.pub_iconos_casa {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+.pub_opciones_casa {
+  display: flex;
+  justify-content: center;
+  gap: 90px;
+}
+
+/* Inicio CSS svg */
+
+.pub_casa {
+  position: absolute;
+  opacity: 0;
+}
+.svg_casa {
+  fill: rgb(255, 255, 255);
+  height: 3.6rem;
+  width: 3.6rem;
+  margin: 0.2rem;
+}
+.pub_casa + .svg_casa {
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+input + svg {
+  cursor: pointer;
+}
+input[class="pub_casa"]:hover + .svg_casa,
+input[class="pub_casa"]:checked + .svg_casa,
+input[class="pub_casa"]:focus + .svg_casa {
+  fill: rgb(237, 108, 104);
+}
+input[class="pub_piso"]:hover + .svg_piso,
+input[class="pub_piso"]:checked + .svg_piso,
+input[class="pub_piso"]:focus + .svg_piso {
+  fill: rgb(225, 112, 13);
+}
+
+/* FIN CSS svg */
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 1;
+}
+input + svg {
+  cursor: pointer;
+}
+
+/* Fin Main */
+
+
+
+/* ----------------------------------------------------------------- .... -----------------------------------------------------------------*/
+
+
+/*Inicio footer*/
+.footer {
+  background-color: #424242;
+  height: 100%;
+  width: 100%;
+
+}
+
+.titulo_footer {
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  color: white;
+  font-size: 13px;
+  background-color:#585858 ;
+}
+
+.enlace_titulo_footer{
+  text-decoration: none;
+  color: rgb(201, 181, 181);
+  letter-spacing: 2px;
+}
+
+.footer_columnas{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap: 100px;
+  padding-top: 20px;
+  color: white;
+}
+
+.titulo_lista_footer{
+  font-weight:bolder;
+  font-size: x-large;
+  list-style: none;
+  letter-spacing: 2px;
+}
+
+.li_footer{
+  list-style: none;
+  
+}
+.li_footer:hover{
+  color: #2799ad;
+}
+.logo_footer{
+  
+  text-align: center;
+}
+
+
+/* Iconos del footer */
+.iconos_footer{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding-top: 10px;
+  width: auto;
+}
+
+.iconos_footer > a{
+  padding:  15px;
+  text-decoration: none;
+}
+
+i{
+  color: white;
+}
+
+.fa-square-facebook:hover{
+  transform: scale(1.2);
+  color: #1451d4;
+}
+
+.fa-linkedin:hover{
+  transform: scale(1.2);
+  color: #0a63bc;
+}
+
+.fa-twitter:hover{
+  transform: scale(1.2);
+  color: rgb(29, 161, 242);
+}
+
+.fa-youtube:hover{
+  transform: scale(1.2);
+  color: rgb(255, 0, 0);
+}
+
+.fa-instagram:hover{
+  transform: scale(1.2);
+  color: rgb(151, 4, 102);
+}
+/* Fin iconos del footer */
+/*Fin footer*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

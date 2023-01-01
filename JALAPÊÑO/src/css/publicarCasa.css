@@ -1,0 +1,300 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+* {
+    font-family: "DM Serif Display";
+    margin: 0;
+    padding: 0;
+}
+
+/* Comienzo header */
+body{
+    background-color: #d1d5dd;
+}
+header {
+    display: flex;
+    color: rgb(0, 0, 0);
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+     background-color:#f1efef ; 
+}
+
+.div_titulo {
+    display: flex;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    padding-left: 10%;
+}
+.logo{
+    padding-right: 20px;
+}
+.lista_header {
+    width: 50%;
+    letter-spacing: 0.5px;
+}
+
+.ul_header {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.li_header{
+    list-style: none;
+    font-weight: bold;
+    border-radius: 8px;
+    padding-top: 28px;
+    margin-top: 5px;
+}
+
+.div_iniciar_sesion {
+    margin-top: -14px;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 12px;
+    background-color: #2799ad;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+.myform {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 9;
+  }
+  
+  .modal {
+    background-color: #d1d5dd;
+    width: 600px;
+    height: auto;
+    max-height: 100%;
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .submit_iniciar_sesion {
+    font-weight: 400;
+  }
+  
+  .div_cerrar_form {
+    background-color: black;
+  }
+  
+/* Final Header */
+
+
+
+
+
+
+/* Inicion Main */
+main{
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+.div_general{
+display: flex;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+background-color: white;
+width: 40%;
+height: 450px;
+padding: 25px 80px;
+justify-content: center;
+
+}
+.tipo_casa{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+}
+.iconos_opciones_casa{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+.opciones_casa{
+    display: flex;
+    justify-content: center;
+    gap: 90px;
+}
+
+/* Inicio CSS svg */
+
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+  svg {
+    fill: rgb(255, 255, 255);
+    height: 3.6rem;
+    width: 3.6rem;
+    margin: 0.2rem;
+  }
+  input[type="radio"] + svg {
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+  input + svg {
+    cursor: pointer;
+  }
+  input[class="casa"]:hover + svg,
+input[class="casa"]:checked + svg,
+input[class="casa"]:focus + svg {
+  fill: rgb(237, 108, 104);
+}
+input[class="piso"]:hover + svg,
+input[class="piso"]:checked + svg,
+input[class="piso"]:focus + svg {
+  fill: rgb(225, 112, 13);
+}
+  
+/* FIN CSS svg */
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 1;
+  }
+  input + svg {
+    cursor: pointer;
+  }
+
+
+
+
+
+
+/* Fin Main */
+
+
+/*Inicio footer*/
+.footer {
+    background-color: #424242;
+    height: 100%;
+    width: 100%;
+
+}
+
+.titulo_footer {
+    display: flex;
+    padding: 15px;
+    justify-content: center;
+    color: white;
+    font-size: 13px;
+    background-color:#585858 ;
+}
+
+.enlace_titulo_footer{
+    text-decoration: none;
+    color: rgb(201, 181, 181);
+    letter-spacing: 2px;
+}
+
+.footer_columnas{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 100px;
+    padding-top: 20px;
+    color: white;
+}
+
+.titulo_lista_footer{
+    font-weight:bolder;
+    font-size: x-large;
+    list-style: none;
+    letter-spacing: 2px;
+}
+
+.li_footer{
+    list-style: none;
+    
+}
+.li_footer:hover{
+    color: #2799ad;
+}
+.logo_footer{
+    
+    text-align: center;
+}
+
+
+/* Iconos del footer */
+.iconos_footer{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding-top: 10px;
+    width: auto;
+}
+
+.iconos_footer > a{
+    padding:  15px;
+    text-decoration: none;
+}
+
+i{
+    color: white;
+}
+
+.fa-square-facebook:hover{
+    transform: scale(1.2);
+    color: #1451d4;
+}
+
+.fa-linkedin:hover{
+    transform: scale(1.2);
+    color: #0a63bc;
+}
+
+.fa-twitter:hover{
+    transform: scale(1.2);
+    color: rgb(29, 161, 242);
+}
+
+.fa-youtube:hover{
+    transform: scale(1.2);
+    color: rgb(255, 0, 0);
+}
+
+.fa-instagram:hover{
+    transform: scale(1.2);
+    color: rgb(151, 4, 102);
+}
+/* Fin iconos del footer */
+/*Fin footer*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

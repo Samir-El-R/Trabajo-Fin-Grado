@@ -1,27 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css.css">
-    <script src="js.js"></script>
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
-<link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css.css">
+  <script src="js.js"></script>
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+  <!-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.6/dist/tailwind.min.css"> -->
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      let calendarEl = document.getElementById('calendar');
+      let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        location: "es",
+        dateClick: function () {
+          alert('a day has been clicked!');
+        },
+        headerToolbar: { center: 'dayGridMonth,timeGridWeek' }, // buttons for switching between views
+        views: {
+          dayGridMonth: { // name of view
+            titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+            // other view-specific options here
+          }
+        }
+      });
+      calendar.render();
+    });
+
+  </script>
+  <style>
+    .fc .fc-col-header-cell-cushion {
+      display: inline-block;
+      padding: 2px 4px;
+    }
+
+    .fc .fc-col-header-cell-cushion {
+      /* needs to be same precedence */
+      padding-top: 5px;
+      /* an override! */
+      padding-bottom: 5px;
+      /* an override! */
+    }
+  </style>
 </head>
+
 <body>
-   
-        <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
+
+  <!-- <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
           <div class="container">
       
             <div class="mycontainer">
       
               <div class="header-background">
                 <div class="calendar-header">
-                  <div class="row header-title">
-      
+                  <div class="row header-title"> 
                     <div class="header-text">
                       <span x-text="MONTH_NAMES[month]" class="month_names"></span>
                       <span x-text="year" class="year_names"></span>
@@ -85,7 +123,7 @@
             </div>
           </div>
       
-          <!-- Modal -->
+       Modal 
           <div class="mymodal" x-show.transition.opacity="openEventModal">
             <div class="inner_modal">
               <div class="round_button" x-on:click="openEventModal = !openEventModal">
@@ -136,9 +174,12 @@
               </div>
             </div>
           </div>
-          <!-- /Modal -->
-        </div>
-      
-      
+        /Modal 
+        </div> -->
+
+  <div id='calendar'></div>
+
+
 </body>
+
 </html>

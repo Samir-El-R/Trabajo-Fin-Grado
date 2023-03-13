@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IES GM Jovellanos</title>
-    <link rel="apple-touch-icon" href="http://secretaria.iesjovellanos.org/wp-content/uploads/2022/03/cropped-LF75-180x180.png">
-    <link rel="icon" href="http://secretaria.iesjovellanos.org/wp-content/uploads/2022/03/cropped-LF75-32x32.png" sizes="32x32">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/bootstrap.bundle.min.js"></script>
+<?php
 
-</head>
+echo'
 
-    <body>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container">
               <a class="navbar-brand" href="http://secretaria.iesjovellanos.org/">Jovellanos</a>
@@ -89,14 +78,15 @@
               </div>
             </div>
           </div>
-        </div>
-          <!-- pie de pagina -->
-          <footer class="bg-light text-center text-lg-start" >
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-              © 2023 
-              <a class="text-dark" href="http://secretaria.iesjovellanos.org/">Secretaria IES Gaspar Melchor de Jovellanos</a>
-            </div>
-            
-          </footer>
-    </body>
-</html>
+        </div>';
+
+
+?>
+
+
+
+
+
+
+
+        

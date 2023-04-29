@@ -1,5 +1,8 @@
 <?php
-
+// <a class="nav-link" 
+// data-bs-toggle="modal"
+// data-bs-target="#iniciarSesion"
+// >Iniciar Sesión</a>
 echo'
 
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -19,10 +22,10 @@ echo'
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item logged-out">
-                    <a class="nav-link" 
-                    data-bs-toggle="modal"
-                    data-bs-target="#iniciarSesion"
-                    >Iniciar Sesión</a>
+  
+
+
+
                   </li>
                   <li class="nav-item logged-in">
                     <a class="nav-link"

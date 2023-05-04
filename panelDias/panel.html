@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de gestión de dias</title>
+  <link rel="stylesheet" href="panel.css">
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+  <header>
+    <h1>Panel de gestión de dias</h1>
+  </header>
+
+  <!-- <div class="card mb-3" style="max-width: 18rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+      <h5 class="card-title" name="nombre">Primary card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+  </div>
+  
+  <div class="card w-50">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Button</a>
+    </div>
+  </div> -->
+
+<div class="vacaciones-seccion">
+ 
+  <div class="vacaciones-tarjetas">
+    <div class="vacaciones-tarjeta" onclick="mostrarInformacionUsuario('Juan Perez', '10/06/2023 - 20/06/2023', 'Viaje de vacaciones a la playa', 'Necesito descansar y relajarme.')">
+      <h3>Juan Perez</h3>
+      <p>Fecha de vacaciones: 10/06/2023 - 20/06/2023</p>
+      <button class="vacaciones-btn-aceptar">Aceptar</button>
+      <button class="vacaciones-btn-rechazar">Rechazar</button>
+    </div>
+    <div class="vacaciones-tarjeta" onclick="mostrarInformacionUsuario('María García', '15/07/2023 - 30/07/2023', 'Visitar a mi familia en otra ciudad', 'Es un viaje familiar muy importante para mí.')">
+      <h3>María García</h3>
+      <p>Fecha de vacaciones: 15/07/2023 - 30/07/2023</p>
+      <button class="vacaciones-btn-aceptar">Aceptar</button>
+      <button class="vacaciones-btn-rechazar">Rechazar</button>
+    </div>
+  </div>
+   <div class="vacaciones-info">
+    <h2>Información del usuario</h2>
+    <p><strong>Nombre:</strong> <span id="usuario-nombre"></span></p>
+    <p><strong>Fecha de vacaciones:</strong> <span id="usuario-fecha"></span></p>
+    <p><strong>Descripción:</strong> <span id="usuario-descripcion"></span></p>
+    <p><strong>Motivo:</strong> <span id="usuario-motivo"></span></p>
+  </div>
+</div>
+<script src="panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* Estilo para la sección de vacaciones */
+.vacaciones-seccion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+  }
+  
+  /* Estilo para las tarjetas de vacaciones */
+  .vacaciones-tarjetas {
+    width: 60%;
+  }
+  
+  .vacaciones-tarjeta {
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .vacaciones-tarjeta:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .vacaciones-tarjeta h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+  }
+  
+  .vacaciones-tarjeta p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  
+  .vacaciones-btn-aceptar {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .vacaciones-btn-rechazar {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilo para la sección de información del usuario */
+  .vacaciones-info {
+    width: 35%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .vacaciones-info h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .vacaciones-info p {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+  }
+  
+  .vacaciones-info strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  

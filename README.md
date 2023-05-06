@@ -4,7 +4,7 @@
 - [ ] Definir la navegabilidad de proyecto
 - [ ] Terminar la funcionalidad Rellenar PDF en la carpeta  RellenarPDF 
 - [ ] Mejorar la funcionalidad de solicitudes de dias libres en la capeta panelDias
-- [ ] Tarea x
+- [X] Tarea x
 
 ## Observaciones
 

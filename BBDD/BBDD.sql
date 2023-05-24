@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS profesores (
 );
 
 -- ususario anonimo para asiganrle los posts mas tarde
-INSERT INTO registro (usuario,nombre,apellido,fecha_creacion,email,contrasena,imagen_perfil) values ('admin','admin','admin','admin@gmail.com',2,2,'admin');
+INSERT INTO registro (usuario,nombre,apellido,fecha_creacion,email,contrasena,imagen_perfil) values ('admin','admin','admin','admin@gmail.com',4,'admin');
 

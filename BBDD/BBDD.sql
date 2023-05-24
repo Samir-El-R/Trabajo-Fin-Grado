@@ -12,9 +12,10 @@ SELECT DATABASE();
 CREATE TABLE IF NOT EXISTS profesores (
   id INT UNSIGNED AUTO_INCREMENT,
   nombre varchar(255) not null,
-  apellido varchar(255) not null,
   contrasena varchar(255),
-  email varchar(255) not null unique,
+  correo varchar(255) not null unique,
+  turno varchar(255) not null,
+  dedicacion varchar (255) not null,
   dias_disponibles INT DEFAULT 4,
   dias_seleccionados varchar(255),
   PRIMARY KEY (id)

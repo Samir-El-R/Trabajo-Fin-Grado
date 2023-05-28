@@ -28,6 +28,11 @@ echo'
 
                   </li>
                   <li class="nav-item logged-in">
+                  <a href=""class="nav-link"
+                  id="perfil"
+                  >Perfil</a>
+                </li>
+                  <li class="nav-item logged-in">
                     <a class="nav-link"
                     id="logout"
                     >Cerrar Sesión</a>

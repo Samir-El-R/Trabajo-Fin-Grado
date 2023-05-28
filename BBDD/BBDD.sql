@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS profesores (
   correo varchar(255) not null unique,
   turno varchar(255) not null,
   dedicacion varchar (255) not null,
-  dias_disponibles INT DEFAULT 4,
+  -- dias_disponibles INT DEFAULT 4,
   dias_seleccionados varchar(255),
   PRIMARY KEY (id)
 );

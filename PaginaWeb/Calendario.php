@@ -32,6 +32,7 @@
           dateClick: function (info) {
             // mostrar dia seleccionado
             alert("Clicked on: " +  formatDate(info.dateStr));
+
             // colorear el dia seleccionado
             if (info.dayEl.style.backgroundColor == "red") {
               info.dayEl.style.backgroundColor = "transparent"
@@ -49,8 +50,9 @@
 
   // dar formato fecha dia/mes/año
   function formatDate(date) {
-      return date.split("-").reverse();
+      return date.split("/");
   }
+  
   </script>
   </head>
 

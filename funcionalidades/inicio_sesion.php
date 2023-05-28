@@ -3,30 +3,22 @@ session_start();
 include 'conectarse.php';
 
 if (isset($_POST['submit'])) {
-$GLOBALS['error'] = 0;
-$usuario = $_POST['usuario'];
-$contrasena = $_POST['contrasena'];
+  $GLOBALS['error'] = 0;
+  $correo = $_POST['correo'];
+  $contrasena = $_POST['contrasena'];
 
-$MyBBDD->consulta("SELECT * FROM profesores where nombre = '$usuario' AND contrasena = '$contrasena'");
+  $MyBBDD->consulta("SELECT * FROM profesores where correo = '$correo' AND contrasena = '$contrasena'");
 
-if ($MyBBDD->numero_filas() > 0) {
+  if ($MyBBDD->numero_filas() > 0) {
 
-    if (!isset($_SESSION["usuario"])) {
-        $_SESSION["usuario"];
-    }
+    $fila = $MyBBDD->extraer_registro();
+    $_SESSION["profesor"]["nombre"] = $fila['nombre'];
+    $_SESSION["profesor"]["correo"] = $fila['correo'];
     
-    $_SESSION["usuario"] = $usuario;
-    header("location: ../PaginaWeb/Calendario.php");
 
+    header("location: ../PaginaWeb/calendario.php");
   } else {
-    $_SESSION["usuario"] = 0;
-    header("location: ../index.php");
 
+    header("location: ../index.php?error=1");
   }
-
 }
-
-
-
-
-

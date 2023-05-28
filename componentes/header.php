@@ -1,4 +1,5 @@
 <?php
+
 // <a class="nav-link" 
 // data-bs-toggle="modal"
 // data-bs-target="#iniciarSesion"
@@ -7,7 +8,7 @@ echo'
 
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container">
-              <a class="navbar-brand" href="http://secretaria.iesjovellanos.org/">Jovellanos</a>
+              <a class="navbar-brand" href="calendario.php">Jovellanos</a>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -22,19 +23,14 @@ echo'
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item logged-out">
-  
-
-
-
                   </li>
                   <li class="nav-item logged-in">
-                  <a href=""class="nav-link"
-                  id="perfil"
-                  >Perfil</a>
+                  <a href="perfil.php"class="nav-link" id="perfil">Perfil</a>
                 </li>
                   <li class="nav-item logged-in">
                     <a class="nav-link"
                     id="logout"
+                    href="../funcionalidades/cerrar_sesion.php"
                     >Cerrar Sesión</a>
                   </li>
                 </ul>

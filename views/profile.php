@@ -41,10 +41,7 @@ if ($_SESSION['show']) {
         </form>
 
         <!-- Botón de logout -->
-        <form action="" method="POST">
-            <input type="hidden" name="logout" value="true">
-            <input type="submit" value="Cerrar Sesión">
-        </form>
+
         <?php
         include("views/footer.php")
         ?>

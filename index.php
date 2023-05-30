@@ -1,48 +1,55 @@
 <?php
+// Incluir los controladores y modelos
+require_once 'controllers/AuthController.php';
+require_once 'controllers/ProfileController.php';
+require_once 'controllers/ChooseDayController.php';
+require_once 'controllers/AppController.php';
+require_once 'models/User.php';
+require_once 'config/connection.php';
+
+// Iniciar la sesión
 session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="indexCss.css">
-  <title>TeachOff</title>
-</head>
+// Crear una instancia del controlador AuthController y pasarle la conexión a la base de datos
+$authController = new AuthController($db);
+$profileController = new ProfileController($db);
+$AppController = new AppController($db);
 
-<body>
-  <h1>Deja de enseñar y empieza a disfrutar</h1>
-  <div class="login-box">
-    <h2>Inicio De Sesión</h2>
-    <form action="funcionalidades/inicio_sesion.php" method="post">
-      <div class="user-box">
-        <input type="text" name="correo" id="correo" required="true">
-        <label>Correo</label>
-      </div>
-      <div class="user-box">
-        <input type="password" name="contrasena" id="contrasena" required="true">
-        <label>Contraseña</label>
-      </div>
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && $_POST['login'] === 'true') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-      <a href="funcionalidades/inicio_sesion.php">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <input type="submit" required name="submit">
-      </a>
-    </form>
-  </div>
-  <!-- Mensaje de error -->
-  <?php
-  if (isset($_GET['error']) && $_GET['error'] == 1) {
-    echo '<p style="color: red;">Correo o contraseña incorrectos.</p>';
-  }
-  ?>
+    // Llamar al método de login en el controlador
+    $authController->login($email, $password);
+}
+
+// Verificar si se envió la solicitud de logout
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout']) && $_POST['logout'] === 'true') {
+    // Llamar a la función de logout en el controlador
+    $authController->logout();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleView']) && $_POST['views'] === 'true') {
+    $_SESSION['show'] = !$_SESSION['show'];
+    $AppController->showAndHiddenViews();
+}
 
 
-</body>
+// Verificar si el formulario de cambio de contraseña se ha enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+    $oldPassword = $_POST['old_password'];
+    $newPassword = $_POST['new_password'];
+    $user = $authController->getCurrentUser();
+    // Llamar al método de cambio de contraseña en el controlador
+    $profileController->changePassword($user['id'], $oldPassword, $newPassword);
+}
+// Verificar si el usuario está autenticado
+if ($authController->isUserAuthenticated()) {
+    // Mostrar la página de perfil
+    // $profileController->showProfile();
+    $AppController->showAndHiddenViews();
+} else {
 
-</html>
+
+    $authController->showLogin();
+    // Mostrar el formulario de inicio de sesión
+}

@@ -1,3 +1,5 @@
+
+
 const MONTH_NAMES = [
   "January",
   "February",
@@ -101,4 +103,41 @@ function app() {
       this.no_of_days = daysArray;
     }
   };
+}
+document.addEventListener("DOMContentLoaded", function() {
+  let calendarEl = document.getElementById('calendar');
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: "dayGridMonth",
+    locale: "es",
+    firstDay: 1,
+    headerToolbar: {
+      start: 'title',
+      end: 'prev,next'
+    },
+    businessHours: {
+      daysOfWeek: [1, 2, 3, 4, 5], // Lunes - Viernes
+      eventBackgroundColor: '#000000'
+    },
+    dateClick: function(info) {
+      // mostrar dia seleccionado
+      alert("Clicked on: " + formatDate(info.dateStr));
+
+      // colorear el dia seleccionado
+      if (info.dayEl.style.backgroundColor == "red") {
+        info.dayEl.style.backgroundColor = "transparent"
+      } else {
+
+        info.dayEl.style.backgroundColor = "red";
+      }
+
+    },
+
+  });
+
+  calendar.render();
+});
+
+// dar formato fecha dia/mes/año
+function formatDate(date) {
+  return date.split("/");
 }

@@ -1,5 +1,5 @@
 <?php
-class BBDD
+class  BBDD
 {
     private $servidor;
     private $user;
@@ -54,6 +54,6 @@ $dbname = "app";
 $port = 3306;
 $socket = "";
 
-$MyBBDD = new BBDD($host, $user, $password, $dbname, $port, $socket);
+$db = new BBDD($host, $user, $password, $dbname, $port, $socket);
 
 ?>

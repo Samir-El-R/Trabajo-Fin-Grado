@@ -1,43 +1,60 @@
 <?php
+require_once('config/connection.php');
 session_start();
 // ...
-require_once 'config/connection.php';
-require_once 'controllers/AuthController.php';
-require_once 'controllers/ProfileController.php';
-require_once 'class/CsvManager.php.php';
-require_once('functions/GeneratePassword.php');
-require_once('functions/TeacherManager.php');
+require_once('controllers/ProfileController.php');
+require_once('controllers/AdminController.php');
+require_once('controllers/AuthController.php');
+require_once('controllers/AppController.php');
+require_once('class/GeneratePassword.php');
+require_once('class/TeacherManager.php');
+require_once('class/CsvManager.php');
 
-$authController = new AuthController($db);
+
+// $db = new BBDD();
 $profileController = new ProfileController($db);
-$teacherManagement = new TeacherManager($dbConnection);
+$teacherManagement = new TeacherManager($db);
+$adminController = new AdminController($db);
+$authController = new AuthController($db);
+$appController = new AppController($db);
+
+
 // echo "<pre>";
 // var_dump($_SESSION['user']);
 // echo "</pre>";
-if (isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated']) {
-    // Verificar si el usuario es administrador
-    if ($_SESSION['user']['correo'] === 'admin@gmail.com') {
-    } else {
-        header('Location: index.php');
-    }
-} else {
-    // Mostrar el formulario de inicio de sesión
-    header('Location: index.php');
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout']) && $_POST['logout'] === 'true') {
     // Llamar a la función de logout en el controlador
     $authController->logout();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    // Llamar a la función de logout en el controlador
-    $authController->logout();
-    
+    // eliminar user
+}
+if ($authController->isUserAuthenticated()) {
+    $user = $authController->getCurrentUser();
+    switch ($user["roles"]):
+        case "admin":
+           $adminController->showAndHiddenViews();
+            break;
+        case "profesor":
+            $appController->showAndHiddenViews();
+            header('Location: index.php');
+            break;
+        case "director":
+
+            break;
+        default:
+
+    endswitch;
+} else {
+
+
+    $authController->showLogin();
+    // Mostrar el formulario de inicio de sesión
 }
 
-
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,11 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 </head>
 
 <body>
-   <?php require_once 'views/header.php'; ?>
+
+    // $nameView = "Calendario";
+    // include("views/header.php")
+    ?>
     <form action="" method="POST">
         <input type="hidden" name="logout" value="true">
         <input type="submit" value="Cerrar Sesión">
     </form>
 </body>
 
-</html>
+</html> -->

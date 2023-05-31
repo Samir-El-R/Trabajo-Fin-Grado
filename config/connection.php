@@ -10,7 +10,7 @@ class  BBDD
     public $descriptor;
     private $resultado;
 
-    function __construct($servidor, $user, $pass, $base_datos, $puerto, $socket)
+    function __construct($servidor , $user, $pass, $base_datos, $puerto, $socket)
     {
         $this->servidor = $servidor;
         $this->user = $user;
@@ -50,7 +50,7 @@ $host = "localhost";
 $user = "root";
 $password = "";
 $dbname = "app";
-// $port=14000;
+// $port = 1400;
 $port = 3306;
 $socket = "";
 

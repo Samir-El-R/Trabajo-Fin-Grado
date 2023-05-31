@@ -5,8 +5,16 @@ class TeacherManager
 
     private $db;
 
-    public function __construct($db)
+    public function __construct()
     {
+        $host = "localhost";
+        $user = "root";
+        $password = "";
+        $dbname = "app";
+        $port = 3306;
+        $socket = "";
+
+        $db = new BBDD($host, $user, $password, $dbname, $port, $socket);
         $this->db = $db;
     }
     public function registerTeacher($nombre, $turno, $dedicacion, $correo, $contrasena)
@@ -67,17 +75,39 @@ class TeacherManager
     {
         try {
 
-            $query = "SELECT * FROM profesores" ;
-            $result = $this->db->consulta($query);
-            $teachers = $this->db->extraer_registro();
+            $query = "SELECT * FROM profesores";
 
-            if ($result) {
+            $result = $this->db->consulta($query);
+            while ($fila = $this->db->extraer_registro()) {
+                $teachers[] = $fila;
+            }
+
+            if ($teachers) {
                 echo "profesor obtenidos exitosamente";
                 return $teachers;
             } else {
                 throw new Exception("Error al actualizar el profesor");
             }
+        } catch (Exception $e) {
 
+            echo "Error: " . $e->getMessage();
+        }
+    }
+    public function getTeachers($query)
+    {
+        try {
+
+            $result = $this->db->consulta($query);
+            while ($fila = $this->db->extraer_registro()) {
+                $teachers[] = $fila;
+            }
+
+            if ($teachers) {
+                echo "profesor obtenidos exitosamente";
+                return $teachers;
+            } else {
+                throw new Exception("Error al actualizar el profesor");
+            }
         } catch (Exception $e) {
 
             echo "Error: " . $e->getMessage();

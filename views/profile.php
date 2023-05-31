@@ -14,7 +14,7 @@
 <body>
     <?php
     $nameView = "Calendario";
-    include("views/header.php")
+    include("views/header.php");
     ?>
     <h1>Bienvenido, <?php echo $user['nombre']; ?></h1>
     <p>Correo electrónico: <?php echo $user['correo']; ?></p>

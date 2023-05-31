@@ -47,16 +47,22 @@ class AuthController
         if ($this->authenticateUser($email, $password)) {
             // Autenticación exitosa, establecer la variable de sesión y mostrar la página de perfil
             $_SESSION['is_authenticated'] = true;
+            $user = $this->getCurrentUser();
+            switch ($user["roles"]):
+                case "admin":
+                    header('Location: admin.php');
+                    break;
+                case "profesor":
+                    $AppController = new AppController($this->db);
+                    $AppController->showAndHiddenViews();
+                    header('Location: index.php');
+                    break;
+                case "director":
 
-            if ($email === 'admin@gmail.com') {
-                header('Location: admin.php');
-                exit();
-            } else {
-               
-                $AppController = new AppController($this->db);
-                $AppController->showAndHiddenViews();
-                header('Location: index.php');
-            }
+                    break;
+                default:
+
+            endswitch;
         } else {
             // Autenticación fallida, mostrar mensaje de error
             $this->showLoginError();

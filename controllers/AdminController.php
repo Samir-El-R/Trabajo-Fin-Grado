@@ -1,5 +1,5 @@
 <?php
-// Archivo AppController.php
+// Archivo AdminController.php
 
 class AdminController
 {
@@ -12,18 +12,25 @@ class AdminController
 
     public function showAndHiddenViews()
     {
-        if ($_SESSION['show']) {
+        $this->showSelectTeachers();
+
+        // if ($_SESSION['show']) {
             
 
-            $profileController = new ProfileController($this->db);
-            $profileController->showProfile();
+        //     $profileController = new ProfileController($this->db);
+        //     $profileController->showProfile();
             
-        } else {
+        // } else {
 
-            $ChooseDayController = new ChooseDayController($this->db);
-            $ChooseDayController->showChooseDay();
+        //     $ChooseDayController = new ChooseDayController($this->db);
+        //     $ChooseDayController->showChooseDay();
             
-        }
+        // }
 
+    }
+    public function showSelectTeachers()
+    {
+        // Mostrar formulario de inicio de sesión
+        require_once 'views/selectTeachers.php';
     }
 }

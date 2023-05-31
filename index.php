@@ -4,16 +4,18 @@ require_once 'controllers/AuthController.php';
 require_once 'controllers/ProfileController.php';
 require_once 'controllers/ChooseDayController.php';
 require_once 'controllers/AppController.php';
-require_once 'models/User.php';
 require_once 'config/connection.php';
+
 
 // Iniciar la sesión
 session_start();
 
 // Crear una instancia del controlador AuthController y pasarle la conexión a la base de datos
-$authController = new AuthController($db);
 $profileController = new ProfileController($db);
+
+$authController = new AuthController($db);
 $AppController = new AppController($db);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && $_POST['login'] === 'true') {
     $email = $_POST['email'];
@@ -44,11 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
 }
 // Verificar si el usuario está autenticado
 if ($authController->isUserAuthenticated()) {
-    // Mostrar la página de perfil
-    // $profileController->showProfile();
-    $AppController->showAndHiddenViews();
-} else {
+    $user = $authController->getCurrentUser();
+    switch ($user["roles"]):
+        case "admin":
+            header('Location: admin.php');
+            break;
+        case "profesor":
+            $AppController->showAndHiddenViews();
+            header('Location: index.php');
+            break;
+        case "director":
 
+            break;
+        default:
+
+    endswitch;
+
+} else {
 
     $authController->showLogin();
     // Mostrar el formulario de inicio de sesión

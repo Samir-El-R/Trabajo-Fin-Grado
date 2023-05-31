@@ -1,7 +1,7 @@
 <?php
 // Archivo AppController.php
 
-class AppController
+class AdminController
 {
     private $db;
 

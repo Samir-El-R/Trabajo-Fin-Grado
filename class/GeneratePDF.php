@@ -10,7 +10,7 @@ require_once('./assets/');
 
 class FormFiller
 {
-    private  $pdfTemplate = "../assets/plantilla.pdf";
+    private  $pdfTemplate = "assets/plantilla.pdf";
     private $data;
 
     public function __construct( $data)

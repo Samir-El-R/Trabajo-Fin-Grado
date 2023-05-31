@@ -1,14 +1,16 @@
 <?php
 session_start();
 // ...
+require_once 'config/connection.php';
 require_once 'controllers/AuthController.php';
 require_once 'controllers/ProfileController.php';
-require_once 'models/User.php';
-require_once 'config/connection.php';
+require_once 'class/CsvManager.php.php';
+require_once('functions/GeneratePassword.php');
+require_once('functions/TeacherManager.php');
 
 $authController = new AuthController($db);
 $profileController = new ProfileController($db);
-
+$teacherManagement = new TeacherManager($dbConnection);
 // echo "<pre>";
 // var_dump($_SESSION['user']);
 // echo "</pre>";
@@ -26,6 +28,11 @@ if (isset($_SESSION['is_authenticated']) && $_SESSION['is_authenticated']) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout']) && $_POST['logout'] === 'true') {
     // Llamar a la función de logout en el controlador
     $authController->logout();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+    // Llamar a la función de logout en el controlador
+    $authController->logout();
+    
 }
 
 

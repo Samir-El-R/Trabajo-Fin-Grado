@@ -7,8 +7,8 @@
     overflow: visible;
     -webkit-appearance: button;
 }
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  footer {
+     width: 100% !important;
+     position: relative !important;
+     bottom: 0 !important;
 }

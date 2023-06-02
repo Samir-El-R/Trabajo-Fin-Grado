@@ -53,7 +53,7 @@ if ($authController->isUserAuthenticated()) {
             break;
         case "profesor":
             $AppController->showAndHiddenViews();
-            header('Location: index.php');
+            // header('Location: index.php');
             break;
         case "director":
 

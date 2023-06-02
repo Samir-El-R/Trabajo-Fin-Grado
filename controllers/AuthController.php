@@ -31,7 +31,9 @@ class AuthController
         if ($this->db->numero_filas() > 0) {
             // Las credenciales son válidas, autenticación exitosa
             $_SESSION['user'] = $this->db->extraer_registro();
-            $_SESSION['show'] = true;
+            if (!isset($_SESSION['show'])) {
+                $_SESSION['show'] = true;
+            }
             return true;
         }
 

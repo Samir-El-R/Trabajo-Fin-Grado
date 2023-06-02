@@ -10,6 +10,9 @@ require_once 'config/connection.php';
 // Iniciar la sesión
 session_start();
 
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 // Crear una instancia del controlador AuthController y pasarle la conexión a la base de datos
 $profileController = new ProfileController($db);
 
@@ -53,7 +56,7 @@ if ($authController->isUserAuthenticated()) {
             break;
         case "profesor":
             $AppController->showAndHiddenViews();
-            // header('Location: index.php');
+
             break;
         case "director":
 

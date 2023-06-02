@@ -12,25 +12,25 @@ class AdminController
 
     public function showAndHiddenViews()
     {
-        $this->showSelectTeachers();
-
-        // if ($_SESSION['show']) {
+        if ($_SESSION['show']) {
             
-
-        //     $profileController = new ProfileController($this->db);
-        //     $profileController->showProfile();
+            $this->showManageTeacherManual();
             
-        // } else {
-
-        //     $ChooseDayController = new ChooseDayController($this->db);
-        //     $ChooseDayController->showChooseDay();
+        } else {
             
-        // }
+            $this->showManageTeacherAuto();
+            
+        }
 
     }
-    public function showSelectTeachers()
+    public function showManageTeacherManual()
     {
         // Mostrar formulario de inicio de sesión
-        require_once 'views/selectTeachers.php';
+        require_once 'views/manageTeacherManual.php';
+    }
+    public function showManageTeacherAuto()
+    {
+        // Mostrar formulario de inicio de sesión
+        require_once 'views/manageTeacherAuto.php';
     }
 }

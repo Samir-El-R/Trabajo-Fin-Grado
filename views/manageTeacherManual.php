@@ -10,13 +10,16 @@ $teacherManagement = new TeacherManager();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
-    <link href="css/selectTeachers.css" rel="stylesheet" />
+    <link href="css/manageTeacherManual.css" rel="stylesheet" />
     <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <title>Gesionar Profesores</title>
+    <title>Gestion Manual</title>
 </head>
 
 <body>
-
+    <?php
+    $nameView = "Gestion CSV";
+    include("views/header.php");
+    ?>
     <div class="container my-5">
         <form action="" method="POST" class="d-md-flex d-sm-block justify-content-between">
             <input type="hidden" name="command" value="select-orders">
@@ -162,14 +165,15 @@ $teacherManagement = new TeacherManager();
                             </button>
                         </form>
                     </div>
-                    <!-- <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
-                    </div> -->
                 </div>
         <?php
             }
-        } ?>
-
+        }
+        ?>
     </div>
+    <?php
+    include("views/footer.php")
+    ?>
 </body>
 
 </html>

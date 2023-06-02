@@ -12,23 +12,27 @@ class CsvManager
     }
     public function RegisterTeacherFromCSV()
     {
-
+        $numFila = 0;
         $file = fopen($this->csvPath, 'r');
         if (!$file) {
             echo "Error al abrir el CSV";
             return;
         }
         while (($datos = fgetcsv($file)) !== false) {
-            // 
-            $nombre = $datos[0];
-            $turno = $datos[1];
-            $dedicacion = $datos[2];
-            $correo = $datos[3];
-            $contrasena = GeneratePassword();
+            if ($numFila != 0) {
+                $numFila++;
+            } else {
 
-            $teacherManagement = new TeacherManager($this->db);
-            // Registrar un profesor
-            $teacherManagement->registerteacher($nombre,$turno,$dedicacion,$correo,$contrasena);
+                $nombre = $datos[0];
+                $turno = $datos[1];
+                $dedicacion = $datos[2];
+                $correo = $datos[3];
+                $contrasena = GeneratePassword();
+
+                $teacherManagement = new TeacherManager();
+                // Registrar un profesor
+                $teacherManagement->registerteacher($nombre, $turno, $dedicacion, $correo, $contrasena);
+            }
         }
         fclose($file);
     }

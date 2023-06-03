@@ -1,14 +1,35 @@
-.button {
-    background: none;
-    border: 0;
-    color: #ffffff8c;
-    font: inherit;
-    line-height: normal;
-    overflow: visible;
-    -webkit-appearance: button;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  width: 100vw;
 }
-  footer {
-     width: 100% !important;
-     position: relative !important;
-     bottom: 0 !important;
+
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.logout-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ajusta la altura según tus necesidades */
 }

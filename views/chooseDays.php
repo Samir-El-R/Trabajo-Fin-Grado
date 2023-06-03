@@ -22,6 +22,57 @@
     <div id="calendar" class="w-50 h-75"></div>
 
   </div>
+  <div class="bienvenida" id="bienvenida">
+    <div class="titulo">
+      <?php
+      echo '<h2>Bienvenido ' . $_SESSION["profesor"]["nombre"] . '</h2>';
+      ?>
+
+    </div>
+    <div class="texto">
+      <p>Empieza a escoger dias libres clickando en los dias del calendario.
+        <br> A la derecha del calendario te encontraras un boton para empezar a rellenar el formulario.
+      </p>
+    </div>
+    <a id="cerrarBienvenida">✖</a>
+    <script>
+      document.getElementById("cerrarBienvenida").addEventListener('click', function () {
+
+        document.getElementById("bienvenida").style.display = "none";
+        document.getElementById("calendar").style.filter = "blur(0px)";
+
+      })
+    </script>
+  </div>
+  <div class="container" id="error">
+    <div class="new-box" id="new-box">
+      <img src="http://100dayscss.com/codepen/alert.png">
+      <h2>Oh vaya</h2>
+      <p>No puede escoger mas de 4 dias libres</p>
+      <div class="button" id="button" onclick="esconder()">Deshacer</div>
+      <label for="button"></label>
+    </div>
+  </div>
+  <div class="formulario">
+    <div class="new-box" id="new-box">
+      <form action="" method="post">
+        <label for="">Dia 1</label>
+        <input type="text" name="dia0" id="dia0" readonly="readonly">
+        <br><br>
+        <label for="">Dia 2</label>
+        <input type="text" name="dia1" id="dia1" readonly="readonly">
+        <br><br>
+        <label for="">Dia 3</label>
+        <input type="text" name="dia2" id="dia2" readonly="readonly">
+        <br><br>
+        <label for="">Dia 4</label>
+        <input type="text" name="dia3" id="dia3" readonly="readonly">
+      </form>
+
+      <div class="button" id="#" onclick="esconder()">Deshacer</div>
+      <label for="button"></label>
+    </div>
+  </div>
   <?php
   include("views/footer.php")
   ?>

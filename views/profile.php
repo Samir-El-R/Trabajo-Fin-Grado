@@ -8,6 +8,8 @@
     <link href="libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
     <link href="css/perfileStyle.css" rel="stylesheet" />
     <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Perfil</title>
 </head>
 <body>
@@ -212,7 +214,6 @@
 
 
   
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
 

@@ -104,7 +104,8 @@ function app() {
     }
   };
 }
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  var fechasEscogidas = [];
   let calendarEl = document.getElementById('calendar');
   let calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
@@ -112,26 +113,38 @@ document.addEventListener("DOMContentLoaded", function() {
     firstDay: 1,
     headerToolbar: {
       start: 'title',
-      end: 'prev,next'
+      end: 'today,prev,next'
     },
     businessHours: {
       daysOfWeek: [1, 2, 3, 4, 5], // Lunes - Viernes
       eventBackgroundColor: '#000000'
     },
-    dateClick: function(info) {
-      // mostrar dia seleccionado
-      alert("Clicked on: " + formatDate(info.dateStr));
 
+    dateClick: function (info) {
+      let fechasComprobadas = comprobarFechas(info.dateStr, fechasEscogidas);
+      if (!fechasComprobadas && fechasEscogidas.length <= 3) {
+        fechasEscogidas.push(info.dateStr);
+      } else {
+        info.dayEl.style.backgroundColor = "red";
+
+        borrarFecha(info.dateStr, fechasEscogidas);
+        // diasMayorACuatro(info.dateStr,fechasEscogidas);
+        if (fechasEscogidas.length == 4) {
+          document.getElementById("error").style.display = "inherit";
+        }
+      }
       // colorear el dia seleccionado
       if (info.dayEl.style.backgroundColor == "red") {
-        info.dayEl.style.backgroundColor = "transparent"
+        info.dayEl.style.backgroundColor = "transparent";
       } else {
-
         info.dayEl.style.backgroundColor = "red";
       }
 
-    },
+      actualizarFormularioFechas(fechasEscogidas);
 
+      console.log(fechasEscogidas);
+
+    }
   });
 
   calendar.render();
@@ -141,3 +154,50 @@ document.addEventListener("DOMContentLoaded", function() {
 function formatDate(date) {
   return date.split("/");
 }
+//comprobar si hay dos fechas iguales
+function comprobarFechas(fechaSeleccionada, fechasEscogidas) {
+  for (let i = 0; i < fechasEscogidas.length; i++) {
+    if (fechaSeleccionada == fechasEscogidas[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+//borrar fecha seleccionada
+function borrarFecha(fechaSeleccionada, fechasEscogidas) {
+  for (let i = 0; i < fechasEscogidas.length; i++) {
+    if (fechaSeleccionada == fechasEscogidas[i]) {
+      fechasEscogidas.splice([i], 1);
+      borrarFormularioFechas();
+    }
+  }
+}
+//Cuando el array es mayor a 4 (maximo de dias disponibles)
+function diasMayorACuatro(fechaSeleccionada, fechasEscogidas) {
+
+  if (fechasEscogidas.length == 4) {
+
+    fechasEscogidas.shift();
+    fechasEscogidas.push(fechaSeleccionada);
+
+  }
+}
+//Borrar las fechas del formulario
+function borrarFormularioFechas() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById("dia" + i).value = "";
+  }
+}
+//Actualizar el formulario de las fechas
+function actualizarFormularioFechas(fechasEscogidas) {
+  for (let i = 0; i < fechasEscogidas.length; i++) {
+
+    if (document.getElementById("dia" + i).value == "") {
+      document.getElementById("dia" + i).value = fechasEscogidas[i];
+    }
+  }
+}
+//esconder el error
+document.getElementById("error").addEventListener('click',function() {
+  document.getElementById("error").style.display="none";
+})

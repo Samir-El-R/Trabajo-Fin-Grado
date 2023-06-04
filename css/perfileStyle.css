@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   width: 100vw;
@@ -31,5 +31,15 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ajusta la altura según tus necesidades */
+  height: 100vh; /* Ajusta la altura según tus necesidades 
+} */
+
+.button {
+  background: none;
+  border: 0;
+  color: #ffffff8c;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  -webkit-appearance: button;
 }

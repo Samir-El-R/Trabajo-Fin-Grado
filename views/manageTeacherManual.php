@@ -1,6 +1,8 @@
 <?php
-// require('config/connection.php');
-$teacherManagement = new TeacherManager();
+session_start();
+require_once('../config/connection.php');
+require_once('../class/TeacherManager.php');
+$teacherManagement = new TeacherManager($db);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,16 +11,17 @@ $teacherManagement = new TeacherManager();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
-    <link href="css/manageTeacherManual.css" rel="stylesheet" />
-    <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="../libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
+    <link href="../css/manageTeacherManual.css" rel="stylesheet" />
+    <script src="../libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
     <title>Gestion Manual</title>
 </head>
 
 <body>
     <?php
     $nameView = "Gestion CSV";
-    include("views/header.php");
+    $indexPage="admin.php";
+    include("../views/header.php");
     ?>
     <div class="container my-5">
         <form action="" method="POST" class="d-md-flex d-sm-block justify-content-between">
@@ -110,7 +113,7 @@ $teacherManagement = new TeacherManager();
                         <h1 class="h6"> <?php echo $teacher['dedicacion']; ?></h1>
                     </div>
                     <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <form action="admin.php" method="post">
+                        <form action="../admin.php" method="post">
                             <input type="hidden" name="id_teacher" value="<?php $teacher['id'] ?>">
                             <button type="submit" class="btn btn-outline-dark w-100" name="delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -151,7 +154,7 @@ $teacherManagement = new TeacherManager();
                         <h1 class="h6"> <?php echo $teacher['dedicacion']; ?></h1>
                     </div>
                     <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <form action="admin.php" method="post">
+                        <form action="../admin.php" method="post">
                             <input type="hidden" name="id_teacher" value="<?php $teacher['id'] ?>">
                             <button type="submit" class="btn btn-outline-dark w-100" name="delete">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -172,7 +175,7 @@ $teacherManagement = new TeacherManager();
         ?>
     </div>
     <?php
-    include("views/footer.php")
+    include("../views/footer.php")
     ?>
 </body>
 

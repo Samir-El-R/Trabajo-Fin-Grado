@@ -26,11 +26,11 @@ class AdminController
     public function showManageTeacherManual()
     {
         // Mostrar formulario de inicio de sesión
-        require_once 'views/manageTeacherManual.php';
+        header('Location: views/manageTeacherManual.php');
     }
     public function showManageTeacherAuto()
     {
         // Mostrar formulario de inicio de sesión
-        require_once 'views/manageTeacherAuto.php';
+        header('Location: views/manageTeacherAuto.php');
     }
 }

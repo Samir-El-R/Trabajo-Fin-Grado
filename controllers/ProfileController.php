@@ -12,13 +12,10 @@ class ProfileController
 
     public function showProfile()
     {
-        // Obtener el usuario actualmente autenticado
-        $authController = new AuthController($this->db);
-        $user = $authController->getCurrentUser();
-
         // Mostrar la página de perfil
-        require_once 'views/profile.php';
+        header('Location: views/profile.php');
     }
+
 
 
     private function verifyOldPassword($userId, $oldPassword)

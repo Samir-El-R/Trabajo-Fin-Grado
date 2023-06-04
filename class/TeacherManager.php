@@ -5,17 +5,8 @@ class TeacherManager
 
     private $db;
 
-    public function __construct()
+    public function __construct($db)
     {
-        $host = "localhost";
-        $user = "root";
-        $password = "";
-        $dbname = "app";
-        $port = 14000;
-        //$port = 3306;
-        $socket = "";
-
-        $db = new BBDD($host, $user, $password, $dbname, $port, $socket);
         $this->db = $db;
     }
     public function registerTeacher($nombre, $turno, $dedicacion, $correo, $contrasena)

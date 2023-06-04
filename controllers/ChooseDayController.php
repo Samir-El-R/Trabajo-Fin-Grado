@@ -12,11 +12,7 @@ class ChooseDayController
 
     public function showChooseDay()
     {
-        // Obtener el usuario actualmente autenticado
-        $authController = new AuthController($this->db);
-        $user = $authController->getCurrentUser();
-
         // Mostrar la página de perfil
-        require_once 'views/chooseDays.php';
+        header('Location: views/chooseDays.php');
     }
 }

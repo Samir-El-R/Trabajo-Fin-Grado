@@ -40,12 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleView']) && $_PO
 
 
 // Verificar si el formulario de cambio de contraseña se ha enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
-    $oldPassword = $_POST['old_password'];
-    $newPassword = $_POST['new_password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_contrasena'])) {
+    $oldPassword = $_POST['contrasena_actual'];
+    $newPassword = $_POST['contrasena_nueva'];
     $user = $authController->getCurrentUser();
     // Llamar al método de cambio de contraseña en el controlador
     $profileController->changePassword($user['id'], $oldPassword, $newPassword);
+    header('location : views/profile.php');
 }
 // Verificar si el usuario está autenticado
 if ($authController->isUserAuthenticated()) {

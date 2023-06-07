@@ -2,6 +2,8 @@
 session_start();
 require_once '../controllers/AuthController.php';
 require_once '../config/connection.php';
+require_once('../class/TeacherManager.php');
+$teacherManagement = new TeacherManager($db);
 $authController = new AuthController($db);
 $user = $authController->getCurrentUser();
 ?>
@@ -14,7 +16,9 @@ $user = $authController->getCurrentUser();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
   <link href="../css/perfileStyle.css" rel="stylesheet" />
+  <script src="../libraries/JQuery/jquery-3.2.1.slim.min.js"></script>
   <script type="module" src="../libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <title>Perfil</title>
 </head>
 
@@ -24,6 +28,13 @@ $user = $authController->getCurrentUser();
   $nameView = "Calendario";
   $indexPage="index.php";
   include("../views/header.php");
+  // 
+  $sql = "SELECT * FROM profesores";
+  $teachers = $teacherManagement->getTeacher($sql);
+  if($user['nombre']){
+
+  }
+
   ?>
 
   <div class="container center-container mt-3 ml-3">
@@ -54,7 +65,7 @@ $user = $authController->getCurrentUser();
     <div class="row mt-3 mb-3">
       <div class="col-md-8 mt-3 mb-3">
         <h2 class="text-center">Datos opcionales para el formulario</h2>
-        <i class="mt-3 mb-3">*Estos campos servirán para autocompletar el formulario al solicitar dias, estos mismos se podrán modificar en el formulario de solicitud si así se desea</i>
+        <i class="mt-3 mb-3">*Estos campos servirán para autocompletar el formulario al solicitar dias, estos mismos se podrán modificar en el formulario de solicitud si así se desea.</i>
         <hr>
         <form class="row g-3 mt-3 mb-3">
           <div class="row g-3 mt-3 mb-3">
@@ -145,17 +156,6 @@ $user = $authController->getCurrentUser();
           <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal2">Botón 2</button>
         </div>
       </div>
-      <div class="row mt-3 mb-3 d-flex justify-content-between text-center">
-        <div class="col-sm-6">
-          <h4>Información 3</h4>
-          <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal3">Botón 3</button>
-        </div>
-        <div class="col-sm-6">
-          <h4>Información 4</h4>
-          <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal4">Botón 4</button>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -172,6 +172,38 @@ $user = $authController->getCurrentUser();
           </button>
         </div>
         <div class="modal-body">
+          <form action="../index.php" method="POST">
+          <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Introduzca contraseña actual</label>
+            <input type="password" class="form-control" id="contrasena1" name="contrasena_actual">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Confirme contraseña</label>
+            <input type="password" class="form-control" id="contrasena2" name="contrasena_nueva">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        <input type="submit" name="cambiar_contrasena">
+          </form>
+          
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2 -->
+  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal1Label">Cambio de contraseña</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
           <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Introduzca contraseña</label>
             <input type="password" class="form-control" id="formGroupExampleInput">
@@ -184,79 +216,54 @@ $user = $authController->getCurrentUser();
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
+        <input type="submit" name="cambiar_contraseña">
+          </form>
+          
       </div>
     </div>
   </div>
 
-  <!-- Modal 2 -->
-  <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modal2Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal2Label">Información 2</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Contenido aleatorio para el popup del Botón 2</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 3 -->
-  <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="modal3Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal3Label">Información 3</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Contenido aleatorio para el popup del Botón 3</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 4 -->
-  <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="modal4Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal4Label">Información 4</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Contenido aleatorio para el popup del Botón 4</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
   <?php
-  include("../views/footer.php");
-  ?>
+//   if(isset($_POST['cambiar_contraseña'])) {
+//     // Obtener los valores ingresados en los campos del formulario
+//     $contraseña1 = $_POST['contraseña1'];
+//     $contraseña2 = $_POST['contraseña2'];
+//     $coreo = $user['correo'];
+
+//     // Llamar a la función que comprueba y actualiza los valores en la base de datos
+//     changePassword($userId, $contraseña1, $contraseña2);
+// }
+
+// // Función para comprobar y actualizar los valores en la base de datos
+// function verificarYActualizarContraseña($contraseña1, $contraseña2,$correo) {
+//     // Conectarse a la base de datos
+
+//     // Verificar si la conexión fue exitosa
+//     if ($db->connect_error) {
+//         die("Error de conexión a la base de datos: " . $db->connect_error);
+//     }
+
+//     // Realizar la consulta para actualizar los valores en la base de datos
+//     $sql = "UPDATE tabla SET contraseña = '$contraseña2' WHERE correo = '$correo'";
+//     if ($db->query($sql) === TRUE) {
+//         echo "Contraseña actualizada correctamente.";
+//     } else {
+//         echo "Error al actualizar la contraseña: " . $db->error;
+//     }
+
+//     // Cerrar la conexión a la base de datos
+//     $db->close();
+// }
+include("../views/footer.php");
+?>
 
 
 
-  <script src="../libraries/JQuery/jquery-3.2.1.slim.min.js"></script>
+
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
@@ -266,6 +273,7 @@ $user = $authController->getCurrentUser();
 
 
 </body>
-
 </html>
+
+
 <?php

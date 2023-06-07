@@ -94,7 +94,6 @@ class TeacherManager
             while ($fila = $this->db->extraer_registro()) {
                 $teachers[] = $fila;
             }
-
             if ($teachers) {
                 echo "profesor obtenidos exitosamente";
                 return $teachers;

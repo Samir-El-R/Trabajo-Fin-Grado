@@ -98,7 +98,7 @@ $teacherManagement = new TeacherManager($db);
 
             $teachers = $teacherManagement->getTeacher($sql);
 
-            foreach ($teachers as $teacher) {
+            foreach ($teachers as $teacher) {}
         ?>
                 <div class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
                     <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">

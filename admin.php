@@ -9,6 +9,7 @@ require_once('controllers/AppController.php');
 require_once('class/GeneratePassword.php');
 require_once('class/TeacherManager.php');
 require_once('class/CsvManager.php');
+require_once('class/Mailer.php');
 
 // Evitar el almacenamiento en caché de la página
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -22,6 +23,7 @@ $adminController = new AdminController($db);
 $authController = new AuthController($db);
 $appController = new AppController($db);
 $csvManager = new CsvManager($db);
+$senderMail = new Mailer();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csvLoad']) && isset($_FILES['csvFile'])) {
     $csvFile = $_FILES['csvFile'];
@@ -39,11 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleView']) && $_PO
     $_SESSION['show'] = !$_SESSION['show'];
     $adminController->showAndHiddenViews();
 }
+  
+
 if ( isset($_POST['download_csv_teachers']) ) {
     $fileName = "temp/". GeneratePassword() . '.csv';
     $teacherManagement->getAllTeachersInCsv($fileName);
+    
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $teacherManagement->deleteTeacher($_POST['id_teacher']);

@@ -35,7 +35,7 @@ $user = $authController->getCurrentUser();
   <div class="bienvenida" id="bienvenida">
     <div class="titulo">
       <?php
-      echo '<h2>Bienvenido ' . $_SESSION["profesor"]["nombre"] . '</h2>';
+      echo '<h2>Bienvenido ' . $user["nombre"] . '</h2>';
       ?>
 
     </div>

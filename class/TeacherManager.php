@@ -123,8 +123,11 @@ class TeacherManager
         }
          // Guardar el contenido en el archivo CSV
         file_put_contents($fileName, $csvData);
-        echo "El archivo CSV ha sido creado exitosamente.";
-
+        $authController = new AuthController($this->db);
+        $user = $authController->getCurrentUser();
+        $senderMail = new Mailer();
+        $senderMail->sendAttachment($user["nombre"],$user["correo"],$fileName);
+        unlink($fileName);
     }
 }
 

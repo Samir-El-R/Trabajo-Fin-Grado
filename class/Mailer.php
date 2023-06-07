@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class PDFMailer {
+class Mailer {
     private $username = "";
     private $password = "";
     private $senderEmail = "ies.jovellanos.fuenlabrada@educa.madrid.org";
@@ -17,7 +17,7 @@ class PDFMailer {
     public function __construct() {
     }
 
-    public function sendPDF($recipientName, $recipientEmail, $pdfPath) {
+    public function sendAttachment($recipientName, $recipientEmail, $attachPath) {
         try {
             $mail = new PHPMailer(true);
             
@@ -35,7 +35,7 @@ class PDFMailer {
             // Recipients
             $mail->setFrom($this->senderEmail, $this->senderName);
             $mail->addAddress($recipientEmail, $recipientName);
-            $mail->addAttachment($pdfPath, 'formulario_relleno.pdf');
+            $mail->addAttachment($attachPath);
             
             $mail->isHTML(true);
             $mail->Subject = 'Envío de PDF';
@@ -72,7 +72,7 @@ class PDFMailer {
             
             $mail->send();
             
-            echo 'Message has been sent';
+            echo 'Notificacion enviada ';
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

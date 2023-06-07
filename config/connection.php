@@ -23,7 +23,7 @@ class  BBDD
 
     public function consulta($consulta)
     {
-        $this->resultado = mysqli_query($this->descriptor, $consulta);
+       return $this->resultado = mysqli_query($this->descriptor, $consulta);
     }
 
     public function extraer_registro()

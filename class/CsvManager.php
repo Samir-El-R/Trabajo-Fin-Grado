@@ -5,13 +5,13 @@ class CsvManager
     private $csvPath;
     private $db;
 
-    public function __construct($csvPath, $db)
+    public function __construct( $db)
     {
-        $this->csvPath = "/assets/" . $csvPath;
         $this->db = $db;
     }
-    public function RegisterTeacherFromCSV()
+    public function RegisterTeacherFromCSV($fileName)
     {
+        $this->csvPath = 'temp/'.$fileName;
         $numFila = 0;
         $file = fopen($this->csvPath, 'r');
         if (!$file) {
@@ -19,8 +19,9 @@ class CsvManager
             return;
         }
         while (($datos = fgetcsv($file)) !== false) {
-            if ($numFila != 0) {
-                $numFila++;
+            if ($numFila == 0) {
+                $numFila ++;
+
             } else {
 
                 $nombre = $datos[0];
@@ -29,11 +30,12 @@ class CsvManager
                 $correo = $datos[3];
                 $contrasena = GeneratePassword();
 
-                $teacherManagement = new TeacherManager();
+                $teacherManagement = new TeacherManager($this->db);
                 // Registrar un profesor
                 $teacherManagement->registerteacher($nombre, $turno, $dedicacion, $correo, $contrasena);
             }
         }
         fclose($file);
+        unlink($this->csvPath);
     }
 }

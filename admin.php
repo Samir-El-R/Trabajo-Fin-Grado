@@ -21,12 +21,16 @@ $teacherManagement = new TeacherManager($db);
 $adminController = new AdminController($db);
 $authController = new AuthController($db);
 $appController = new AppController($db);
+$csvManager = new CsvManager($db);
 
-
-// echo "<pre>";
-// var_dump($_SESSION['user']);
-// echo "</pre>";
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csvLoad']) && isset($_FILES['csvFile'])) {
+    $csvFile = $_FILES['csvFile'];
+    $tmpFilePath = $csvFile['tmp_name'];
+    $fileName = GeneratePassword() . '.csv';
+    move_uploaded_file($tmpFilePath, "temp/$fileName");
+    $csvManager->RegisterTeacherFromCSV($fileName);
+    // header('Location: views/manageTeacherManual.php');
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout']) && $_POST['logout'] === 'true') {
     // Llamar a la función de logout en el controlador
     $authController->logout();
@@ -35,9 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleView']) && $_PO
     $_SESSION['show'] = !$_SESSION['show'];
     $adminController->showAndHiddenViews();
 }
+if ( isset($_POST['download_csv_teachers']) ) {
+    $fileName = "temp/". GeneratePassword() . '.csv';
+    $teacherManagement->getAllTeachersInCsv($fileName);
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    // eliminar user
+    $teacherManagement->deleteTeacher($_POST['id_teacher']);
 }
 if ($authController->isUserAuthenticated()) {
     $user = $authController->getCurrentUser();
@@ -64,27 +73,3 @@ if ($authController->isUserAuthenticated()) {
 }
 
 ?>
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/adminStyle.css">
-
-</head>
-
-<body>
-
-    // $nameView = "Calendario";
-    // include("views/header.php")
-    ?>
-    <form action="" method="POST">
-        <input type="hidden" name="logout" value="true">
-        <input type="submit" value="Cerrar Sesión">
-    </form>
-</body>
-
-</html> -->

@@ -1,0 +1,4 @@
+id,nombre,contrasena,correo,turno,dedicacion,dias_disponibles,dias_seleccionados,roles
+2,test,test,test,tarde,Completa,4,,profesor
+33,Pablo Berciano Posada,UaIf,pablo.berciano1@educa.madrid.org,Vespertino,Completa,4,,profesor
+34,Pepe Pepe Pepe,rfGm,correo@educa.madrid.org,Diurno,Parcial,4,,profesor

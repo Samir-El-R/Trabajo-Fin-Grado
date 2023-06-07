@@ -17,7 +17,7 @@ class TeacherManager
             // Insertar el profesor en la base de datos
             $query = "INSERT INTO profesores (nombre,turno,dedicacion,correo,contrasena) VALUES ('$nombre','$turno','$dedicacion','$correo','$contrasena')";
             $result = $this->db->consulta($query);
-
+            echo $result;
             if ($result) {
                 echo "Profesor registrado exitosamente";
             } else {
@@ -49,16 +49,17 @@ class TeacherManager
 
     public function deleteTeacher($teacherId)
     {
+        echo $teacherId;
         try {
             // Eliminar al profesor de la base de datos
             $query = "DELETE FROM profesores WHERE id=$teacherId";
             $result = $this->db->consulta($query);
-
-            if ($result) {
-                echo "profesor eliminado exitosamente";
-            } else {
-                throw new Exception("Error al eliminar el profesor");
-            }
+            echo $result;
+            // if ($result) {
+            //     echo "profesor eliminado exitosamente";
+            // } else {
+            //     throw new Exception("Error al eliminar el profesor");
+            // }
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -85,7 +86,7 @@ class TeacherManager
             echo "Error: " . $e->getMessage();
         }
     }
-    public function getTeachers($query)
+    public function getTeacher($query)
     {
         try {
 
@@ -104,6 +105,27 @@ class TeacherManager
 
             echo "Error: " . $e->getMessage();
         }
+    }
+    public function getAllTeachersInCsv($fileName){
+        $query = "SELECT * FROM profesores";
+
+         $this->db->consulta($query);
+        $csvData ="";
+        if ($this->db->numero_filas() > 0) {
+
+             // Encabezados del archivo CSV
+             $headers = array_keys($this->db->extraer_registro());
+             $csvData .= implode(',', $headers) . "\n";
+
+            // Datos de los registros
+            while ($fila = $this->db->extraer_registro()) {
+                $csvData .= implode(',', $fila) . "\n";
+            }
+        }
+         // Guardar el contenido en el archivo CSV
+        file_put_contents($fileName, $csvData);
+        echo "El archivo CSV ha sido creado exitosamente.";
+
     }
 }
 

@@ -83,9 +83,6 @@ $user = $authController->getCurrentUser();
       <label for="button"></label>
     </div>
   </div>
-  <?php
-  include("../views/footer.php")
-  ?>
   <script type="module" src="../js/chooseDays.js"></script>
 
 </body>

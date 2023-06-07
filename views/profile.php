@@ -16,7 +16,6 @@ $user = $authController->getCurrentUser();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
   <link href="../css/perfileStyle.css" rel="stylesheet" />
-  <script src="../libraries/JQuery/jquery-3.2.1.slim.min.js"></script>
   <script type="module" src="../libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <title>Perfil</title>
@@ -184,9 +183,10 @@ $user = $authController->getCurrentUser();
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <input type="submit" class="btn btn-secondary" name="cambiar_contrasena">
         </div>
-        <input type="submit" name="cambiar_contrasena">
-          </form>
+        
+        </form>
           
       </div>
     </div>

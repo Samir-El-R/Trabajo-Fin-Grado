@@ -41,6 +41,7 @@ class ProfileController
         // Actualizar la contraseña en la base de datos
         $query = "UPDATE profesores SET contrasena = '$newPassword' WHERE id = $userId";
         $this->db->consulta($query);
+        
     }
 
     public function changePassword($userId, $oldPassword, $newPassword)
@@ -52,5 +53,6 @@ class ProfileController
         } else {
             echo "La contraseña antigua es incorrecta. Inténtalo de nuevo.";
         }
+        
     }
 }

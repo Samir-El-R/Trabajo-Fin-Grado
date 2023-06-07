@@ -10,12 +10,9 @@ require_once 'config/connection.php';
 // Iniciar la sesión
 session_start();
 
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
+
 // Crear una instancia del controlador AuthController y pasarle la conexión a la base de datos
 $profileController = new ProfileController($db);
-
 $authController = new AuthController($db);
 $AppController = new AppController($db);
 
@@ -46,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_contrasena'])
     $user = $authController->getCurrentUser();
     // Llamar al método de cambio de contraseña en el controlador
     $profileController->changePassword($user['id'], $oldPassword, $newPassword);
-    header('location : views/profile.php');
 }
 // Verificar si el usuario está autenticado
 if ($authController->isUserAuthenticated()) {

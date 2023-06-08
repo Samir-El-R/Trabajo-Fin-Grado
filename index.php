@@ -67,3 +67,26 @@ if ($authController->isUserAuthenticated()) {
     $authController->showLogin();
     // Mostrar el formulario de inicio de sesión
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
+    $tipo_via = $_POST["tipo_via"];
+    $nombre_via = $_POST["nombre_via"];
+    $numero_via = $_POST["numero_via"];
+    $portal = $_POST["portal"];
+    $escalera = $_POST["escalera"];
+    $puerta = $_POST["puerta"];
+    $provincia = $_POST["provincia"];
+    $localidad = $_POST["localidad"];
+    $user = $authController->getCurrentUser();
+
+    $profileController->mandar_direccion($user['id'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad);
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
+    $Apellido1 = $_POST["Apellido1"];
+    $Apellido2 = $_POST["Apellido2"];
+    $fijo = $_POST["fijo"];
+    $movil = $_POST["movil"];
+    $DNI = $_POST["DNI"];
+    $user = $authController->getCurrentUser();
+
+    $profileController->mandar_info($user['id'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
+}

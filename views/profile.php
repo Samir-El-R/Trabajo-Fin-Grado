@@ -66,79 +66,87 @@ $user = $authController->getCurrentUser();
         <h2 class="text-center">Datos opcionales para el formulario</h2>
         <i class="mt-3 mb-3">*Estos campos servirán para autocompletar el formulario al solicitar dias, estos mismos se podrán modificar en el formulario de solicitud si así se desea.</i>
         <hr>
-        <form class="row g-3 mt-3 mb-3">
+        <form action="../index.php" method="POST" class="row g-3 mt-3 mb-3">
           <div class="row g-3 mt-3 mb-3">
             <div class="col-md-6">
               <label for="inputEmail4" class="form-label">Apellido 1</label>
-              <input type="email" class="form-control" id="inputEmail4">
+              <input type="text" class="form-control" name="Apellido1">
             </div>
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Apellido 2</label>
-              <input type="password" class="form-control" id="inputPassword4">
+              <input type="text" class="form-control" name="Apellido2">
             </div>
           </div>
           <div class="row g-3">
             <div class="col-6">
               <label for="DNI" class="form-label">DNI</label>
-              <input type="text" class="form-control" id="DNI" placeholder="XXXXXXXXXX">
+              <input type="text" class="form-control" name="DNI" placeholder="XXXXXXXXXX">
             </div>
           </div>
           <div class="row g-3">
             <div class="col-md-6">
               <label for="fijo" class="form-label">Teléfono fijo</label>
-              <input type="text" class="form-control" id="fijo" placeholder="000000000">
+              <input type="number" class="form-control" name="fijo" placeholder="000000000">
             </div>
             <div class="col-md-6">
               <label for="movil" class="form-label">Teléfono movil</label>
-              <input type="text" class="form-control" id="movil" placeholder="000000000">
+              <input type="number" class="form-control" name="movil" placeholder="000000000">
             </div>
           </div>
+          <div class="row g-3">
+              <input type="submit" class="btn btn-primary" name="info">
+            </div>
+        </form>
           <div class="row g-3">
             <h4 class="text-center">Información de dirección</h4>
           </div>
           <hr>
-          <div class="row g-3 mt-3 mb-3">
-            <div class="col-md-2">
-              <label for="tipo_via" class="form-label">Tipo de via</label>
-              <select id="tipo_via" class="form-select">
-                <option selected>Calle</option>
-                <option>Avenida</option>
-                <option>Plaza</option>
-              </select>
+          <form action="../index.php" method="POST">
+            <div class="row g-3 mt-3 mb-3">            
+              <div class="col-md-2">
+                <label for="tipo_via" class="form-label">Tipo de via</label>
+                <select id="tipo_via" class="form-select">
+                  <option selected>Calle</option>
+                  <option>Avenida</option>
+                  <option>Plaza</option>
+                </select>
+              </div>
+              <div class="col-md-9">
+                <label for="nombre_via" class="form-label">Nombre de via</label>
+                <input type="text" class="form-control" id="nombre_via" placeholder="Islas Canarias">
+              </div>
+              <div class="col-md-1">
+                <label for="numero_via" class="form-label">Nº</label>
+                <input type="number" class="form-control" id="numero_via">
+              </div>
             </div>
-            <div class="col-md-9">
-              <label for="nombre_via" class="form-label">Nombre de via</label>
-              <input type="text" class="form-control" id="nombre_via" placeholder="Islas Canarias">
+            <div class="row g-3 d-flex justify-content-between">
+              <div class="col-md-1">
+                <label for="portal" class="form-label">Nº Portal</label>
+                <input type="number" class="form-control" id="portal">
+              </div>
+              <div class="col-md-1">
+                <label for="escalera" class="form-label">Nº Escalera</label>
+                <input type="number" class="form-control" id="escalera">
+              </div>
+              <div class="col-md-1">
+                <label for="puerta" class="form-label">Letra Puerta</label>
+                <input type="text" class="form-control" id="puerta">
+              </div>
             </div>
-            <div class="col-md-1">
-              <label for="numero_via" class="form-label">Nº</label>
-              <input type="number" class="form-control" id="numero_via">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="Provincia" class="form-label">Provincia</label>
+                <input type="text" class="form-control" id="puerta">
+              </div>
+              <div class="col-md-6">
+                <label for="localidad" class="form-label">Localidad</label>
+                <input type="text" class="form-control" id="localidad">
+              </div>
             </div>
-          </div>
-          <div class="row g-3 d-flex justify-content-between">
-            <div class="col-md-1">
-              <label for="portal" class="form-label">Nº Portal</label>
-              <input type="number" class="form-control" id="portal">
+            <div class="row g-3">
+              <input type="submit" class="btn btn-primary" name="direccion">
             </div>
-            <div class="col-md-1">
-              <label for="escalera" class="form-label">Nº Escalera</label>
-              <input type="number" class="form-control" id="escalera">
-            </div>
-            <div class="col-md-1">
-              <label for="puerta" class="form-label">Letra Puerta</label>
-              <input type="text" class="form-control" id="puerta">
-            </div>
-          </div>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="Provincia" class="form-label">Provincia</label>
-              <input type="text" class="form-control" id="puerta">
-            </div>
-            <div class="col-md-6">
-              <label for="localidad" class="form-label">Localidad</label>
-              <input type="text" class="form-control" id="localidad">
-            </div>
-          </div>
         </form>
       </div>
     </div>
@@ -177,7 +185,7 @@ $user = $authController->getCurrentUser();
             <input type="password" class="form-control" id="contrasena1" name="contrasena_actual">
           </div>
           <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Confirme contraseña</label>
+            <label for="formGroupExampleInput2" class="form-label">Introduzca contraseña nueva</label>
             <input type="password" class="form-control" id="contrasena2" name="contrasena_nueva">
           </div>
         </div>
@@ -226,37 +234,7 @@ $user = $authController->getCurrentUser();
 
 
 
-  <?php
-//   if(isset($_POST['cambiar_contraseña'])) {
-//     // Obtener los valores ingresados en los campos del formulario
-//     $contraseña1 = $_POST['contraseña1'];
-//     $contraseña2 = $_POST['contraseña2'];
-//     $coreo = $user['correo'];
-
-//     // Llamar a la función que comprueba y actualiza los valores en la base de datos
-//     changePassword($userId, $contraseña1, $contraseña2);
-// }
-
-// // Función para comprobar y actualizar los valores en la base de datos
-// function verificarYActualizarContraseña($contraseña1, $contraseña2,$correo) {
-//     // Conectarse a la base de datos
-
-//     // Verificar si la conexión fue exitosa
-//     if ($db->connect_error) {
-//         die("Error de conexión a la base de datos: " . $db->connect_error);
-//     }
-
-//     // Realizar la consulta para actualizar los valores en la base de datos
-//     $sql = "UPDATE tabla SET contraseña = '$contraseña2' WHERE correo = '$correo'";
-//     if ($db->query($sql) === TRUE) {
-//         echo "Contraseña actualizada correctamente.";
-//     } else {
-//         echo "Error al actualizar la contraseña: " . $db->error;
-//     }
-
-//     // Cerrar la conexión a la base de datos
-//     $db->close();
-// }
+<?php
 include("../views/footer.php");
 ?>
 

@@ -29,7 +29,8 @@ class CsvManager
                 $dedicacion = $datos[2];
                 $correo = $datos[3];
                 $contrasena = GeneratePassword();
-
+                $senderMail = new Mailer();
+                $senderMail->sendNotification($nombre,$correo,$contrasena);
                 $teacherManagement = new TeacherManager($this->db);
                 // Registrar un profesor
                 $teacherManagement->registerteacher($nombre, $turno, $dedicacion, $correo, $contrasena);

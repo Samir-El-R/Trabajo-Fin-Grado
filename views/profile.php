@@ -5,6 +5,9 @@ require_once '../config/connection.php';
 require_once('../class/TeacherManager.php');
 $teacherManagement = new TeacherManager($db);
 $authController = new AuthController($db);
+if(!$authController->isUserAuthenticated()){
+  header('Location: ../index.php');
+}
 $user = $authController->getCurrentUser();
 ?>
 <!DOCTYPE html>
@@ -31,9 +34,7 @@ $user = $authController->getCurrentUser();
   // 
   $sql = "SELECT * FROM profesores";
   $teachers = $teacherManagement->getTeacher($sql);
-  if($user['nombre']){
-
-  }
+  
 
   ?>
 

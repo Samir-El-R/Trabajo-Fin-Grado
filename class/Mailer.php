@@ -48,7 +48,7 @@ class Mailer {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
-    public function sendNotification($recipientName, $recipientEmail) {
+    public function sendNotification($recipientName, $recipientEmail, $message) {
         try {
             $mail = new PHPMailer(true);
             
@@ -68,7 +68,7 @@ class Mailer {
             $mail->addAddress($recipientEmail, $recipientName);
             $mail->isHTML(true);
             $mail->Subject = 'Envío de PDF';
-            $mail->Body = '¡Hola ' . $recipientName . '! Adjunto encontrarás el archivo PDF solicitado.';
+            $mail->Body = '¡Hola ' . $recipientName . '! Aquí tienes tu pass '. $message;
             
             $mail->send();
             

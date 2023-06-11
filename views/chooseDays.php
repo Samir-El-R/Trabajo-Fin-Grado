@@ -4,6 +4,10 @@ require_once '../controllers/AuthController.php';
 require_once '../config/connection.php';
 $authController = new AuthController($db);
 $user = $authController->getCurrentUser();
+if(!$authController->isUserAuthenticated()){
+  header('Location: ../index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

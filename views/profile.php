@@ -18,10 +18,11 @@ $user = $authController->getCurrentUser();
   <link href="../css/perfileStyle.css" rel="stylesheet" />
   <script type="module" src="../libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <title>Perfil</title>
 </head>
 
-<body>
+<body class="m-0 row justify-content-center">
 
   <?php
   $nameView = "Calendario";
@@ -36,33 +37,41 @@ $user = $authController->getCurrentUser();
 
   ?>
 
-  <div class="container center-container mt-3 ml-3">
-    <div class="row">
-      <div class="col-md-8">
+
+
+
+
+    <div class="row mt-3 mb-3 justify-content-center">
+      <div class="col-md-6">
         <h2 class="text-center">Información de perfil</h2>
         <hr>
-        <form class="row g-3 mt-3 mb-3">
+        <form class="row g-3 mt-3 mb-3 ">
           <div class="col-md-6">
             <label for="Nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="inputEmail4" readonly value="<?php echo $user['nombre']; ?>">
+            <input type="text" class="form-control" id="inputEmail4" readonly value="<?php echo $user['nombre'];?>">
           </div>
           <div class="col-md-6">
             <label for="correo" class="form-label">Correo electrónico:</label>
-            <input type="text" class="form-control" id="inputEmail4" readonly value="<?php echo $user['correo']; ?>">
+            <input type="text" class="form-control" id="inputEmail4" readonly value="<?php echo $user['correo'];?>">
           </div>
           <div class="col-6">
             <label for="turno" class="form-label">Turno:</label>
-            <input type="text" class="form-control" id="turno" readonly value="<?php echo $user['turno']; ?>">
+            <input type="text" class="form-control" id="turno" readonly value="<?php echo $user['turno'];?>">
           </div>
           <div class="col-6">
             <label for="dedicacion" class="form-label">Dedicación:</label>
-            <input type="text" class="form-control" id="dedicacion" readonly value="<?php echo $user['dedicacion']; ?>">
+            <input type="text" class="form-control" id="dedicacion" readonly value="<?php echo $user['dedicacion'];?>">
           </div>
         </form>
       </div>
     </div>
-    <div class="row mt-3 mb-3">
-      <div class="col-md-8 mt-3 mb-3">
+
+
+
+
+
+    <div class="row mt-3 mb-3 justify-content-center">
+      <div class="col-md-6 mt-3 mb-3">
         <h2 class="text-center">Datos opcionales para el formulario</h2>
         <i class="mt-3 mb-3">*Estos campos servirán para autocompletar el formulario al solicitar dias, estos mismos se podrán modificar en el formulario de solicitud si así se desea.</i>
         <hr>
@@ -70,36 +79,42 @@ $user = $authController->getCurrentUser();
           <div class="row g-3 mt-3 mb-3">
             <div class="col-md-6">
               <label for="inputEmail4" class="form-label">Apellido 1</label>
-              <input type="text" class="form-control" name="Apellido1">
+              <input type="text" class="form-control" name="Apellido1" value="<?php echo $user['apellido1'];?>">
             </div>
             <div class="col-md-6">
               <label for="inputPassword4" class="form-label">Apellido 2</label>
-              <input type="text" class="form-control" name="Apellido2">
+              <input type="text" class="form-control" name="Apellido2" value="<?php echo $user['apellido2'];?>">
             </div>
           </div>
           <div class="row g-3">
             <div class="col-6">
               <label for="DNI" class="form-label">DNI</label>
-              <input type="text" class="form-control" name="DNI" placeholder="XXXXXXXXXX">
+              <input type="text" class="form-control" name="DNI" placeholder="XXXXXXXXXX" value="<?php echo $user['DNI'];?>">
             </div>
           </div>
           <div class="row g-3">
             <div class="col-md-6">
               <label for="fijo" class="form-label">Teléfono fijo</label>
-              <input type="number" class="form-control" name="fijo" placeholder="000000000">
+              <input type="number" class="form-control" name="fijo" placeholder="000000000" value="<?php echo $user['fijo'];?>">
             </div>
             <div class="col-md-6">
               <label for="movil" class="form-label">Teléfono movil</label>
-              <input type="number" class="form-control" name="movil" placeholder="000000000">
+              <input type="number" class="form-control" name="movil" placeholder="000000000" value="<?php echo $user['novil'];?>">
             </div>
           </div>
           <div class="row g-3">
               <input type="submit" class="btn btn-primary" name="info">
-            </div>
-        </form>
-          <div class="row g-3">
-            <h4 class="text-center">Información de dirección</h4>
           </div>
+        </form>
+      </div>
+    </div>
+
+
+
+        
+    <div class="row mt-3 mb-3 justify-content-center">
+      <div class="col-md-6 mt-3 mb-3">
+          <h4 class="text-center">Información de dirección</h4>
           <hr>
           <form action="../index.php" method="POST">
             <div class="row g-3 mt-3 mb-3">            
@@ -113,60 +128,69 @@ $user = $authController->getCurrentUser();
               </div>
               <div class="col-md-9">
                 <label for="nombre_via" class="form-label">Nombre de via</label>
-                <input type="text" class="form-control" id="nombre_via" placeholder="Islas Canarias">
+                <input type="text" class="form-control" name="nombre_via" placeholder="Islas Canarias" value="<?php echo $user['nombre_via'];?>">
               </div>
               <div class="col-md-1">
                 <label for="numero_via" class="form-label">Nº</label>
-                <input type="number" class="form-control" id="numero_via">
+                <input type="number" class="form-control" name="numero_via" value="<?php echo $user['numero_via'];?>">
               </div>
             </div>
             <div class="row g-3 d-flex justify-content-between">
               <div class="col-md-1">
                 <label for="portal" class="form-label">Nº Portal</label>
-                <input type="number" class="form-control" id="portal">
+                <input type="number" class="form-control" name="portal" value="<?php echo $user['numero_portal'];?>">
               </div>
               <div class="col-md-1">
                 <label for="escalera" class="form-label">Nº Escalera</label>
-                <input type="number" class="form-control" id="escalera">
+                <input type="number" class="form-control" name="escalera" value="<?php echo $user['numero_escalera'];?>">
               </div>
               <div class="col-md-1">
                 <label for="puerta" class="form-label">Letra Puerta</label>
-                <input type="text" class="form-control" id="puerta">
+                <input type="text" class="form-control" name="puerta" value="<?php echo $user['letra_puerta'];?>">
               </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="Provincia" class="form-label">Provincia</label>
-                <input type="text" class="form-control" id="puerta">
+                <input type="text" class="form-control" name="provincia" value="<?php echo $user['provincia'];?>">
               </div>
               <div class="col-md-6">
                 <label for="localidad" class="form-label">Localidad</label>
-                <input type="text" class="form-control" id="localidad">
+                <input type="text" class="form-control" name="localidad" value="<?php echo $user['localidad'];?>">
               </div>
             </div>
             <div class="row g-3">
-              <input type="submit" class="btn btn-primary" name="direccion">
+              <input type="submit" class="btn btn-primary m-3" name="direccion">
             </div>
         </form>
       </div>
     </div>
-    <div class="col-md-8 mt-3 mb-3 text-center ">
-      <h2 class="text-center">Cambio de información</h2>
-      <hr>
-      <div class="row mt-3 mb-3 d-flex justify-content-between">
-        <div class="col-sm-6">
-          <h4>Cambio de contraseña</h4>
-          <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal1">Cambio de contraseña</button>
-        </div>
-        <div class="col-sm-6">
-          <h4>Información 2</h4>
-          <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal2">Botón 2</button>
+
+
+
+
+
+    <div class="row mt-3 mb-3 justify-content-center text-center">
+      <div class="col-md-6 mt-3 mb-3 ">
+        <h2 class="text-center">Cambio de información</h2>
+        <hr>
+        <div class="row mt-3 mb-3">
+          <div class="col-sm-6">
+            <h4>Cambio de contraseña</h4>
+            <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal1">Cambio de contraseña</button>
+          </div>
+          <div class="col-sm-6">
+            <h4>Información 2</h4>
+            <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal2">Botón 2</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  </div>
+
+
+ 
+
 
   <!-- Modal 1 -->
   <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label" aria-hidden="true">
@@ -182,11 +206,11 @@ $user = $authController->getCurrentUser();
           <form action="../index.php" method="POST">
           <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Introduzca contraseña actual</label>
-            <input type="password" class="form-control" id="contrasena1" name="contrasena_actual">
+            <input type="password" class="form-control" name="contrasena_actual">
           </div>
           <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">Introduzca contraseña nueva</label>
-            <input type="password" class="form-control" id="contrasena2" name="contrasena_nueva">
+            <input type="password" class="form-control" name="contrasena_nueva">
           </div>
         </div>
         <div class="modal-footer">
@@ -238,20 +262,6 @@ $user = $authController->getCurrentUser();
 include("../views/footer.php");
 ?>
 
-
-
-
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-
-
-
-
-
-
 </body>
 </html>
 
-
-<?php

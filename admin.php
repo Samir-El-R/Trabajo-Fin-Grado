@@ -64,7 +64,8 @@ if ($authController->isUserAuthenticated()) {
             header('Location: index.php');
             break;
         case "director":
-
+            // Mostrar la página de director
+            header('Location: views/director.php');
             break;
         default:
 
@@ -75,5 +76,3 @@ if ($authController->isUserAuthenticated()) {
     $authController->showLogin();
     // Mostrar el formulario de inicio de sesión
 }
-
-?>

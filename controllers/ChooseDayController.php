@@ -12,7 +12,7 @@ class ChooseDayController
 
     public function showChooseDay()
     {
-        // Mostrar la página de perfil
+        // Mostrar la página de calendario
         header('Location: views/chooseDays.php');
     }
 }

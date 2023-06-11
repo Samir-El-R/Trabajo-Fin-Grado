@@ -29,7 +29,7 @@ $user = $authController->getCurrentUser();
 
   <div class="d-flex justify-content-center ">
 
-    <div id="calendar" class="w-50 h-75"></div>
+    <div id="calendar" class=""></div>
 
   </div>
   <div class="bienvenida" id="bienvenida">

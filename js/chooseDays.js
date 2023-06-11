@@ -106,6 +106,9 @@ function app() {
 }
 document.addEventListener("DOMContentLoaded", function () {
   var fechasEscogidas = [];
+  const today = new Date();
+  const futureDate = new Date(today.getTime() + (90 * 24 * 60 * 60 * 1000));
+
   let calendarEl = document.getElementById('calendar');
   let calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
@@ -115,12 +118,20 @@ document.addEventListener("DOMContentLoaded", function () {
       start: 'title',
       end: 'today,prev,next'
     },
+    contentHeight: 'auto',
     businessHours: {
       daysOfWeek: [1, 2, 3, 4, 5], // Lunes - Viernes
       eventBackgroundColor: '#000000'
+    },  validRange: {
+  
+      end: futureDate.toISOString().slice(0, 10)
     },
 
     dateClick: function (info) {
+      const today = new Date();
+      if (info.date < today || info.date.getDay() === 0 || info.date.getDay() === 6) {
+        return; // No hacer nada si la fecha es anterior a hoy o es sábado/domingo
+      }
       let fechasComprobadas = comprobarFechas(info.dateStr, fechasEscogidas);
       if (!fechasComprobadas && fechasEscogidas.length <= 3) {
         fechasEscogidas.push(info.dateStr);

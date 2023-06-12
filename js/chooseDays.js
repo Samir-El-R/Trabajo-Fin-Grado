@@ -122,8 +122,8 @@ document.addEventListener("DOMContentLoaded", function () {
     businessHours: {
       daysOfWeek: [1, 2, 3, 4, 5], // Lunes - Viernes
       eventBackgroundColor: '#000000'
-    },  validRange: {
-  
+    }, validRange: {
+
       end: futureDate.toISOString().slice(0, 10)
     },
 
@@ -132,14 +132,14 @@ document.addEventListener("DOMContentLoaded", function () {
       if (info.date < today || info.date.getDay() === 0 || info.date.getDay() === 6) {
         return; // No hacer nada si la fecha es anterior a hoy o es sábado/domingo
       }
-      let fechasComprobadas = comprobarFechas(info.dateStr, fechasEscogidas);
+      let fechasComprobadas = comprobarFechas(formatDate(info.dateStr), fechasEscogidas);
       if (!fechasComprobadas && fechasEscogidas.length <= 3) {
-        fechasEscogidas.push(info.dateStr);
+        fechasEscogidas.push(formatDate(info.dateStr));
       } else {
         info.dayEl.style.backgroundColor = "red";
 
-        borrarFecha(info.dateStr, fechasEscogidas);
-        // diasMayorACuatro(info.dateStr,fechasEscogidas);
+        borrarFecha(formatDate(info.dateStr), fechasEscogidas);
+
         if (fechasEscogidas.length == 4) {
           document.getElementById("error").style.display = "inherit";
         }
@@ -152,6 +152,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       actualizarFormularioFechas(fechasEscogidas);
+      if (fechasEscogidas.length >= 1) {
+        document.getElementById("botonFormulario").style.display = "inherit";
+        formulario(fechasEscogidas);
+      } else {
+        document.getElementById("botonFormulario").style.display = "none";
+      }
 
       console.log(fechasEscogidas);
 
@@ -163,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // dar formato fecha dia/mes/año
 function formatDate(date) {
-  return date.split("/");
+  return date.split("-").reverse().join("/");
 }
 //comprobar si hay dos fechas iguales
 function comprobarFechas(fechaSeleccionada, fechasEscogidas) {
@@ -183,16 +189,7 @@ function borrarFecha(fechaSeleccionada, fechasEscogidas) {
     }
   }
 }
-//Cuando el array es mayor a 4 (maximo de dias disponibles)
-function diasMayorACuatro(fechaSeleccionada, fechasEscogidas) {
 
-  if (fechasEscogidas.length == 4) {
-
-    fechasEscogidas.shift();
-    fechasEscogidas.push(fechaSeleccionada);
-
-  }
-}
 //Borrar las fechas del formulario
 function borrarFormularioFechas() {
   for (let i = 0; i < 4; i++) {
@@ -208,7 +205,30 @@ function actualizarFormularioFechas(fechasEscogidas) {
     }
   }
 }
+
 //esconder el error
-document.getElementById("error").addEventListener('click',function() {
-  document.getElementById("error").style.display="none";
+document.getElementById("error").addEventListener('click', function () {
+  document.getElementById("error").style.display = "none";
 })
+
+
+// Restriccion de caracteres en un input
+
+function formulario(fechasEscogidas) {
+
+  let shouldContinue = true;
+
+  // Índice inicial
+  let startIndex = 0;
+
+  while (shouldContinue) {
+    for (let i = startIndex; i < fechasEscogidas.length; i++) {
+      document.getElementById('fecha').value = fechasEscogidas[i];
+      shouldContinue = false; // Establecemos la condición para finalizar el ciclo
+      startIndex = i + 1; // Actualizamos el índice de inicio para la próxima ejecución del ciclo
+      break; // Salimos del ciclo for
+    }
+  }
+
+
+}

@@ -1,19 +1,19 @@
 <?php
 // Incluir las librerías FPDF y FPDI
 
-require_once('/libraries/fpdf185/fpdf.php');
+require_once('../libraries/fpdf185/fpdf.php');
 
 use setasign\Fpdi\Fpdi;
 
-require_once('/libraries/FPDI-2.3.7/src/autoload.php');
-require_once('./assets/');
+require_once('../libraries/FPDI-2.3.7/src/autoload.php');
+// require_once('../assets/');
 
 class FormFiller
 {
-    private  $pdfTemplate = "assets/plantilla.pdf";
+    private  $pdfTemplate = "../assets/plantilla.pdf";
     private $data;
 
-    public function __construct( $data)
+    public function __construct($data)
     {
        
         $this->data = $data;
@@ -87,7 +87,8 @@ class FormFiller
         $pdf->useTemplate($tplIdx, 0, 0);
 
         // Guardar el archivo PDF rellenado
-        $pdf->Output('formulario_relleno.pdf', 'F');
+        $pdf->Output('../pdfCreado/formulario_relleno.pdf', 'F');
+        //  header('Location: ./views/chooseDays.php');
     }
 }
 
@@ -112,27 +113,51 @@ class FormFiller
 //     'fecha' => $_POST['fecha'],
 //     'parrafo' => $_POST['parrafo']
 // );
+if (isset($_POST['submit'])) {
 $data = array(
-    'apellido1' => 'González',
-    'apellido2' => 'Pérez',
-    'nombre' => 'María',
-    'dni' => '12345678',
-    'tipoVia' => 'Calle',
-    'nombreVia' => 'Principal',
-    'numero' => '123',
-    'escalera' => 'A',
-    'piso' => '1',
-    'puerta' => 'A',
-    'codigoPostal' => '12345',
-    'provincia' => 'Barcelona',
-    'localidad' => 'Barcelona',
-    'telefonoFijo' => '123456789',
-    'telefonoMovil' => '987654321',
-    'correoElectronico' => 'example@example.com',
-    'fecha' => '2022-01-01',
-    'parrafo' => 'Este es un párrafo de ejemplo.'
+    'nombre' => $_POST["nombre"],
+    'apellido1' => $_POST["apellidoUno"],
+    'apellido2' => $_POST["apellidoDos"],
+    'dni' => $_POST["dni"],
+    'tipoVia' => $_POST["tipoDeVia"],
+    'nombreVia' => $_POST["nombreDeVia"],
+    'numero' => $_POST["numero"],
+    'escalera' => $_POST["escalera"],
+    'piso' => $_POST["piso"],
+    'puerta' => $_POST["puerta"],
+    'codigoPostal' => $_POST["codigoPostal"],
+    'provincia' => $_POST["provincia"],
+    'localidad' => $_POST["localidad"],
+    'telefonoFijo' => $_POST["telefonoFijo"],
+    'telefonoMovil' => $_POST["telefonoMovil"],
+    'correoElectronico' => $_POST["correoElectronico"],
+     'fecha' => $_POST["fecha"],
+    'parrafo' => $_POST["motivo"]
+
 );
+header('Location: ../views/chooseDays.php');
+// $data = array(
+//     'apellido1' => 'González',
+//     'apellido2' => 'Pérez',
+//     'nombre' => 'María',
+//     'dni' => '12345678',
+//     'tipoVia' => 'Calle',
+//     'nombreVia' => 'Principal',
+//     'numero' => '123',
+//     'escalera' => 'A',
+//     'piso' => '1',
+//     'puerta' => 'A',
+//     'codigoPostal' => '12345',
+//     'provincia' => 'Barcelona',
+//     'localidad' => 'Barcelona',
+//     'telefonoFijo' => '123456789',
+//     'telefonoMovil' => '987654321',
+//     'correoElectronico' => 'example@example.com',
+//     'fecha' => '2022-01-01',
+//     'parrafo' => 'Este es un párrafo de ejemplo.'
+// );
 
 // Crear una instancia de la clase FormFiller y llenar el formulario
 $formFiller = new FormFiller($data);
 $formFiller->fillForm();
+}

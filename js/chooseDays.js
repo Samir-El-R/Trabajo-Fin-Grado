@@ -195,6 +195,7 @@ function borrarFormularioFechas() {
   for (let i = 0; i < 4; i++) {
     document.getElementById("dia" + i).value = "";
   }
+  
 }
 //Actualizar el formulario de las fechas
 function actualizarFormularioFechas(fechasEscogidas) {

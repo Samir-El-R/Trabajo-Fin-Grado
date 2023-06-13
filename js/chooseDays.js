@@ -1,5 +1,8 @@
 
 
+
+
+
 const MONTH_NAMES = [
   "January",
   "February",
@@ -104,8 +107,9 @@ function app() {
     }
   };
 }
+//Variable global de Llas fechas escogidas
+var fechasEscogidas = [];
 document.addEventListener("DOMContentLoaded", function () {
-  var fechasEscogidas = [];
   const today = new Date();
   const futureDate = new Date(today.getTime() + (90 * 24 * 60 * 60 * 1000));
 
@@ -129,15 +133,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     dateClick: function (info) {
       const today = new Date();
+       
       if (info.date < today || info.date.getDay() === 0 || info.date.getDay() === 6) {
         return; // No hacer nada si la fecha es anterior a hoy o es sábado/domingo
       }
       let fechasComprobadas = comprobarFechas(formatDate(info.dateStr), fechasEscogidas);
       if (!fechasComprobadas && fechasEscogidas.length <= 3) {
+        
         fechasEscogidas.push(formatDate(info.dateStr));
       } else {
-        info.dayEl.style.backgroundColor = "red";
-
+      
+        // info.dayEl.style.backgroundColor = "red";
         borrarFecha(formatDate(info.dateStr), fechasEscogidas);
 
         if (fechasEscogidas.length == 4) {
@@ -145,13 +151,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
       // colorear el dia seleccionado
-      if (info.dayEl.style.backgroundColor == "red") {
-        info.dayEl.style.backgroundColor = "transparent";
-      } else {
+      // if (info.dayEl.style.backgroundColor == "red") {
+      //   info.dayEl.style.backgroundColor = "transparent";
+      // } else {
         info.dayEl.style.backgroundColor = "red";
-      }
+        setTimeout(function() {
+          info.dayEl.style.backgroundColor = "transparent";
+        }, 100);
+      // }
 
-      actualizarFormularioFechas(fechasEscogidas);
+      actualizarFormularioFechas(fechasEscogidas, info.dayEl.style.backgroundColor);
       if (fechasEscogidas.length >= 1) {
         document.getElementById("botonFormulario").style.display = "inherit";
         formulario(fechasEscogidas);
@@ -171,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function formatDate(date) {
   return date.split("-").reverse().join("/");
 }
+
 //comprobar si hay dos fechas iguales
 function comprobarFechas(fechaSeleccionada, fechasEscogidas) {
   for (let i = 0; i < fechasEscogidas.length; i++) {
@@ -213,23 +223,39 @@ document.getElementById("error").addEventListener('click', function () {
 })
 
 
-// Restriccion de caracteres en un input
+// Formulario al hacer click en el boton
 
 function formulario(fechasEscogidas) {
+//Limpiar formulario
+for (let i = 0; i < 4; i++) {
+  document.getElementById('fecha'+ i).value = "";
+  
+}
+//Añadir al formulario
+    for (let i = 0; i < fechasEscogidas.length; i++) {
+      document.getElementById('fecha'+ i).value = fechasEscogidas[i];
 
-  let shouldContinue = true;
-
-  // Índice inicial
-  let startIndex = 0;
-
-  while (shouldContinue) {
-    for (let i = startIndex; i < fechasEscogidas.length; i++) {
-      document.getElementById('fecha').value = fechasEscogidas[i];
-      shouldContinue = false; // Establecemos la condición para finalizar el ciclo
-      startIndex = i + 1; // Actualizamos el índice de inicio para la próxima ejecución del ciclo
-      break; // Salimos del ciclo for
     }
   }
 
+//Onblur 
+function funcionOnBlur() {
 
+  let fechas = [];
+
+  for (let i = 0; i < 4 ; i++) {
+  if (document.getElementById('dia' + i).value != "") {
+    fechas.push(document.getElementById('dia' + i).value);
+  }
+  }
+  for (let i = 0; i < fechasEscogidas.length; i++) {
+    if (fechasEscogidas[i] != fechas[i] ) {
+      fechasEscogidas.splice([i], 1);
+      
+    }
+    
+  }
+  borrarFormularioFechas();
+  actualizarFormularioFechas(fechasEscogidas);
 }
+

@@ -1,163 +1,162 @@
 <?php
 // Incluir las librerías FPDF y FPDI
 
-require_once('../libraries/fpdf185/fpdf.php');
+require_once('libraries/fpdf185/fpdf.php');
+require_once('libraries/FPDI-2.3.7/src/autoload.php');
+
+
+
 
 use setasign\Fpdi\Fpdi;
 
-require_once('../libraries/FPDI-2.3.7/src/autoload.php');
-// require_once('../assets/');
 
 class FormFiller
 {
-    private  $pdfTemplate = "../assets/plantilla.pdf";
+    private $pdfTemplate = "assets/plantilla.pdf";
     private $data;
 
-    public function __construct($data)
+    public function __construct()
     {
-       
+
+
+    }
+
+    public function fillForm($data)
+    {
         $this->data = $data;
+        for ($i = 0; $i < count($this->data['fecha']); $i++) {
+            if ($this->data['fecha'][$i] == "") {
+                break;
+            }
+            $pdf = new Fpdi();
+            $pdf->AddPage();
+            $pdf->setSourceFile($this->pdfTemplate);
+            $tplIdx = $pdf->importPage(1);
+            $pdf->useTemplate($tplIdx, 0, 0);
+            $pdf->SetFont('Arial', '', 9);
+
+            // Datos del interesado
+            $pdf->SetXY(45, 63);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['apellido1']));
+            $pdf->SetXY(134, 63);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['apellido2']));
+            $pdf->SetXY(45, 68);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['nombre']));
+            $pdf->SetXY(163, 68);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['dni']));
+            $pdf->SetXY(49, 73);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['tipoVia']));
+            $pdf->SetXY(102, 73);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['nombreVia']));
+            $pdf->SetXY(189, 73);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['numero']));
+            $pdf->SetXY(35, 79);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['escalera']));
+            $pdf->SetXY(61, 79);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['piso']));
+            $pdf->SetXY(92, 79);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['puerta']));
+            $pdf->SetXY(117, 79);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['codigoPostal']));
+            $pdf->SetXY(150, 79);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['provincia']));
+            $pdf->SetXY(50, 84);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['localidad']));
+            $pdf->SetXY(127.3, 84);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['telefonoFijo']));
+            $pdf->SetXY(174, 84);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['telefonoMovil']));
+            $pdf->SetXY(50, 89);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['correoElectronico']));
+
+            // else if para cambiar el tipo de dia Lectivo/no Lectivo
+            if ($this->data['periodo'] == "lectivo") {
+                $pdf->SetXY(73.6, 107.3);
+                $pdf->SetFont('Arial', 'B', 34);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
+            } else {
+                $pdf->SetXY(145.7, 107.3);
+                $pdf->SetFont('Arial', 'B', 34);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
+            }
+
+            // Fecha solicitada para el permiso
+            $pdf->SetFont('Arial', 'B', 9);
+            $pdf->SetXY(113, 116);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['fecha'][$i]));
+
+            $pdf->SetFont('Arial', '', 9);
+            $pdf->SetXY(22, 131);
+            $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1', $this->data['parrafo']), 0, 'J');
+
+            $pdf->AddPage();
+            $pdf->setSourceFile($this->pdfTemplate);
+            $tplIdx = $pdf->importPage(2);
+            $pdf->useTemplate($tplIdx, 0, 0);
+
+            $pdf->AddPage();
+            $pdf->setSourceFile($this->pdfTemplate);
+            $tplIdx = $pdf->importPage(3);
+            $pdf->useTemplate($tplIdx, 0, 0);
+
+            // Guardar el archivo PDF rellenado
+            $pdf->Output('pdfCreado/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
+
+            $archivos = array();
+            
+            array_push($archivos,'pdfCreado/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf');
+
+            
+        }
+
     }
-
-    public function fillForm()
-    {
-        $pdf = new Fpdi();
-        $pdf->AddPage();
-        $pdf->setSourceFile($this->pdfTemplate);
-        $tplIdx = $pdf->importPage(1);
-        $pdf->useTemplate($tplIdx, 0, 0);
-        $pdf->SetFont('Arial', '', 9);
-
-        // Datos del interesado
-        $pdf->SetXY(45, 63);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['apellido1']));
-        $pdf->SetXY(134, 63);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['apellido2']));
-        $pdf->SetXY(45, 68);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['nombre']));
-        $pdf->SetXY(163, 68);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['dni']));
-        $pdf->SetXY(49, 73);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['tipoVia']));
-        $pdf->SetXY(102, 73);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['nombreVia']));
-        $pdf->SetXY(189, 73);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['numero']));
-        $pdf->SetXY(35, 79);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['escalera']));
-        $pdf->SetXY(61, 79);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['piso']));
-        $pdf->SetXY(92, 79);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['puerta']));
-        $pdf->SetXY(117, 79);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['codigoPostal']));
-        $pdf->SetXY(150, 79);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['provincia']));
-        $pdf->SetXY(50, 84);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['localidad']));
-        $pdf->SetXY(127.3, 84);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['telefonoFijo']));
-        $pdf->SetXY(174, 84);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['telefonoMovil']));
-        $pdf->SetXY(50, 89);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['correoElectronico']));
-
-        // else if para cambiar el tipo de dia Lectivo/no Lectivo
-        $pdf->SetXY(73.6, 107.3);
-        $pdf->SetFont('Arial', 'B', 34);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
-
-        // Fecha solicitada para el permiso
-        $pdf->SetFont('Arial', 'B', 9);
-        $pdf->SetXY(113, 116);
-        $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $this->data['fecha']));
-
-        $pdf->SetFont('Arial', '', 9);
-        $pdf->SetXY(22, 131);
-        $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1', $this->data['parrafo']), 0, 'J');
-
-        $pdf->AddPage();
-        $pdf->setSourceFile($this->pdfTemplate);
-        $tplIdx = $pdf->importPage(2);
-        $pdf->useTemplate($tplIdx, 0, 0);
-
-        $pdf->AddPage();
-        $pdf->setSourceFile($this->pdfTemplate);
-        $tplIdx = $pdf->importPage(3);
-        $pdf->useTemplate($tplIdx, 0, 0);
-
-        // Guardar el archivo PDF rellenado
-        $pdf->Output('../pdfCreado/formulario_relleno.pdf', 'F');
-        //  header('Location: ./views/chooseDays.php');
+    public function savePDF(){
+        $directorio = '/ruta/al/directorio'; // Ruta del directorio a recorrer
+        $archivos = array(); // Array para almacenar los nombres de los archivos
+        
+        // Recorrer el directorio y almacenar los archivos en el array
+        if ($handle = opendir($directorio)) {
+            while (false !== ($archivo = readdir($handle))) {
+                if ($archivo != "." && $archivo != "..") {
+                    $archivos[] = $archivo;
+                }
+            }
+            closedir($handle);
+        }
+        
+        // Comprobar si se encontraron archivos
+        if (!empty($archivos)) {
+            // Nombre del archivo ZIP
+            $nombreZip = 'archivos.zip';
+        
+            // Crear objeto ZipArchive
+            $zip = new ZipArchive();
+        
+            // Crear archivo ZIP
+            if ($zip->open($nombreZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+                // Agregar los archivos al archivo ZIP
+                foreach ($archivos as $archivo) {
+                    $rutaArchivo = $directorio . '/' . $archivo;
+                    $zip->addFile($rutaArchivo);
+                }
+        
+                // Cerrar el archivo ZIP
+                $zip->close();
+        
+                // Descargar el archivo ZIP
+                header('Content-Type: application/zip');
+                header('Content-Disposition: attachment; filename="' . $nombreZip . '"');
+                header('Content-Length: ' . filesize($nombreZip));
+                readfile($nombreZip);
+        
+                // Eliminar el archivo ZIP después de la descarga
+                unlink($nombreZip);
+            } else {
+                echo 'No se pudo crear el archivo ZIP.';
+            }
+        } else {
+            echo 'No se encontraron archivos en el directorio.';
+        }
     }
 }
 
-// Obtener los datos del formulario
-// $data = array(
-//     'apellido1' => $_POST['apellido1'],
-//     'apellido2' => $_POST['apellido2'],
-//     'nombre' => $_POST['nombre'],
-//     'dni' => $_POST['dni'],
-//     'tipoVia' => $_POST['tipoVia'],
-//     'nombreVia' => $_POST['nombreVia'],
-//     'numero' => $_POST['numero'],
-//     'escalera' => $_POST['escalera'],
-//     'piso' => $_POST['piso'],
-//     'puerta' => $_POST['puerta'],
-//     'codigoPostal' => $_POST['codigoPostal'],
-//     'provincia' => $_POST['provincia'],
-//     'localidad' => $_POST['localidad'],
-//     'telefonoFijo' => $_POST['telefonoFijo'],
-//     'telefonoMovil' => $_POST['telefonoMovil'],
-//     'correoElectronico' => $_POST['correoElectronico'],
-//     'fecha' => $_POST['fecha'],
-//     'parrafo' => $_POST['parrafo']
-// );
-if (isset($_POST['submit'])) {
-$data = array(
-    'nombre' => $_POST["nombre"],
-    'apellido1' => $_POST["apellidoUno"],
-    'apellido2' => $_POST["apellidoDos"],
-    'dni' => $_POST["dni"],
-    'tipoVia' => $_POST["tipoDeVia"],
-    'nombreVia' => $_POST["nombreDeVia"],
-    'numero' => $_POST["numero"],
-    'escalera' => $_POST["escalera"],
-    'piso' => $_POST["piso"],
-    'puerta' => $_POST["puerta"],
-    'codigoPostal' => $_POST["codigoPostal"],
-    'provincia' => $_POST["provincia"],
-    'localidad' => $_POST["localidad"],
-    'telefonoFijo' => $_POST["telefonoFijo"],
-    'telefonoMovil' => $_POST["telefonoMovil"],
-    'correoElectronico' => $_POST["correoElectronico"],
-     'fecha' => $_POST["fecha"],
-    'parrafo' => $_POST["motivo"]
-
-);
-header('Location: ../views/chooseDays.php');
-// $data = array(
-//     'apellido1' => 'González',
-//     'apellido2' => 'Pérez',
-//     'nombre' => 'María',
-//     'dni' => '12345678',
-//     'tipoVia' => 'Calle',
-//     'nombreVia' => 'Principal',
-//     'numero' => '123',
-//     'escalera' => 'A',
-//     'piso' => '1',
-//     'puerta' => 'A',
-//     'codigoPostal' => '12345',
-//     'provincia' => 'Barcelona',
-//     'localidad' => 'Barcelona',
-//     'telefonoFijo' => '123456789',
-//     'telefonoMovil' => '987654321',
-//     'correoElectronico' => 'example@example.com',
-//     'fecha' => '2022-01-01',
-//     'parrafo' => 'Este es un párrafo de ejemplo.'
-// );
-
-// Crear una instancia de la clase FormFiller y llenar el formulario
-$formFiller = new FormFiller($data);
-$formFiller->fillForm();
-}

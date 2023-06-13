@@ -56,10 +56,10 @@ class ProfileController
         
     }
 
-    public function mandar_direccion($userId,$userCorreo,$userPass, $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad)
+    public function mandar_direccion($userId,$userCorreo,$userPass, $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP)
     {
         
-        $sql = "UPDATE profesores SET tipo_via='$tipo_via',nombre_via='$nombre_via',numero_via='$numero_via',portal='$portal',escalera='$escalera',puerta='$puerta',provincia='$provincia',localidad='$localidad' WHERE id = '$userId'";
+        $sql = "UPDATE profesores SET tipo_via='$tipo_via',nombre_via='$nombre_via',numero_via='$numero_via',portal='$portal',escalera='$escalera',puerta='$puerta',provincia='$provincia',localidad='$localidad',CP='$CP' WHERE id = '$userId'";
         
         $this->db->consulta($sql);
         $authController = new AuthController($this->db);

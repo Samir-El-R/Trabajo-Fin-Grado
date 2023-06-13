@@ -55,9 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
     $puerta = $_POST["puerta"];
     $provincia = $_POST["provincia"];
     $localidad = $_POST["localidad"];
+    $CP=$_POST["CP"];
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad);
+    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $Apellido1 = $_POST["Apellido1"];

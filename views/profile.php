@@ -32,8 +32,8 @@ $user = $authController->getCurrentUser();
   $indexPage="index.php";
   include("../views/header.php");
   // 
-  $sql = "SELECT * FROM profesores";
-  $teachers = $teacherManagement->getTeacher($sql);
+  // $sql = "SELECT * FROM profesores";
+  // $teachers = $teacherManagement->getTeacher($sql);
   
 
   ?>
@@ -121,10 +121,10 @@ $user = $authController->getCurrentUser();
             <div class="row g-3 mt-3 mb-3">            
               <div class="col-md-2">
                 <label for="tipo_via" class="form-label">Tipo de via</label>
-                <select id="tipo_via" class="form-select">
-                  <option selected>Calle</option>
-                  <option>Avenida</option>
-                  <option>Plaza</option>
+                <select id="tipo_via" name="tipo_via" class="form-select">
+                  <option value="Calle">Calle</option>
+                  <option value="Avenida">Avenida</option>
+                  <option value="Plaza">Plaza</option>
                 </select>
               </div>
               <div class="col-md-9">
@@ -149,6 +149,10 @@ $user = $authController->getCurrentUser();
                 <label for="puerta" class="form-label">Letra Puerta</label>
                 <input type="text" class="form-control" name="puerta" value="<?php echo $user['puerta'];?>">
               </div>
+              <div class="col-md-1">
+                <label for="CP" class="form-label">CP</label>
+                <input type="number" class="form-control" name="CP" value="<?php echo $user['CP'];?>">
+              </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6">
@@ -172,17 +176,12 @@ $user = $authController->getCurrentUser();
 
 
     <div class="row mt-3 mb-3 justify-content-center text-center">
-      <div class="col-md-6 mt-3 mb-3 ">
-        <h2 class="text-center">Cambio de información</h2>
+      <div class=" row col-md-6 mt-3 mb-3 justify-content-center ">
+        <h2 class="text-center">Cambio de contraseña</h2>
         <hr>
-        <div class="row mt-3 mb-3">
+        <div class="row mt-3 mb-3 justify-content-center">
           <div class="col-sm-6">
-            <h4>Cambio de contraseña</h4>
             <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal1">Cambio de contraseña</button>
-          </div>
-          <div class="col-sm-6">
-            <h4>Información 2</h4>
-            <button class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#modal2">Botón 2</button>
           </div>
         </div>
       </div>
@@ -224,38 +223,6 @@ $user = $authController->getCurrentUser();
       </div>
     </div>
   </div>
-
-  <!-- Modal 2 -->
-  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal1Label">Cambio de contraseña</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="POST">
-          <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Introduzca contraseña</label>
-            <input type="password" class="form-control" id="formGroupExampleInput">
-          </div>
-          <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Confirme contraseña</label>
-            <input type="password" class="form-control" id="formGroupExampleInput2">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-        <input type="submit" name="cambiar_contraseña">
-          </form>
-          
-      </div>
-    </div>
-  </div>
-
 
 
 

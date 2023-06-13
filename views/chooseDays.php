@@ -2,8 +2,10 @@
 session_start();
 require_once '../controllers/AuthController.php';
 require_once '../config/connection.php';
+require_once '../class/GeneratePDF.php';
 
 $authController = new AuthController($db);
+$formFiller = new FormFiller();
 $user = $authController->getCurrentUser();
 if (!$authController->isUserAuthenticated()) {
   header('Location: ../index.php');
@@ -146,7 +148,7 @@ function NumText(string){//solo letras y numeros
           </button>
         </div>
         <div class="modal-body">
-          <form action="../index.php" method="POST">
+          <form action="" method="POST">
             <div class="mb-3">
               <h4 class="modal-title" id="modal1Label">Datos del interesado</h4>
               <p>los marcados con un * no es necesario rellenarlos</p>
@@ -296,3 +298,40 @@ function NumText(string){//solo letras y numeros
 </body>
 
 </html>
+<?php
+if (isset($_POST['generarPDF'])) {
+  $data = array(
+      'nombre' => $_POST["nombre"],
+      'apellido1' => $_POST["apellidoUno"],
+      'apellido2' => $_POST["apellidoDos"],
+      'dni' => $_POST["dni"],
+      'tipoVia' => $_POST["tipoDeVia"],
+      'nombreVia' => $_POST["nombreDeVia"],
+      'numero' => $_POST["numero"],
+      'escalera' => $_POST["escalera"],
+      'piso' => $_POST["piso"],
+      'puerta' => $_POST["puerta"],
+      'codigoPostal' => $_POST["codigoPostal"],
+      'provincia' => $_POST["provincia"],
+      'localidad' => $_POST["localidad"],
+      'telefonoFijo' => $_POST["telefonoFijo"],
+      'telefonoMovil' => $_POST["telefonoMovil"],
+      'correoElectronico' => $_POST["correoElectronico"],
+      'periodo' => $_POST["periodo"],
+      'fecha' => array(
+          $_POST["fecha0"],
+          $_POST["fecha1"],
+          $_POST["fecha2"],
+          $_POST["fecha3"],
+      ),
+      'parrafo' => $_POST["motivo"]
+
+
+  );
+
+  $formFiller->fillForm($data);
+  $formFiller->savePDF();
+  // header('Location: views/chooseDays.php');
+
+}
+?>

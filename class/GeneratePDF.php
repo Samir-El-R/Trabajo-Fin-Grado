@@ -1,9 +1,8 @@
 <?php
 // Incluir las librerías FPDF y FPDI
 
-require_once('libraries/fpdf185/fpdf.php');
-require_once('libraries/FPDI-2.3.7/src/autoload.php');
-
+require_once('../libraries/fpdf185/fpdf.php');
+require_once('../libraries/FPDI-2.3.7/src/autoload.php');
 
 
 
@@ -12,7 +11,7 @@ use setasign\Fpdi\Fpdi;
 
 class FormFiller
 {
-    private $pdfTemplate = "assets/plantilla.pdf";
+    private $pdfTemplate = "../assets/plantilla.pdf";
     private $data;
 
     public function __construct()
@@ -79,7 +78,7 @@ class FormFiller
                 $pdf->SetFont('Arial', 'B', 34);
                 $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
             }
-
+ 
             // Fecha solicitada para el permiso
             $pdf->SetFont('Arial', 'B', 9);
             $pdf->SetXY(113, 116);
@@ -100,18 +99,19 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $pdf->Output('pdfCreado/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
+            $pdf->Output('../pdfDiasLibres/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
 
-            $archivos = array();
             
-            array_push($archivos,'pdfCreado/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf');
 
             
         }
 
+
     }
     public function savePDF(){
-        $directorio = '/ruta/al/directorio'; // Ruta del directorio a recorrer
+        $directorio = '../pdfDiasLibres'; // Ruta del directorio a recorrer
+
+
         $archivos = array(); // Array para almacenar los nombres de los archivos
         
         // Recorrer el directorio y almacenar los archivos en el array
@@ -127,7 +127,7 @@ class FormFiller
         // Comprobar si se encontraron archivos
         if (!empty($archivos)) {
             // Nombre del archivo ZIP
-            $nombreZip = 'archivos.zip';
+            $nombreZip = 'DiasLibres.zip';
         
             // Crear objeto ZipArchive
             $zip = new ZipArchive();
@@ -151,12 +151,13 @@ class FormFiller
         
                 // Eliminar el archivo ZIP después de la descarga
                 unlink($nombreZip);
+
             } else {
-                echo 'No se pudo crear el archivo ZIP.';
+                echo '<script>console.log("no se creo el archivo ZIP");</script>';
             }
         } else {
-            echo 'No se encontraron archivos en el directorio.';
+            echo '  <script>console.log("no hay archivos en ese directorio");</script>';
         }
     }
-}
+} 
 

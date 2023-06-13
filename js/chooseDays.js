@@ -257,5 +257,6 @@ function funcionOnBlur() {
   }
   borrarFormularioFechas();
   actualizarFormularioFechas(fechasEscogidas);
+  formulario(fechasEscogidas);
 }
 

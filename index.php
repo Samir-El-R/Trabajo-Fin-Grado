@@ -55,9 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
     $puerta = $_POST["puerta"];
     $provincia = $_POST["provincia"];
     $localidad = $_POST["localidad"];
+    $CP=$_POST["CP"];
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_direccion($user['id'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad);
+    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $Apellido1 = $_POST["Apellido1"];
@@ -67,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $DNI = $_POST["DNI"];
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_info($user['id'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
+    $profileController->mandar_info($user['id'],$user['correo'],$user['contrasena'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
 }
 
 // Verificar si el usuario está autenticado
@@ -79,7 +80,6 @@ if ($authController->isUserAuthenticated()) {
             break;
         case "profesor":
             $AppController->showAndHiddenViews();
-
             break;
         case "director":
             // Mostrar la página de director

@@ -56,22 +56,24 @@ class ProfileController
         
     }
 
-    public function mandar_direccion($userId, $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad)
+    public function mandar_direccion($userId,$userCorreo,$userPass, $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP)
     {
         
-        $sql = "UPDATE profesores SET tipo_via=$tipo_via,nombre_via=$nombre_via,numero_via=$numero_via,portal=$portal,escalera=$escalera,puerta=$puerta,provincia=$provincia,localidad=$localidad WHERE id = $userId";
+        $sql = "UPDATE profesores SET tipo_via='$tipo_via',nombre_via='$nombre_via',numero_via='$numero_via',portal='$portal',escalera='$escalera',puerta='$puerta',provincia='$provincia',localidad='$localidad',CP='$CP' WHERE id = '$userId'";
         
         $this->db->consulta($sql);
+        $authController = new AuthController($this->db);
+        $authController->authenticateUser($userCorreo,$userPass);
         
     }
-    public function mandar_info($userId, $Apellido1,$Apellido2,$fijo,$movil,$DNI)
+    public function mandar_info($userId,$userCorreo,$userPass, $Apellido1,$Apellido2,$fijo,$movil,$DNI)
     {
         
         $sql = "UPDATE profesores SET apellido1 = '$Apellido1',apellido2 = '$Apellido2', DNI = '$DNI', fijo = '$fijo', movil = '$movil' WHERE id = $userId";
-        // $sql = "INSERT INTO profesores (apellido1, apellido2, DNI, fijo, movil)
-        //     VALUES ('$Apellido1', '$Apellido2', '$DNI', '$fijo', '$movil')";
 
         $this->db->consulta($sql);
+        $authController = new AuthController($this->db);
+        $authController->authenticateUser($userCorreo,$userPass);
         
     }
 

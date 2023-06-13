@@ -22,19 +22,18 @@ $teacherManagement = new TeacherManager($db);
     <title>Gestion Manual</title>
 </head>
 
-<body>
+<body >
     <?php
     $nameView = "Gestion CSV";
     $indexPage = "admin.php";
     include("../views/header.php");
     ?>
-    <form action="../admin.php" method="post">
-        <button class=" btn btn-primary" name="download_csv_teachers">Descargar En CSV todos los profesores</button>
-    </form><br>
+    
+    <div class="container">
     <div class="container my-5">
         <form action="" method="POST" class="d-md-flex d-sm-block justify-content-between">
             <input type="hidden" name="command" value="select-orders">
-            <h2 class="h5 align-self-center col-3">Search Order</h2>
+            <h2 class="h5 align-self-center col-3">Busqueda de profesor</h2>
             <div class="btn-group align-self-center col-12 col-sm-12 col-md-8 col-lg-6">
                 <select name="searchType" class="btn btn-outline-dark col-3 col-sm-3">
                     <option value="id">Profesor ID</option>
@@ -44,7 +43,7 @@ $teacherManagement = new TeacherManager($db);
                     <option value="dedicacion">Dedicacion</option>
                 </select>
                 <input type="search" name="searchBy" class="col-6 col-sm-6">
-                <input type="submit" value="Search" class="btn btn-outline-dark col-3 col-sm-3">
+                <input type="submit" value="Buscar" class="btn btn-outline-dark col-3 col-sm-3">
             </div>
         </form>
         <div class="d-md-flex d-none justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">
@@ -61,13 +60,13 @@ $teacherManagement = new TeacherManager($db);
                 <h2 class="h5 fw-bold">Turno</h2>
             </div>
             <div class="col-1 align-self-center">
-                <h2 class="h5 fw-bold">Roll</h2>
+                <h2 class="h5 fw-bold">Rol</h2>
             </div>
             <div class="col-2 align-self-center">
-                <h2 class="h5 fw-bold">Dedicacion</h2>
+                <h2 class="h5 fw-bold">Dedicación</h2>
             </div>
             <div class="col-1 align-self-center">
-                <h2 class="h5 fw-bold">eleminar</h2>
+                <h2 class="h5 fw-bold">Eliminar</h2>
             </div>
 
         </div>
@@ -203,9 +202,10 @@ $teacherManagement = new TeacherManager($db);
 
 
 
-    <div class="d-xl-flex justify-content-center ">
+    <div class=" row d-xl-flex justify-content-center ">
         <div class="w-50 p-3">
-            <h2 class="h3 fw-bold">Enviar archivo CSV</h2>
+            <h2 class="h3 fw-bold text-center ">Enviar archivo CSV</h2>
+            <hr>
             <form action="../admin.php" method="post" class="csvForm" enctype="multipart/form-data">
                 <div>
                     <label for="formFileLg" class="form-label">Selecciona un archivo CSV:</label>
@@ -215,7 +215,19 @@ $teacherManagement = new TeacherManager($db);
             </form>
         </div>
     </div>
-
+    <div class="row mt-3 mb-3 justify-content-center ">
+        <div class="w-50 p-3">
+            <h2 class="h3 fw-bold text-center ">Descargar archivo CSV</h2>
+            <hr>
+            <div class="text-center">
+                <form action="../admin.php" method="post">
+                    <button class=" btn btn-primary" name="download_csv_teachers">Descargar en CSV todos los profesores</button>
+                </form>
+            </div>
+        </div>           
+    </div>
+    </div>
+    
 
 </body>
 

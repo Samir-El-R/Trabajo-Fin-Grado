@@ -50,8 +50,8 @@ $host = "localhost";
 $user = "root";
 $password = "";
 $dbname = "app";
-//  $port = 14000;
-$port = 3306;
+$port = 14000;
+// $port = 3306;
 $socket = "";
 
 $db = new BBDD($host, $user, $password, $dbname, $port, $socket);

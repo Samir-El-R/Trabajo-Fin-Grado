@@ -8,6 +8,9 @@ $user = $authController->getCurrentUser();
 if (!$authController->isUserAuthenticated()) {
   header('Location: ../index.php');
 }
+ 
+
+
 
 ?>
 <!DOCTYPE html>
@@ -63,6 +66,9 @@ function NumText(string){//solo letras y numeros
     <div id="calendar" class=""></div>
 
   </div>
+
+  <!-- BIENVENIDA -->
+
   <!-- <div class="bienvenida" id="bienvenida">
     <div class="titulo">
       <?php
@@ -85,6 +91,7 @@ function NumText(string){//solo letras y numeros
       })
     </script>
   </div> -->
+  <!-- Contenedor de error -->
   <div class="contenedor" id="error">
     <div class="new-box" id="new-box">
       <img src="http://100dayscss.com/codepen/alert.png">
@@ -95,31 +102,32 @@ function NumText(string){//solo letras y numeros
     </div>
   </div>
 
+<!-- Lista de dias y apertura de formulario -->
   <div class="boton-formulario">
     <div>
       <div class="formulario">
         <div class="contenedorDia1">
           <label for="">Dia 1</label>
-          <input type="text" name="dia0" id="dia0" readonly="readonly">
+          <input type="text" name="dia0" id="dia0" onblur="funcionOnBlur(this.value)" >
         </div>
 
         <div class="contenedorDia2">
           <label for="">Dia 2</label>
-          <input type="text" name="dia1" id="dia1" readonly="readonly">
+          <input type="text" name="dia1" id="dia1"  onblur="funcionOnBlur(this.value)">
         </div>
 
         <div class="contenedorDia3">
           <label for="">Dia 3</label>
-          <input type="text" name="dia2" id="dia2" readonly="readonly">
+          <input type="text" name="dia2" id="dia2"  onblur="funcionOnBlur(this.value)">
         </div>
 
         <div class="contenedorDia4"> <label for="">Dia 4</label>
-          <input type="text" name="dia3" id="dia3" readonly="readonly">
+          <input type="text" name="dia3" id="dia3"  onblur="funcionOnBlur(this.value)">
         </div>
       </div>
 
       <div class="btn-contenedor">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="botonFormulario">button</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1" id="botonFormulario">Formulario</button>
       </div>
     </div>
 
@@ -138,18 +146,19 @@ function NumText(string){//solo letras y numeros
           </button>
         </div>
         <div class="modal-body">
-          <form action="../class/GeneratePDF.php" method="POST">
+          <form action="../index.php" method="POST">
             <div class="mb-3">
-              <h5 class="modal-title" id="modal1Label">Datos del interesado</h5>
+              <h4 class="modal-title" id="modal1Label">Datos del interesado</h4>
+              <p>los marcados con un * no es necesario rellenarlos</p>
             </div>
             <!-- Apellidos -->
             <div class="mb-3">
               <label for="formGroupExampleInput2" class="form-label">Apellidos</label>
               <div class="input-group">
                 <span class="input-group-text">Primero</span>
-                <input type="text" aria-label="First name" class="form-control" id="apellidoUno" name="apellidoUno" value="" onkeyup="this.value=NumText(this.value)">
+                <input type="text" aria-label="First name" class="form-control" id="apellidoUno" name="apellidoUno" value="<?php echo $user['apellido1'];?>" onkeyup="this.value=NumText(this.value)">
                 <span class="input-group-text">Segundo</span>
-                <input type="text" aria-label="Last name" class="form-control" id="apellidoDos" name="apellidoDos" value="" onkeyup="this.value=NumText(this.value)">
+                <input type="text" aria-label="Last name" class="form-control" id="apellidoDos" name="apellidoDos" value="<?php echo $user['apellido2'];?>" onkeyup="this.value=NumText(this.value)">
               </div>
             </div>
 
@@ -158,9 +167,9 @@ function NumText(string){//solo letras y numeros
               <label for="formGroupExampleInput2" class="form-label">Nombre</label>
               <div class="input-group">
                 <span class="input-group-text">Nombre</span>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="" onkeyup="this.value=NumText(this.value)">
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $user['nombre'];?>" onkeyup="this.value=NumText(this.value)" required>
                 <span class="input-group-text">DNI</span>
-                <input type="text" class="form-control" id="dni" name="dni" value="" >
+                <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $user['DNI'];?>" required>
               </div>
             </div>
             <!-- Direccion -->
@@ -168,46 +177,46 @@ function NumText(string){//solo letras y numeros
               <label for="formGroupExampleInput2" class="form-label">Dirección</label>
               <div class="input-group">
                 <span class="input-group-text">Tipo de Vía</span>
-                <input type="text" aria-label="First name" class="form-control" id="tipoDeVia" name="tipoDeVia">
+                <input type="text" aria-label="First name" class="form-control" id="tipoDeVia" name="tipoDeVia" value="<?php echo $user['tipo_via'];?>" required>
                 <span class="input-group-text">Nombre Vía</span>
-                <input type="text" aria-label="Last name" class="form-control" id="nombreDeVia" name="nombreDeVia">
+                <input type="text" aria-label="Last name" class="form-control" id="nombreDeVia" name="nombreDeVia" value="<?php echo $user['nombre_via'];?>" required>
               </div>
               <div class="input-group">
                 <span class="input-group-text">Nº</span>
-                <input type="text" aria-label="Last name" class="form-control" id="numero" name="numero" value="" onkeyup="this.value=Numeros(this.value)">
+                <input type="text" aria-label="Last name" class="form-control" id="numero" name="numero" value="<?php echo $user['numero_via'];?>" onkeyup="this.value=Numeros(this.value)" required>
               </div>
               <div class="input-group">
                 <span class="input-group-text">Esc.</span>
-                <input type="text" aria-label="Last name" class="form-control" id="escalera" name="escalera">
+                <input type="text" aria-label="Last name" class="form-control" id="escalera" name="escalera" value="<?php echo $user['escalera'];?>" required>
                 <span class="input-group-text">Piso</span>
-                <input type="text" aria-label="Last name" class="form-control" id="piso" name="piso">
+                <input type="text" aria-label="Last name" class="form-control" id="piso" name="piso" value="<?php echo $user['portal'];?>" required>
                 <span class="input-group-text">Puerta</span>
-                <input type="text" aria-label="Last name" class="form-control" id="puerta" name="puerta">
+                <input type="text" aria-label="Last name" class="form-control" id="puerta" name="puerta" value="<?php echo $user['puerta'];?>" required>
                 <span class="input-group-text">Cp</span>
-                <input type="text" aria-label="Last name" class="form-control" id="codigoPostal" name="codigoPostal" value="" onkeyup="this.value=Numeros(this.value)">
+                <input type="text" aria-label="Last name" class="form-control" id="codigoPostal" name="codigoPostal" value="<?php echo $user['CP'];?>" onkeyup="this.value=Numeros(this.value)" required>
 
               </div>
               <div class="input-group">
                 <span class="input-group-text">Provincia</span>
-                <input type="text" aria-label="Last name" class="form-control" id="provincia" name="provincia" value="" onkeyup="this.value=NumText(this.value)">
+                <input type="text" aria-label="Last name" class="form-control" id="provincia" name="provincia" value="<?php echo $user['provincia'];?>" onkeyup="this.value=NumText(this.value)" required>
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Localidad</span>
-                <input type="text" aria-label="Last name" class="form-control" id="localidad" name="localidad" value="" onkeyup="this.value=NumText(this.value)">
+                <input type="text" aria-label="Last name" class="form-control" id="localidad" name="localidad" value="<?php echo $user['localidad'];?>" onkeyup="this.value=NumText(this.value)" required>
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Tlf. Fijo* </span>
-                <input type="text" aria-label="Last name" class="form-control" value="" onkeyup="this.value=Numeros(this.value)" id="telefonoFijo" name="telefonoFijo">
+                <input type="text" aria-label="Last name" class="form-control" value="<?php echo $user['fijo'];?>" onkeyup="this.value=Numeros(this.value)" id="telefonoFijo" name="telefonoFijo">
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Tlf. móvil*</span>
-                <input type="text" aria-label="Last name" class="form-control" value="" onkeyup="this.value=Numeros(this.value)" id="telefonoMovil" name="telefonoMovil">
+                <input type="text" aria-label="Last name" class="form-control" value="<?php echo $user['movil'];?>" onkeyup="this.value=Numeros(this.value)" id="telefonoMovil" name="telefonoMovil">
               </div>
             </div>
 
@@ -215,7 +224,7 @@ function NumText(string){//solo letras y numeros
               <label for="formGroupExampleInput2" class="form-label">Correo*</label>
               <div class="input-group">
                 <span class="input-group-text">Correo Electrónico</span>
-                <input type="text" aria-label="Last name" class="form-control" id="correoElectronico" name="correoElectronico">
+                <input type="text" aria-label="Last name" class="form-control" id="correoElectronico" name="correoElectronico" value="<?php echo $user['correo'];?>">
               </div>
             </div>
             <!-- Dias y fechas -->
@@ -226,17 +235,35 @@ function NumText(string){//solo letras y numeros
             <div class="mb-3">
               <div class="input-group mb-3">
                 <label class="input-group-text" for="inputGroupSelect01">Día</label>
-                <select class="form-select" id="inputGroupSelect01">
-                  <option value="1" id="periodoLectivo" name="periodoLectivo">Periodo Lectivo</option>
-                  <option value="2" id="periodoNoLectivo" name="periodoNoLectivo">Periodo No Lectivo</option>
+                <select class="form-select" id="inputGroupSelect01" name="periodo">
+                  <option value="lectivo" id="periodoLectivo" name="periodoLectivo">Periodo Lectivo</option>
+                  <option value="noLectivo" id="periodoNoLectivo" name="periodoNoLectivo">Periodo No Lectivo</option>
                 </select>
               </div>
             </div>
-            <!-- Fecha -->
+            <!-- Fechas -->
             <div class="mb-3">
               <div class="input-group">
-                <span class="input-group-text">Fecha</span>
-                <input type="text" class="form-control" id="fecha" name="fecha" readonly>
+                <span class="input-group-text">Fecha 1</span>
+                <input type="text" class="form-control" id="fecha0" name="fecha0" readonly>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">Fecha 2</span>
+                <input type="text" class="form-control" id="fecha1" name="fecha1" readonly>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">Fecha 3</span>
+                <input type="text" class="form-control" id="fecha2" name="fecha2" readonly>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">Fecha 4</span>
+                <input type="text" class="form-control" id="fecha3" name="fecha3" readonly>
               </div>
             </div>
             <!-- Motivo -->
@@ -250,7 +277,7 @@ function NumText(string){//solo letras y numeros
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <input type="submit" class="btn btn-secondary" name="submit">
+          <input type="submit" class="btn btn-secondary" name="generarPDF">
         </div>
 
         </form>
@@ -264,40 +291,8 @@ function NumText(string){//solo letras y numeros
     });
     
   </script>
-  <script type="module" src="../js/chooseDays.js"></script>
+  <script  src="../js/chooseDays.js"></script>
 
 </body>
 
 </html>
-<?php
-if (isset($_POST['submit'])) {
-  require_once '../class/GeneratePDF.php';
-  $data = array(
-    'nombre' => $_POST["nombre"],
-    'apellido1' => $_POST["apellidoUno"],
-    'apellido2' => $_POST["apellidoDos"],
-    'dni' => $_POST["dni"],
-    'tipoVia' => $_POST["tipoDeVia"],
-    'nombreVia' => $_POST["nombreDeVia"],
-    'numero' => $_POST["numero"],
-    'escalera' => $_POST["escalera"],
-    'piso' => $_POST["piso"],
-    'puerta' => $_POST["puerta"],
-    'codigoPostal' => $_POST["codigoPostal"],
-    'provincia' => $_POST["provincia"],
-    'localidad' => $_POST["localidad"],
-    'telefonoFijo' => $_POST["telefonoFijo"],
-    'telefonoMovil' => $_POST["telefonoMovil"],
-    'correoElectronico' => $_POST["correoElectronico"],
-    'fecha ' => $_POST["fecha"],
-    'parrafo' => $_POST["motivo"]
-
-
-);
-  $formFiller = new FormFiller($data);
-  $formFiller->fillForm();
-}
-
-
-
-?>

@@ -100,7 +100,7 @@ $user = $authController->getCurrentUser();
             </div>
             <div class="col-md-6">
               <label for="movil" class="form-label">Teléfono movil</label>
-              <input type="number" class="form-control" name="movil" placeholder="000000000" value="<?php echo $user['novil'];?>">
+              <input type="number" class="form-control" name="movil" placeholder="000000000" value="<?php echo $user['movil'];?>">
             </div>
           </div>
           <div class="row g-3">

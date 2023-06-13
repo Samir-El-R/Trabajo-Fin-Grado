@@ -14,14 +14,14 @@ class AppController
     {
         if ($_SESSION['show']) {
             
-
-            $profileController = new ProfileController($this->db);
-            $profileController->showProfile();
+            $ChooseDayController = new ChooseDayController($this->db);
+            $ChooseDayController->showChooseDay();
+            
             
         } else {
 
-            $ChooseDayController = new ChooseDayController($this->db);
-            $ChooseDayController->showChooseDay();
+            $profileController = new ProfileController($this->db);
+            $profileController->showProfile();
             
         }
 

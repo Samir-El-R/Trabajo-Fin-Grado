@@ -68,7 +68,7 @@ if ($authController->isUserAuthenticated()) {
     $authController->showLogin();
     // Mostrar el formulario de inicio de sesión
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {    
     $tipo_via = $_POST["tipo_via"];
     $nombre_via = $_POST["nombre_via"];
     $numero_via = $_POST["numero_via"];
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
     $localidad = $_POST["localidad"];
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_direccion($user['id'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad);
+    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $Apellido1 = $_POST["Apellido1"];
@@ -89,5 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $DNI = $_POST["DNI"];
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_info($user['id'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
+    $profileController->mandar_info($user['id'],$user['correo'],$user['contrasena'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
 }

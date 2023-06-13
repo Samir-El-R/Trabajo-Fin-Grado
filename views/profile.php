@@ -100,7 +100,7 @@ $user = $authController->getCurrentUser();
             </div>
             <div class="col-md-6">
               <label for="movil" class="form-label">Teléfono movil</label>
-              <input type="number" class="form-control" name="movil" placeholder="000000000" value="<?php echo $user['novil'];?>">
+              <input type="number" class="form-control" name="movil" placeholder="000000000" value="<?php echo $user['movil'];?>">
             </div>
           </div>
           <div class="row g-3">
@@ -117,7 +117,7 @@ $user = $authController->getCurrentUser();
       <div class="col-md-6 mt-3 mb-3">
           <h4 class="text-center">Información de dirección</h4>
           <hr>
-          <form action="../index.php" method="POST">
+          <form action="../index.php" method="POST" class="row g-3 mt-3 mb-3">
             <div class="row g-3 mt-3 mb-3">            
               <div class="col-md-2">
                 <label for="tipo_via" class="form-label">Tipo de via</label>
@@ -139,15 +139,15 @@ $user = $authController->getCurrentUser();
             <div class="row g-3 d-flex justify-content-between">
               <div class="col-md-1">
                 <label for="portal" class="form-label">Nº Portal</label>
-                <input type="number" class="form-control" name="portal" value="<?php echo $user['numero_portal'];?>">
+                <input type="number" class="form-control" name="portal" value="<?php echo $user['portal'];?>">
               </div>
               <div class="col-md-1">
                 <label for="escalera" class="form-label">Nº Escalera</label>
-                <input type="number" class="form-control" name="escalera" value="<?php echo $user['numero_escalera'];?>">
+                <input type="number" class="form-control" name="escalera" value="<?php echo $user['escalera'];?>">
               </div>
               <div class="col-md-1">
                 <label for="puerta" class="form-label">Letra Puerta</label>
-                <input type="text" class="form-control" name="puerta" value="<?php echo $user['letra_puerta'];?>">
+                <input type="text" class="form-control" name="puerta" value="<?php echo $user['puerta'];?>">
               </div>
             </div>
             <div class="row g-3">
@@ -161,7 +161,7 @@ $user = $authController->getCurrentUser();
               </div>
             </div>
             <div class="row g-3">
-              <input type="submit" class="btn btn-primary m-3" name="direccion">
+              <input type="submit" class="btn btn-primary" name="direccion">
             </div>
         </form>
       </div>

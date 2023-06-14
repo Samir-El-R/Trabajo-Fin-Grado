@@ -19,7 +19,6 @@ class TeacherManager
             $result = $this->db->consulta($query);
             echo $result;
             if ($result) {
-                echo "Profesor registrado exitosamente";
             } else {
                 throw new Exception("Error al registrar el profesor");
             }
@@ -38,7 +37,6 @@ class TeacherManager
             $result = $this->db->consulta($query);
 
             if ($result) {
-                echo "profesor actualizado exitosamente";
             } else {
                 throw new Exception("Error al actualizar el profesor");
             }
@@ -76,7 +74,7 @@ class TeacherManager
             }
 
             if ($teachers) {
-                echo "profesor obtenidos exitosamente";
+                
                 return $teachers;
             } else {
                 throw new Exception("Error al actualizar el profesor");
@@ -95,7 +93,7 @@ class TeacherManager
                 $teachers[] = $fila;
             }
             if ($teachers) {
-                echo "profesor obtenidos exitosamente";
+                
                 return $teachers;
             } else {
                 throw new Exception("Error al actualizar el profesor");

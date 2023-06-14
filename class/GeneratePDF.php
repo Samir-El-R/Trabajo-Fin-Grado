@@ -1,8 +1,11 @@
 <?php
 // Incluir las librerías FPDF y FPDI
 
-require_once('../libraries/fpdf185/fpdf.php');
-require_once('../libraries/FPDI-2.3.7/src/autoload.php');
+require_once('libraries/fpdf185/fpdf.php');
+require_once('libraries/FPDI-2.3.7/src/autoload.php');
+
+
+$authController = new AuthController($db);
 
 
 
@@ -11,7 +14,7 @@ use setasign\Fpdi\Fpdi;
 
 class FormFiller
 {
-    private $pdfTemplate = "../assets/plantilla.pdf";
+    private $pdfTemplate = "assets/plantilla.pdf";
     private $data;
 
     public function __construct()
@@ -88,6 +91,9 @@ class FormFiller
             $pdf->SetXY(22, 131);
             $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1', $this->data['parrafo']), 0, 'J');
 
+            $pdf->SetXY(22, 131);
+            $pdf->Image($this->data['imagen'], 130, 218, 50, 0);
+
             $pdf->AddPage();
             $pdf->setSourceFile($this->pdfTemplate);
             $tplIdx = $pdf->importPage(2);
@@ -99,7 +105,7 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $pdf->Output('../pdfDiasLibres/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
+            $pdf->Output('pdfDiasLibres/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
 
             
 
@@ -109,19 +115,33 @@ class FormFiller
 
     }
     public function savePDF(){
-        $directorio = '../pdfDiasLibres'; // Ruta del directorio a recorrer
+        $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
+        $nombreUsuario = $this->data['apellido1']."_".$this->data['nombre']; // Nombre de usuario para filtrar los archivos
 
+        if (!is_readable($directorio)) {
+            echo '<script>console.log("No se puede leer el directorio. Verifica los permisos de archivo y directorio.");</script>';
+            exit;
+        }
 
         $archivos = array(); // Array para almacenar los nombres de los archivos
         
         // Recorrer el directorio y almacenar los archivos en el array
         if ($handle = opendir($directorio)) {
+
+
+            
             while (false !== ($archivo = readdir($handle))) {
+
                 if ($archivo != "." && $archivo != "..") {
-                    $archivos[] = $archivo;
+                    // Filtrar archivos por nombre de usuario
+                    if (strpos($archivo, $nombreUsuario) !== false) {
+                        $archivos[] = $archivo;
+
+                    }
                 }
             }
             closedir($handle);
+
         }
         
         // Comprobar si se encontraron archivos
@@ -137,7 +157,8 @@ class FormFiller
                 // Agregar los archivos al archivo ZIP
                 foreach ($archivos as $archivo) {
                     $rutaArchivo = $directorio . '/' . $archivo;
-                    $zip->addFile($rutaArchivo);
+                    $nombreArchivoZip = basename($archivo); // Obtener el nombre del archivo sin la ruta
+                    $zip->addFile($rutaArchivo, $nombreArchivoZip); // Especificar el nombre interno del archivo
                 }
         
                 // Cerrar el archivo ZIP
@@ -151,13 +172,15 @@ class FormFiller
         
                 // Eliminar el archivo ZIP después de la descarga
                 unlink($nombreZip);
+        
+                // Reiniciar la página usando JavaScript
 
             } else {
-                echo '<script>console.log("no se creo el archivo ZIP");</script>';
+                echo '<script>console.log("No se pudo crear el archivo ZIP.");</script>';
             }
         } else {
-            echo '  <script>console.log("no hay archivos en ese directorio");</script>';
+            echo '<script>console.log("No hay archivos en ese directorio para el usuario especificado.");</script>';
         }
-    }
 } 
+}
 

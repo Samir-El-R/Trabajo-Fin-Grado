@@ -259,4 +259,11 @@ function funcionOnBlur() {
   actualizarFormularioFechas(fechasEscogidas);
   formulario(fechasEscogidas);
 }
+// Tercer modal ,aceptar
+document.getElementById("aceptarTercerModal").addEventListener('click', function () {
 
+  window.location.reload();
+  
+})
+
+  

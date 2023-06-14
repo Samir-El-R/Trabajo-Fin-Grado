@@ -83,7 +83,7 @@ footer {
   }
 }
 
-/* formulario */
+/* formulario de fechas del calendario */
 
 .boton-formulario {
   display: flex;
@@ -120,7 +120,10 @@ footer {
 }
 
 
-
+/* Segundo modal */
+#generarPDF{
+  display: none;
+}
 /* contenedor de error */
 .contenedor {
   display:none;

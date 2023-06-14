@@ -5,6 +5,10 @@ require_once 'controllers/ProfileController.php';
 require_once 'controllers/ChooseDayController.php';
 require_once 'controllers/AppController.php';
 require_once 'config/connection.php';
+require_once 'class/GeneratePDF.php';
+
+
+
 
 
 
@@ -16,8 +20,7 @@ session_start();
 $profileController = new ProfileController($db);
 $authController = new AuthController($db);
 $AppController = new AppController($db);
-
-
+$formFiller = new FormFiller();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && $_POST['login'] === 'true') {
     $email = $_POST['email'];
@@ -70,6 +73,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
 
     $profileController->mandar_info($user['id'],$user['correo'],$user['contrasena'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
 }
+
+if (isset($_POST['generarPDF'])) {
+
+    $imageData = $_POST['imagen'];
+
+    // Decodificar la imagen desde formato base64
+    $imageData = str_replace('data:image/png;base64,', '', $imageData);
+    $imageData = str_replace(' ', '+', $imageData);
+    $imageData = base64_decode($imageData);
+    
+    // Ruta y nombre de archivo donde se guardará la imagen
+    $archivoImagen = 'assets/imagen.png';
+    
+    // Guarda la imagen en el directorio
+    file_put_contents($archivoImagen, $imageData);
+
+
+    $data = array(
+        'nombre' => $_POST["nombre"],
+        'apellido1' => $_POST["apellidoUno"],
+        'apellido2' => $_POST["apellidoDos"],
+        'dni' => $_POST["dni"],
+        'tipoVia' => $_POST["tipoDeVia"],
+        'nombreVia' => $_POST["nombreDeVia"],
+        'numero' => $_POST["numero"],
+        'escalera' => $_POST["escalera"],
+        'piso' => $_POST["piso"],
+        'puerta' => $_POST["puerta"],
+        'codigoPostal' => $_POST["codigoPostal"],
+        'provincia' => $_POST["provincia"],
+        'localidad' => $_POST["localidad"],
+        'telefonoFijo' => $_POST["telefonoFijo"],
+        'telefonoMovil' => $_POST["telefonoMovil"],
+        'correoElectronico' => $_POST["correoElectronico"],
+        'periodo' => $_POST["periodo"],
+        'fecha' => array(
+            $_POST["fecha0"],
+            $_POST["fecha1"],
+            $_POST["fecha2"],
+            $_POST["fecha3"],
+        ),
+        'imagen' => $archivoImagen,
+        'parrafo' => $_POST["motivo"]
+  
+  
+    );
+
+    $formFiller->fillForm($data);
+    $formFiller->savePDF();
+    //header('Location: views/chooseDays.php');
+
+  }
+
 
 // Verificar si el usuario está autenticado
 if ($authController->isUserAuthenticated()) {

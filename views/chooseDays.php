@@ -56,7 +56,7 @@ if (!$authController->isUserAuthenticated()) {
 <body>
   <?php
   $nameView = "Perfil";
-  $indexPage = "index.php";
+  $indexPage = "../index.php";
   include("../views/header.php")
     ?>
 

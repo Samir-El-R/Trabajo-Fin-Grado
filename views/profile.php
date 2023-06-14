@@ -29,7 +29,7 @@ $user = $authController->getCurrentUser();
 
   <?php
   $nameView = "Calendario";
-  $indexPage="index.php";
+  $indexPage="../index.php";
   include("../views/header.php");
   // 
   // $sql = "SELECT * FROM profesores";

@@ -84,6 +84,31 @@ class TeacherManager
             echo "Error: " . $e->getMessage();
         }
     }
+    public function getAllRequest()
+    {
+        try {
+
+            $query = "SELECT d.*, p.nombre
+            FROM diasseleccionados AS d
+            JOIN profesores AS p ON d.idProfesor = p.id
+            ";
+
+            $result = $this->db->consulta($query);
+            while ($fila = $this->db->extraer_registro()) {
+                $teachers[] = $fila;
+            }
+
+            if ($teachers) {
+
+                return $teachers;
+            } else {
+                throw new Exception("Error al actualizar el profesor");
+            }
+        } catch (Exception $e) {
+
+            echo "Error: " . $e->getMessage();
+        }
+    }
     public function getTeacher($query)
     {
         try {

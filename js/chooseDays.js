@@ -173,6 +173,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+// Funcion provisional y a completar por que las propias funciones internas no estan creadas, lo que haria seria al darle submit para mandar los dias a la base de datos comprobaria si ya hay 4 campos a ese usuario y de ser asi aborta el submit
+
+
+  // function isset(event) {
+  //   event.preventDefault(); // Evita que el formulario se envíe automáticamente
+  
+  //   // Obtén el ID de usuario del formulario (debe estar en un campo hidden con el nombre "userId")
+  //   const userId = document.querySelector('input[name="userId"]').value;
+  
+  //   // Realiza una petición a la base de datos para obtener la cantidad de registros del usuario
+  //   // Puedes usar tu propio método para realizar la petición a la base de datos aquí
+  //   // Supongamos que tienes una función llamada getRecordCount(userId) que devuelve la cantidad de registros
+  
+  //   const recordCount = getRecordCount(userId); // Obtiene la cantidad de registros del usuario
+  
+  //   if (recordCount > 4) {
+  //     // Mostrar un mensaje de error o tomar alguna acción si hay más de 4 registros
+  //     console.log("¡Ya se han registrado más de 4 veces!");
+  //     return;
+  //   }
+  
+  //   // Si no hay más de 4 registros, continúa con el envío de datos del formulario
+  //   event.target.submit();
+  // }
+
+// funcion para contar registros por usuario
+
+  // function getRecordCount(userId) {
+  //   // Simulación de una consulta a la base de datos
+  //   const database = userId=$user['id'];
+  
+  //   // Filtrar los registros que corresponden al usuario y contar la cantidad
+  //   const recordCount = database.filter(record => record.userId === userId).length;
+  
+  //   return recordCount;
+  // }
+
   calendar.render();
 });
 

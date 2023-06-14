@@ -10,11 +10,11 @@
     <link href="libraries/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <title>TeachOff</title>
+    <title>Días libres</title>
 </head>
 <body>
     <div class="login-box">
-        <h2>Inicio De Sesión</h2>
+        <h2>Inicio de sesión</h2>
         <form action="index.php" method="POST">
         <input type="hidden" name="login" value="true">
             <div class="user-box">

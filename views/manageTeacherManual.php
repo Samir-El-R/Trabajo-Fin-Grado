@@ -24,7 +24,7 @@ $teacherManagement = new TeacherManager($db);
 
 <body >
     <?php
-    $nameView = "Gestion CSV";
+    $nameView = "";
     $indexPage = "admin.php";
     include("../views/header.php");
     ?>

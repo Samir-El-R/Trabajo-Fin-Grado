@@ -170,3 +170,12 @@ html {
     }
   }
   
+  .button {
+    background: none;
+    border: 0;
+    color: #ffffff8c;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    -webkit-appearance: button;
+  }

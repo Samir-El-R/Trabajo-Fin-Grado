@@ -102,25 +102,34 @@ if (!$authController->isUserAuthenticated()) {
   </div>
 
   <!-- Lista de dias y apertura de formulario -->
+  <div class="container text-center justify-content-center">
+  <div class="container  row text-center justify-content-center">
+    <div class="row col-md-4 justify-content-center text-center">
+    <h1>Selección de días</h1>
+    <hr>
+    </div>
+  
+  
   <div class="boton-formulario">
     <div>
       <div class="formulario">
-        <div class="contenedorDia1">
-          <label for="">Dia 1</label>
+        <div class="contenedorDia1 text-center">
+          <label for=""><b>Dia 1</b></label>
           <input type="text" name="dia0" id="dia0" onblur="funcionOnBlur(this.value)">
         </div>
 
-        <div class="contenedorDia2">
-          <label for="">Dia 2</label>
+        <div class="contenedorDia2 text-center">
+          <label for=""><b>Dia 2</b></label>
           <input type="text" name="dia1" id="dia1" onblur="funcionOnBlur(this.value)">
         </div>
 
-        <div class="contenedorDia3">
-          <label for="">Dia 3</label>
+        <div class="contenedorDia3 text-center">
+          <label for=""><b>Dia 3</b></label>
           <input type="text" name="dia2" id="dia2" onblur="funcionOnBlur(this.value)">
         </div>
 
-        <div class="contenedorDia4"> <label for="">Dia 4</label>
+        <div class="contenedorDia4 text-center"> 
+          <label for=""><b>Dia 4</b></label>
           <input type="text" name="dia3" id="dia3" onblur="funcionOnBlur(this.value)">
         </div>
       </div>
@@ -130,7 +139,8 @@ if (!$authController->isUserAuthenticated()) {
           id="botonFormulario">Formulario</button>
       </div>
     </div>
-
+  </div>
+  </div>
   </div>
 
 
@@ -358,12 +368,11 @@ if (!$authController->isUserAuthenticated()) {
       </div>
     </div>
   </div>
-
+  <?php
+    include("../views/footer.php");
+  ?>
   <script>
-    var myModal = new bootstrap.Modal(document.getElementById('modal1'), {
-      backdrop: 'static'
-    });
-
+    var myModal = new bootstrap.Modal(document.getElementById('modal1'), {backdrop: 'static'});
   </script>
   <script src="../js/chooseDays.js"></script>
   <script src="../js/formularioChooseDays.js"></script>
@@ -371,7 +380,4 @@ if (!$authController->isUserAuthenticated()) {
 </body>
 
 </html>
-<?php
 
-
-?>

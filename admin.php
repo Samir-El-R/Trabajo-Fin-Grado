@@ -65,7 +65,7 @@ if ($authController->isUserAuthenticated()) {
             break;
         case "director":
             // Mostrar la página de director
-            header('Location: views/director.php');
+            header('Location: director.php');
             break;
         default:
 

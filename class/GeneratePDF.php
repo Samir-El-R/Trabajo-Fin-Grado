@@ -5,17 +5,6 @@
 require_once('libraries/fpdf185/fpdf.php');
 require_once('libraries/FPDI-2.3.7/src/autoload.php');
 
-
-
-
-
-
-
-
-
-
-
-
 use setasign\Fpdi\Fpdi;
 
 
@@ -26,13 +15,11 @@ class FormFiller
 
     public function __construct()
     {
-
-
     }
 
-    public function fillForm($data,$correoProfesor)
+    public function fillForm($data, $correoProfesor)
     {
-        
+
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
             if ($this->data['fecha'][$i] == "") {
@@ -89,7 +76,7 @@ class FormFiller
                 $pdf->SetFont('Arial', 'B', 34);
                 $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
             }
- 
+
             // Fecha solicitada para el permiso
             $pdf->SetFont('Arial', 'B', 9);
             $pdf->SetXY(113, 116);
@@ -113,16 +100,11 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $pdf->Output('pdfDiasLibres/DiasLibres_'.$correoProfesor. $i . '.pdf', 'F');
-
-            
-
-            
+            $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . $i . '.pdf', 'F');
         }
-
-
     }
-    public function savePDF($correoProfesor){
+    public function savePDF($correoProfesor)
+    {
         $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
         $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
 
@@ -132,34 +114,32 @@ class FormFiller
         }
 
         $archivos = array(); // Array para almacenar los nombres de los archivos
-        
+
         // Recorrer el directorio y almacenar los archivos en el array
         if ($handle = opendir($directorio)) {
 
 
-            
+
             while (false !== ($archivo = readdir($handle))) {
 
                 if ($archivo != "." && $archivo != "..") {
                     // Filtrar archivos por nombre de usuario
                     if (strpos($archivo, $nombreUsuario) !== false) {
                         $archivos[] = $archivo;
-
                     }
                 }
             }
             closedir($handle);
-
         }
-        
+
         // Comprobar si se encontraron archivos
         if (!empty($archivos)) {
             // Nombre del archivo ZIP
             $nombreZip = 'DiasLibres.zip';
-        
+
             // Crear objeto ZipArchive
             $zip = new ZipArchive();
-        
+
             // Crear archivo ZIP
             if ($zip->open($nombreZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
                 // Agregar los archivos al archivo ZIP
@@ -168,19 +148,19 @@ class FormFiller
                     $nombreArchivoZip = basename($archivo); // Obtener el nombre del archivo sin la ruta
                     $zip->addFile($rutaArchivo, $nombreArchivoZip); // Especificar el nombre interno del archivo
                 }
-        
+
                 // Cerrar el archivo ZIP
                 $zip->close();
-        
+
                 // Descargar el archivo ZIP
                 header('Content-Type: application/zip');
                 header('Content-Disposition: attachment; filename="' . $nombreZip . '"');
                 header('Content-Length: ' . filesize($nombreZip));
                 readfile($nombreZip);
-        
+
                 // Eliminar el archivo ZIP después de la descarga
                 unlink($nombreZip);
-        
+
                 // Reiniciar la página usando JavaScript
 
             } else {
@@ -189,5 +169,43 @@ class FormFiller
         } else {
             echo '<script>console.log("No hay archivos en ese directorio para el usuario especificado.");</script>';
         }
-} 
+    }
+
+    public function chengePDF($motivo = "",$myPath)
+    {
+        
+
+
+            $pdf = new Fpdi();
+            $pdf->AddPage();
+            $pdf->setSourceFile($myPath);
+            $tplIdx = $pdf->importPage(1);
+            $pdf->useTemplate($tplIdx, 0, 0);
+        
+
+            $pdf->AddPage();
+            $pdf->setSourceFile($myPath);
+            $tplIdx = $pdf->importPage(2);
+            $pdf->useTemplate($tplIdx, 0, 0);
+            $pdf->SetFont('Arial', '', 9);
+
+            if ($motivo == "") {
+                $pdf->SetXY(25, 32.3);
+                $pdf->SetFont('Arial', 'B', 18);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+            } else {
+                $pdf->SetXY(42.3, 32.3);
+                $pdf->SetFont('Arial', 'B', 18);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+            }
+
+            $pdf->AddPage();
+            $pdf->setSourceFile($myPath);
+            $tplIdx = $pdf->importPage(3);
+            $pdf->useTemplate($tplIdx, 0, 0);
+
+            // Guardar el archivo PDF rellenado
+         
+            $pdf->Output($myPath, 'F');
+    }
 }

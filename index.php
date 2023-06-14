@@ -121,7 +121,7 @@ if (isset($_POST['generarPDF'])) {
   
     );
     
-    $chooseDayController = new ChooseDayController($db);
+   
     $user = $authController->getCurrentUser();
 
     $formFiller->fillForm($data,$user['correo']);
@@ -148,7 +148,7 @@ if ($authController->isUserAuthenticated()) {
             break;
         case "director":
             // Mostrar la página de director
-            header('Location: views/director.php');
+            header('Location: director.php');
             break;
         default:
 

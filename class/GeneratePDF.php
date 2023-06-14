@@ -1,11 +1,18 @@
 <?php
+
 // Incluir las librerías FPDF y FPDI
 
 require_once('libraries/fpdf185/fpdf.php');
 require_once('libraries/FPDI-2.3.7/src/autoload.php');
 
 
-$authController = new AuthController($db);
+
+
+
+
+
+
+
 
 
 
@@ -23,8 +30,9 @@ class FormFiller
 
     }
 
-    public function fillForm($data)
+    public function fillForm($data,$correoProfesor)
     {
+        
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
             if ($this->data['fecha'][$i] == "") {
@@ -105,7 +113,7 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $pdf->Output('pdfDiasLibres/DiasLibres_' . $this->data['apellido1'] . '_' . $this->data['nombre'] . $i . '.pdf', 'F');
+            $pdf->Output('pdfDiasLibres/DiasLibres_'.$correoProfesor. $i . '.pdf', 'F');
 
             
 
@@ -114,9 +122,9 @@ class FormFiller
 
 
     }
-    public function savePDF(){
+    public function savePDF($correoProfesor){
         $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
-        $nombreUsuario = $this->data['apellido1']."_".$this->data['nombre']; // Nombre de usuario para filtrar los archivos
+        $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
 
         if (!is_readable($directorio)) {
             echo '<script>console.log("No se puede leer el directorio. Verifica los permisos de archivo y directorio.");</script>';
@@ -183,4 +191,3 @@ class FormFiller
         }
 } 
 }
-

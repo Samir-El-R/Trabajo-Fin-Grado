@@ -3,8 +3,6 @@ class ErrorManager
 {
 
 
-
-
   public function __construct()
   {
   }

@@ -20,6 +20,7 @@ session_start();
 $profileController = new ProfileController($db);
 $authController = new AuthController($db);
 $AppController = new AppController($db);
+$chooseDayController = new ChooseDayController($db);
 $formFiller = new FormFiller();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && $_POST['login'] === 'true') {
@@ -119,12 +120,20 @@ if (isset($_POST['generarPDF'])) {
   
   
     );
+    
+    $chooseDayController = new ChooseDayController($db);
+    $user = $authController->getCurrentUser();
 
-    $formFiller->fillForm($data);
-    $formFiller->savePDF();
-    //header('Location: views/chooseDays.php');
+    $formFiller->fillForm($data,$user['correo']);
+    $chooseDayController->insertarSolicitudes("test@test",$data);
+    $formFiller->savePDF($user['correo']);
 
-  }
+
+
+
+
+  
+  } 
 
 
 // Verificar si el usuario está autenticado

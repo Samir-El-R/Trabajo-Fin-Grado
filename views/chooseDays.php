@@ -148,7 +148,7 @@ if (!$authController->isUserAuthenticated()) {
           </button>
         </div>
         <div class="modal-body">
-          <form action="../index.php" method="POST">
+          <form action="../index.php" method="POST" id="miFormulario">
             <div class="mb-3">
               <h4 class="modal-title" id="modal1Label">Datos del interesado</h4>
               <p>los marcados con un * no es necesario rellenarlos</p>
@@ -159,12 +159,14 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Primero</span>
                 <input type="text" aria-label="First name" class="form-control" id="apellidoUno" name="apellidoUno"
-                  value="<?php echo $user['apellido1']; ?>" onkeyup="this.value=NumText(this.value)" required>
-                <span class="input-group-text">Segundo</span>
+                  value="<?php echo $user['apellido1']; ?>" onkeyup="this.value=NumText(this.value)" onblur="validarCampo('apellidoUno')" required>
+                  
+                <span class="input-group-text">Segundo</span> 
                 <input type="text" aria-label="Last name" class="form-control" id="apellidoDos" name="apellidoDos"
-                  value="<?php echo $user['apellido2']; ?>" onkeyup="this.value=NumText(this.value)" required>
+                  value="<?php echo $user['apellido2']; ?>" onkeyup="this.value=NumText(this.value)" onblur="validarCampo('apellidoDos')" required>
               </div>
             </div>
+            
 
             <!-- Nombre -->
             <div class="mb-3">
@@ -172,10 +174,10 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Nombre</span>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $user['nombre']; ?>"
-                  onkeyup="this.value=NumText(this.value)" required>
+                  onkeyup="this.value=NumText(this.value)" onblur="validarCampo('nombre')" required>
                 <span class="input-group-text">DNI</span>
                 <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $user['DNI']; ?>"
-                  required>
+                onblur="validarCampo('dni')" required>
               </div>
             </div>
             <!-- Direccion -->
@@ -184,56 +186,56 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Tipo de Vía</span>
                 <input type="text" aria-label="First name" class="form-control" id="tipoDeVia" name="tipoDeVia"
-                  value="<?php echo $user['tipo_via']; ?>" required>
+                  value="<?php echo $user['tipo_via']; ?>" onblur="validarCampo('tipoDeVia')" required>
                 <span class="input-group-text">Nombre Vía</span>
                 <input type="text" aria-label="Last name" class="form-control" id="nombreDeVia" name="nombreDeVia"
-                  value="<?php echo $user['nombre_via']; ?>" required>
+                  value="<?php echo $user['nombre_via']; ?>" onblur="validarCampo('nombreDeVia')" required>
               </div>
               <div class="input-group">
                 <span class="input-group-text">Nº</span>
                 <input type="text" aria-label="Last name" class="form-control" id="numero" name="numero"
-                  value="<?php echo $user['numero_via']; ?>" onkeyup="this.value=Numeros(this.value)" required>
+                  value="<?php echo $user['numero_via']; ?>" onkeyup="this.value=Numeros(this.value)" onblur="validarCampo('numero')" required>
               </div>
               <div class="input-group">
                 <span class="input-group-text">Esc.</span>
                 <input type="text" aria-label="Last name" class="form-control" id="escalera" name="escalera"
-                  value="<?php echo $user['escalera']; ?>" required>
+                  value="<?php echo $user['escalera']; ?>" onblur="validarCampo('escalera')" required  onkeyup="this.value=Numeros(this.value)">
                 <span class="input-group-text">Piso</span>
                 <input type="text" aria-label="Last name" class="form-control" id="piso" name="piso"
-                  value="<?php echo $user['portal']; ?>" required>
+                  value="<?php echo $user['portal']; ?>" onblur="validarCampo('piso')" required  onkeyup="this.value=Numeros(this.value)">
                 <span class="input-group-text">Puerta</span>
                 <input type="text" aria-label="Last name" class="form-control" id="puerta" name="puerta"
-                  value="<?php echo $user['puerta']; ?>" required>
+                  value="<?php echo $user['puerta']; ?>" onblur="validarCampo('puerta')" required>
                 <span class="input-group-text">Cp</span>
                 <input type="text" aria-label="Last name" class="form-control" id="codigoPostal" name="codigoPostal"
-                  value="<?php echo $user['CP']; ?>" onkeyup="this.value=Numeros(this.value)" required>
+                  value="<?php echo $user['CP']; ?>" onkeyup="this.value=Numeros(this.value)" onblur="validarCampo('codigoPostal')" required>
 
               </div>
               <div class="input-group">
                 <span class="input-group-text">Provincia</span>
                 <input type="text" aria-label="Last name" class="form-control" id="provincia" name="provincia"
-                  value="<?php echo $user['provincia']; ?>" onkeyup="this.value=NumText(this.value)" required>
+                  value="<?php echo $user['provincia']; ?>" onkeyup="this.value=NumText(this.value)" onblur="validarCampo('provincia')" required>
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Localidad</span>
                 <input type="text" aria-label="Last name" class="form-control" id="localidad" name="localidad"
-                  value="<?php echo $user['localidad']; ?>" onkeyup="this.value=NumText(this.value)" required>
+                  value="<?php echo $user['localidad']; ?>" onkeyup="this.value=NumText(this.value)" onblur="validarCampo('localidad')"required>
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Tlf. Fijo* </span>
                 <input type="text" aria-label="Last name" class="form-control" value="<?php echo $user['fijo']; ?>"
-                  onkeyup="this.value=Numeros(this.value)" id="telefonoFijo" name="telefonoFijo">
+                  onkeyup="this.value=Numeros(this.value)" id="telefonoFijo" name="telefonoFijo" onblur="validarCampo('telefonoFijo')">
               </div>
             </div>
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Tlf. móvil*</span>
                 <input type="text" aria-label="Last name" class="form-control" value="<?php echo $user['movil']; ?>"
-                  onkeyup="this.value=Numeros(this.value)" id="telefonoMovil" name="telefonoMovil">
+                  onkeyup="this.value=Numeros(this.value)" id="telefonoMovil" name="telefonoMovil" onblur="validarCampo('telefonoMovil')">
               </div>
             </div>
 
@@ -242,7 +244,7 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Correo Electrónico</span>
                 <input type="text" aria-label="Last name" class="form-control" id="correoElectronico"
-                  name="correoElectronico" value="<?php echo $user['correo']; ?>">
+                  name="correoElectronico" value="<?php echo $user['correo']; ?>" onblur="validarCampo('correoElectronico')">
               </div>
             </div>
             <!-- Dias y fechas -->
@@ -293,9 +295,9 @@ if (!$authController->isUserAuthenticated()) {
             <div class="mb-3">
               <h5 class="modal-title" id="modal1Label">Firma</h5>
               <div class="modal-footer justify-content-center">
-                <button class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal">Firma</button>
+                <button type="button" class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal">Firma</button>
               </div>
-            </div>
+            </div> 
             <div class="mb-3">
               <input type="text" id="imagenOculta" name="imagen" required hidden>
             </div>
@@ -366,6 +368,7 @@ if (!$authController->isUserAuthenticated()) {
 
   </script>
   <script src="../js/chooseDays.js"></script>
+  <script src="../js/formularioChooseDays.js"></script>
   <script src="../firmar/firma.js"></script>
 </body>
 

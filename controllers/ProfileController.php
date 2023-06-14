@@ -17,7 +17,6 @@ class ProfileController
     }
 
 
-
     private function verifyOldPassword($userId, $oldPassword)
     {
         $query = "SELECT * FROM profesores WHERE id = $userId";

@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("botonFormulario").style.display = "none";
       }
 
-      console.log(fechasEscogidas);
+
 
     }
   });
@@ -238,32 +238,5 @@ for (let i = 0; i < 4; i++) {
     }
   }
 
-//Onblur 
-function funcionOnBlur() {
 
-  let fechas = [];
 
-  for (let i = 0; i < 4 ; i++) {
-  if (document.getElementById('dia' + i).value != "") {
-    fechas.push(document.getElementById('dia' + i).value);
-  }
-  }
-  for (let i = 0; i < fechasEscogidas.length; i++) {
-    if (fechasEscogidas[i] != fechas[i] ) {
-      fechasEscogidas.splice([i], 1);
-      
-    }
-    
-  }
-  borrarFormularioFechas();
-  actualizarFormularioFechas(fechasEscogidas);
-  formulario(fechasEscogidas);
-}
-// Tercer modal ,aceptar
-document.getElementById("aceptarTercerModal").addEventListener('click', function () {
-
-  window.location.reload();
-  
-})
-
-  

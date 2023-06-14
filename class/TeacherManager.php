@@ -74,7 +74,7 @@ class TeacherManager
             }
 
             if ($teachers) {
-                
+
                 return $teachers;
             } else {
                 throw new Exception("Error al actualizar el profesor");
@@ -93,7 +93,7 @@ class TeacherManager
                 $teachers[] = $fila;
             }
             if ($teachers) {
-                
+
                 return $teachers;
             } else {
                 throw new Exception("Error al actualizar el profesor");
@@ -103,24 +103,29 @@ class TeacherManager
             echo "Error: " . $e->getMessage();
         }
     }
-    public function getAllTeachersInCsv($fileName){
-        $query = "SELECT * FROM profesores";
+    public function getAllTeachersInCsv($fileName)
+    {
 
-         $this->db->consulta($query);
-        $csvData ="";
+
+
+        $query = "SELECT nombre, correo	, dedicacion , turno FROM profesores";
+
+        $this->db->consulta($query);
         if ($this->db->numero_filas() > 0) {
 
-             // Encabezados del archivo CSV
-             $headers = array_keys($this->db->extraer_registro());
-             $csvData .= implode(',', $headers) . "\n";
+            $modo = file_exists($fileName) ? 'a+' : 'w';
+            $archivo = fopen($fileName, $modo);
 
-            // Datos de los registros
+            // Encabezados del archivo CSV
+            $cabecera = array("nombre", "correo", "dedicacion", "turno");
+            fputcsv($archivo, $cabecera);
+
             while ($fila = $this->db->extraer_registro()) {
-                $csvData .= implode(',', $fila) . "\n";
+                fputcsv($archivo, $fila);
             }
+            fclose($archivo);
         }
          // Guardar el contenido en el archivo CSV
-        file_put_contents($fileName, $csvData);
         $authController = new AuthController($this->db);
         $user = $authController->getCurrentUser();
         $senderMail = new Mailer();
@@ -128,6 +133,7 @@ class TeacherManager
         unlink($fileName);
     }
 }
+// }
 
 // // Ejemplo de uso de la clase
 // $dbConnection = mysqli_connect('localhost', 'profesor', 'contraseña', 'basedatos'); // Configurar la conexión a la base de datos

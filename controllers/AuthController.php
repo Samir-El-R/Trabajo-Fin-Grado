@@ -15,11 +15,11 @@ class AuthController
         require_once 'views/login.php';
     }
 
-    public function showLoginError()
-    {
-        // Mostrar mensaje de error en el inicio de sesión
-        require_once 'views/login_error.php';
-    }
+    // public function showLoginError()
+    // {
+    //     // Mostrar mensaje de error en el inicio de sesión
+    //     require_once 'views/login_error.php';
+    // }
 
 
     public function authenticateUser($email, $password)
@@ -66,8 +66,9 @@ class AuthController
 
             endswitch;
         } else {
-            // Autenticación fallida, mostrar mensaje de error
-            $this->showLoginError();
+            require_once 'class/ErrorManager.php'; 
+            $ErrorManager = new ErrorManager();
+            $ErrorManager->showNotification("<b><u>Usuario No Encontrado:</u> revisa tus credenciales</b> ","danger");
         }
     }
 

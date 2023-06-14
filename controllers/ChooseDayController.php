@@ -31,20 +31,19 @@ class ChooseDayController
             $archivos = $this->leerDirectorios($correoProfesor);
             for ($i = 0; $i < count($data['fecha']); $i++) {
                 $fecha = $data["fecha"][$i];
-                $pdf =$rutaDirectorio.$archivos[$i];
+                $pdf = $rutaDirectorio . $archivos[$i];
                 $nombreArchivo = basename($pdf); // Obtiene el nombre del archivo sin la ruta
-                // Lee el contenido del archivo PDF
-                $contenidoPDF = file_get_contents($pdf);
-                $contenidoPDFEscapado = mysqli_real_escape_string($this->db->descriptor, $contenidoPDF);
-
+                
                 $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES (?, ?, 'Pendiente', ?)";
-
+                
                 $stmt = $this->db->descriptor->prepare($insertBBDD);
-                $stmt->bind_param("iss", $idTabla1, $fecha, $contenidoPDF);
+                $stmt->bind_param("iss", $idTabla1, $fecha, $pdf);
                 $stmt->execute();
                 
                 // Ejecutar la consulta preparada
                 $resultado = $stmt->get_result();
+                
+                $stmt->close();
             }
         }
     }

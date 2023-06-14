@@ -28,11 +28,11 @@
   <!-- <embed src="../assets/plantilla.pdf" type="application/pdf" width="100%" height="600px"> -->
   <div class="vacaciones-seccion">
     <div class="vacaciones-tarjetas">
-      <?php $teachers = $teacherManagement->getAllTeachers();
+      <?php $teachers = $teacherManagement->getAllRequest();
       foreach ($teachers as $teacher) { ?>
-        <div class="vacaciones-tarjeta" onclick="mostrarInformacionUsuario('<?php echo $teacher['nombre']; ?>', '<?php echo $teacher['CP']; ?>', '<?php echo $teacher['roles']; ?>', '<?php echo $teacher['contrasena']; ?>')">
+        <div class="vacaciones-tarjeta" onclick="mostrarInformacionUsuario('<?php echo $teacher['nombre']; ?>', '<?php echo $teacher['fechaEscogida']; ?>', '<?php echo $teacher['estado']; ?>', '<?php echo $teacher['solicitud']; ?>')">
           <h3><?php echo $teacher['nombre']; ?></h3>
-          <p>Fecha de vacaciones: <?php echo $teacher['CP']; ?></p>
+          <p>Fecha de vacaciones: <?php echo $teacher['fechaEscogida']; ?></p>
         </div>
       <?php } ?>
     </div>
@@ -40,10 +40,10 @@
       <h2>Información del usuario</h2>
       <p><strong>Nombre:</strong> <span id="usuario-nombre"></span></p>
       <p><strong>Fecha de vacaciones:</strong> <span id="usuario-fecha"></span></p>
-      <p><strong>Descripción:</strong> <span id="usuario-descripcion"></span></p>
-      <p><strong>Motivo:</strong> <span id="usuario-motivo"></span></p>
-      <button class="vacaciones-btn-aceptar">Aceptar</button>
-      <button class="vacaciones-btn-rechazar">Rechazar</button>
+      <p><strong>Estado:</strong> <span id="usuario-descripcion"></span></p>
+      <p><strong>Solicitud:</strong> <span id="usuario-motivo"></span></p>
+      <button class="vacaciones-btn-aceptar" name="aceptar">Aceptar</button>
+      <button class="vacaciones-btn-rechazar" name="rechazar">Rechazar</button>
     </div>
   </div>
 

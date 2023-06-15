@@ -120,7 +120,7 @@ footer {
 }
 
 
-/* Segundo modal */
+/* Primer modal */
 #generarPDF{
   display: none;
 }
@@ -269,4 +269,20 @@ margin-top: 1%;
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
+}
+
+/* Segundo Modal de Firma */
+
+
+#signature-container {
+  width: 400px;
+  height: 200px;
+  border: 1px solid #000;
+}
+
+canvas {
+  cursor: crosshair;
+}
+#firma{
+  display: none;
 }

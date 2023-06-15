@@ -101,7 +101,9 @@ class FormFiller
 
             // Guardar el archivo PDF rellenado
             $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . $i . '.pdf', 'F');
+            
         }
+        $this->savePDF($correoProfesor);
     }
     public function savePDF($correoProfesor)
     {

@@ -1,13 +1,52 @@
 //evitar que se pueda enviar el form con enter
 document.addEventListener('DOMContentLoaded', function () {
-    var formulario = document.getElementById('miFormulario');
-
+    let formulario = document.getElementById('miFormulario');
+  
     formulario.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Evitar el envío del formulario
-        }
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Evitar el envío del formulario
+      }
     });
-});
+  
+    formulario.addEventListener('input', function () {
+        validarInputs();
+      });
+      validarInputs();
+  });
+
+    
+  function validarInputs() {
+    var inputs = document.querySelectorAll('input[type="text"]:not(#imagenOculta):not(#dia0):not(#dia1):not(#dia2):not(#dia3):not(#fecha0):not(#fecha1):not(#fecha2):not(#fecha3):not(#telefonoFijo):not(#telefonoMovil):not(#correoElectronico)');
+    var fechaInputs = document.querySelectorAll('input[id^="fecha"]');
+    var imagenOculta = document.getElementById('imagenOculta');
+    var botonFirma = document.getElementById('firma');
+
+    var camposValidos = Array.from(inputs).every(function(input) {
+        return validarCampo(input.id);
+    });
+
+    var camposVacios = Array.from(inputs).some(function(input) {
+        return input.value.trim() === '';
+    });
+
+    var camposFechaLlenos = Array.from(fechaInputs).some(function(input) {
+        return input.value.trim() !== '';
+    });
+
+    var firmaVacia = imagenOculta.value.trim() === '';
+
+    if (!camposVacios && (camposFechaLlenos || !firmaVacia) && camposValidos) {
+        botonFirma.style.display = 'inherit';
+    } else {
+        botonFirma.style.display = 'none';
+    }
+}
+
+  //Validar nada mas cargar la pagina
+//   validarInputs(); 
+
+
+
 //Onblur
 function funcionOnBlur() {
 
@@ -35,38 +74,49 @@ document.getElementById("aceptarTercerModal").addEventListener('click', function
     window.location.reload();
 
 })
+
+
 //Validar Formulario
 
 function validarCampo(campo) {
-    var valor = document.getElementById(campo);
+   
+     var valor = document.getElementById(campo);
+
 
     switch (campo) {
         case 'nombre':
         case 'apellidoUno':
         case 'apellidoDos':
             if (valor.value.trim() === '') {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'dni':
             if (!validarDNI_NIE(valor.value)) {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'nombreDeVia':
             if (valor.value.trim() === '') {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'escalera':
@@ -74,62 +124,76 @@ function validarCampo(campo) {
         case 'puerta':
         case 'tipoDeVia':
             if (valor.value === '') {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'codigoPostal':
             if (isNaN(valor.value) || valor.value.trim() === '' || valor.value.length !== 5) {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'provincia':
             if (valor.value.trim() === '') {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'localidad':
             if (valor.value.trim() === '') {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                return true;
             }
             break;
         case 'telefonoFijo':
         case 'telefonoMovil':
             if (!validarNumeroTelefono(valor.value)) {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                // return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                // return true;
             }
             break;
         case 'correoElectronico':
             if (!validarCorreoElectronico(valor.value)) {
-                valor.classList.remove('is-valid')
+                valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');
+                // return false;
             } else {
-                valor.classList.remove('is-invalid')
+                valor.classList.remove('is-invalid');
                 valor.classList.add('is-valid');
+                // return true;
             }
             break;
         default:
+            return true;
             break;
     }
+
 }
 // Validar DNI/NIE
 function validarDNI_NIE(valor) {

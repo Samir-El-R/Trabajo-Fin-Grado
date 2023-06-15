@@ -28,28 +28,23 @@ class ChooseDayController
         if ($fila) {
             $idTabla1 = $fila['id'];
 
-            $archivos = $this->leerDirectorios($correoProfesor);
+            $query = "SELECT * FROM diasseleccionados WHERE id = $idTabla1";
+            $this->db->consulta($query);
+
+            if ($registro = $this->db->extraer_registro() <= 4) {
+                $archivos = $this->leerDirectorios($correoProfesor);
+            
             foreach ($data['fecha'] as $fecha) {
                 $i = 0;
-                // $fecha = $data["fecha"][$i];
                 if ($fecha != null && $fecha != '') {
-
                     $pdf = $rutaDirectorio . $archivos[$i];
                     $i++;
-                    // $nombreArchivo = basename($pdf); // Obtiene el nombre del archivo sin la ruta
 
                     $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES ('$idTabla1', '$fecha', 'Pendiente', '$pdf')";
                     $this->db->consulta($insertBBDD);
 
-                    // $stmt = $this->db->descriptor->prepare($insertBBDD);
-                    // $stmt->bind_param("iss", $idTabla1, $fecha, $pdf);
-                    // $stmt->execute();
-
-                    // // Ejecutar la consulta preparada
-                    // $resultado = $stmt->get_result();
-
-                    // $stmt->close();
                 }
+            }
             }
 
         }
@@ -84,4 +79,6 @@ class ChooseDayController
 
         }
     }
+
+
 }

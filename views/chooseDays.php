@@ -6,6 +6,8 @@ require_once '../config/connection.php';
 
 $authController = new AuthController($db);
 $user = $authController->getCurrentUser();
+$idProfesor = $user['id'];
+echo'<input type="hidden" name="userId" id="userId" value="'.$idProfesor.'">';
 if (!$authController->isUserAuthenticated()) {
   header('Location: ../index.php');
 }
@@ -20,7 +22,6 @@ if (!$authController->isUserAuthenticated()) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IES GM Jovellanos</title>
   <link href="../libraries/bootstrap/css/bootstrap.min.css " rel="stylesheet" />
-  <link href="../firmar/styles.css " rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <link rel="stylesheet" href="../css/chooseDaysStyle.css" />
   <script src="../libraries/fullcalendar-6.1.4/dist/index.global.js"></script>
@@ -92,6 +93,7 @@ if (!$authController->isUserAuthenticated()) {
   </div> -->
   <!-- Contenedor de error -->
   <div class="contenedor" id="error">
+    
     <div class="new-box" id="new-box">
       <img src="http://100dayscss.com/codepen/alert.png">
       <h2>Oh vaya</h2>
@@ -301,9 +303,9 @@ if (!$authController->isUserAuthenticated()) {
             </div>
             <!-- Firma -->
             <div class="mb-3">
-              <h5 class="modal-title" id="modal1Label">Firma</h5>
+              <h5 class="modal-title" >Firma</h5>
               <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal">Firma</button>
+                <button type="button" class="btn btn-primary" data-bs-target="#modal2" id="firma" data-bs-toggle="modal">Firma</button>
               </div>
             </div> 
             <div class="mb-3">
@@ -313,9 +315,9 @@ if (!$authController->isUserAuthenticated()) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <input type="submit" class="btn btn-secondary" name="generarPDF" id="generarPDF" data-bs-target="#modal3" data-bs-toggle="modal">
+          <input type="submit" class="btn btn-secondary" name="generarPDF" id="generarPDF" >
         </div>
-
+        <!-- data-bs-target="#modal3" data-bs-toggle="modal" -->
         </form>
 
       </div>
@@ -330,6 +332,8 @@ if (!$authController->isUserAuthenticated()) {
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Firma Del Interesado</h1>
+          <button type="button" class="close"data-bs-target="#modal1" id="cerrarFirma" data-bs-toggle="modal">
+            <span aria-hidden="true">&times;</span>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -337,6 +341,11 @@ if (!$authController->isUserAuthenticated()) {
             <div id="signature-container">
               <canvas id="signature-canvas"></canvas>
             </div>
+          </div>
+          <div class="mb-3">
+
+            <button class="btn btn-secondary" id="limpiarFirma">Limpiar Firma</button>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -376,7 +385,7 @@ if (!$authController->isUserAuthenticated()) {
   </script>
   <script src="../js/chooseDays.js"></script>
   <script src="../js/formularioChooseDays.js"></script>
-  <script src="../firmar/firma.js"></script>
+  <script src="../js/firma.js"></script>
 </body>
 
 </html>

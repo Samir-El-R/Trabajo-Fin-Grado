@@ -58,7 +58,8 @@ if (!$authController->isUserAuthenticated()) {
   <?php
   $nameView = "Perfil";
   $indexPage = "../index.php";
-  include("../views/header.php")
+  include("../views/header.php");
+  $nombre = explode(" ",$user['nombre']);
     ?>
 
   <div class="d-flex justify-content-center ">
@@ -161,7 +162,7 @@ if (!$authController->isUserAuthenticated()) {
           <form action="../index.php" method="POST" id="miFormulario">
             <div class="mb-3">
               <h4 class="modal-title" id="modal1Label">Datos del interesado</h4>
-              <p>los marcados con un * no es necesario rellenarlos</p>
+              <p>Los marcados con un * no es necesario rellenarlos</p>
             </div>
             <!-- Apellidos -->
             <div class="mb-3">
@@ -183,7 +184,7 @@ if (!$authController->isUserAuthenticated()) {
               <label for="formGroupExampleInput2" class="form-label">Nombre</label>
               <div class="input-group">
                 <span class="input-group-text">Nombre</span>
-                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $user['nombre']; ?>"
+                <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombre[0]; ?>"
                   onkeyup="this.value=NumText(this.value)" onblur="validarCampo('nombre')" required>
                 <span class="input-group-text">DNI</span>
                 <input type="text" class="form-control" id="dni" name="dni" value="<?php echo $user['DNI']; ?>"
@@ -254,7 +255,7 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Correo Electrónico</span>
                 <input type="text" aria-label="Last name" class="form-control" id="correoElectronico"
-                  name="correoElectronico" value="<?php echo $user['correo']; ?>" onblur="validarCampo('correoElectronico')">
+                  name="correoElectronico" readonly value="<?php echo $user['correo']; ?>" onblur="validarCampo('correoElectronico')">
               </div>
             </div>
             <!-- Dias y fechas -->

@@ -60,9 +60,9 @@ $user = $authController->getCurrentUser();
   // 
   // $sql = "SELECT * FROM profesores";
   // $teachers = $teacherManagement->getTeacher($sql);
-  
+  $nombre = explode(" ",$user['nombre']);
 
-  ?>
+    ?>
 
 
 
@@ -75,7 +75,7 @@ $user = $authController->getCurrentUser();
       <form class="row g-3 mt-3 mb-3 ">
         <div class="col-md-6">
           <label for="Nombre" class="form-label">Nombre:</label>
-          <input type="text" class="form-control" id="nombre" readonly value="<?php echo $user['nombre']; ?>" onkeyup="this.value=NumText(this.value)">
+          <input type="text" class="form-control" id="nombre" readonly value="<?php echo $nombre[0]; ?>" onkeyup="this.value=NumText(this.value)">
         </div>
         <div class="col-md-6">
           <label for="correo" class="form-label">Correo electrónico:</label>

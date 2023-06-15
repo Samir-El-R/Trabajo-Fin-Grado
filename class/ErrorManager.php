@@ -20,8 +20,7 @@ class ErrorManager
       </div>
       <div class="toast-body text-'.$tipo.'">' .
       $message
-      .
-      '
+      .'
       </div>
     </div>
   </div>

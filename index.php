@@ -51,6 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cambiar_contrasena'])
     $profileController->changePassword($user['id'], $oldPassword, $newPassword);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
+
+    $user = $authController->getCurrentUser();
+
+    
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
+    $Apellido1 = $_POST["Apellido1"];
+    $Apellido2 = $_POST["Apellido2"];
+    $fijo = $_POST["fijo"];
+    $movil = $_POST["movil"];
+    $DNI = $_POST["DNI"];
     $tipo_via = $_POST["tipo_via"];
     $nombre_via = $_POST["nombre_via"];
     $numero_via = $_POST["numero_via"];
@@ -60,19 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
     $provincia = $_POST["provincia"];
     $localidad = $_POST["localidad"];
     $CP=$_POST["CP"];
-    $user = $authController->getCurrentUser();
-
-    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP);
-}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
-    $Apellido1 = $_POST["Apellido1"];
-    $Apellido2 = $_POST["Apellido2"];
-    $fijo = $_POST["fijo"];
-    $movil = $_POST["movil"];
-    $DNI = $_POST["DNI"];
+    
     $user = $authController->getCurrentUser();
 
     $profileController->mandar_info($user['id'],$user['correo'],$user['contrasena'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
+    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP);
 }
 
 if (isset($_POST['generarPDF'])) {

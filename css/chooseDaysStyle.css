@@ -270,7 +270,10 @@ margin-top: 1%;
   background-color: #5cb85c;
   color: white;
 }
-
+/* Formulario de dias  */
+#seleccionDeDias{
+  /* filter: blur(4px); */
+}
 /* Segundo Modal de Firma */
 
 

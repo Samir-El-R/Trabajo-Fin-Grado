@@ -4,6 +4,9 @@
 
 require_once('libraries/fpdf185/fpdf.php');
 require_once('libraries/FPDI-2.3.7/src/autoload.php');
+require_once('controllers/ChooseDayController.php');
+
+
 
 use setasign\Fpdi\Fpdi;
 
@@ -19,7 +22,6 @@ class FormFiller
 
     public function fillForm($data, $correoProfesor)
     {
-
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
             if ($this->data['fecha'][$i] == "") {
@@ -100,11 +102,22 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . $i . '.pdf', 'F');
+            $resultado = $this->leerDirectorios($correoProfesor);
+            // foreach ($resultado as $key) {
+                
+            //     if ($key == $i) {
+            //     $i++;
+            //     }
+
+            // }
+
+            $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . count($resultado) . '.pdf', 'F');
             
         }
         $this->savePDF($correoProfesor);
     }
+
+
     public function savePDF($correoProfesor)
     {
         $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
@@ -210,4 +223,35 @@ class FormFiller
          
             $pdf->Output($myPath, 'F');
     }
+    public function leerDirectorios($correoProfesor)
+    {
+        $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
+        $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
+
+        if (!is_readable($directorio)) {
+            exit;
+        }
+
+        $archivos = array(); // Array para almacenar los nombres de los archivos
+
+        // Recorrer el directorio y almacenar los archivos en el array
+        if ($handle = opendir($directorio)) {
+            $i = 0;
+            while (false !== ($archivo = readdir($handle))) {
+
+                if ($archivo != "." && $archivo != "..") {
+                    // Filtrar archivos por nombre de usuario
+                    if (strpos($archivo, $nombreUsuario.$i) !== false) {
+                        $archivos[] = $i;
+
+                    }
+                    $i++;
+                }
+            }
+            closedir($handle);
+            return $archivos;
+
+        }
+    }
+
 }

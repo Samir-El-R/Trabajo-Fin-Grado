@@ -1,8 +1,3 @@
-
-
-
-
-
 const MONTH_NAMES = [
   "January",
   "February",
@@ -110,6 +105,9 @@ function app() {
 //Variable global de Llas fechas escogidas
 var fechasEscogidas = [];
 document.addEventListener("DOMContentLoaded", function () {
+  //Retorna la cantidad de solicitudes que tiene en la BBDD
+  enviarDatos(document.getElementById("userId").value);
+
   const today = new Date();
   const futureDate = new Date(today.getTime() + (90 * 24 * 60 * 60 * 1000));
 
@@ -131,9 +129,14 @@ document.addEventListener("DOMContentLoaded", function () {
       end: futureDate.toISOString().slice(0, 10)
     },
 
+
     dateClick: function (info) {
       const today = new Date();
-       
+      if (registroProfesor == 4) {
+        
+      return;
+      }
+  
       if (info.date < today || info.date.getDay() === 0 || info.date.getDay() === 6) {
         return; // No hacer nada si la fecha es anterior a hoy o es sábado/domingo
       }
@@ -150,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("error").style.display = "inherit";
         }
       }
+      limitarArrayFechas(fechasEscogidas,registroProfesor,formatDate(info.dateStr));
+
       // colorear el dia seleccionado
       // if (info.dayEl.style.backgroundColor == "red") {
       //   info.dayEl.style.backgroundColor = "transparent";
@@ -169,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-
+console.log(fechasEscogidas);
     }
   });
 
@@ -178,7 +183,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   calendar.render();
 });
-
+function limitarArrayFechas(fechasEscogidas,registroProfesor,fechaSeleccionada){
+  switch (registroProfesor) {
+    case "1":
+      fechasEscogidas.splice(3);
+      break;  
+      case "2":
+        fechasEscogidas.splice(2);  
+        break;
+        case "3":
+        fechasEscogidas.splice(1);  
+      break;
+    default:
+      break;
+  }
+}
 // dar formato fecha dia/mes/año
 function formatDate(date) {
   return date.split("-").reverse().join("/");
@@ -250,45 +269,45 @@ for (let i = 0; i < 4; i++) {
 
   
     
-  document.getElementById('miFormulario').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var elemento = document.getElementById('generarPDF');
-    var valorDataBsTarget = '#modal3'; // El valor que deseas asignar
-    var valorDataBsTaoggle = 'modal'; // El valor que deseas asignar
+  // document.getElementById('miFormulario').addEventListener('submit', function(event) {
+  //   event.preventDefault();
+  //   var elemento = document.getElementById('generarPDF');
+  //   // var valorDataBsTarget = '#modal3'; // El valor que deseas asignar
+  //   // var valorDataBsTaoggle = 'modal'; // El valor que deseas asignar
 
-    // data-bs-target="#modal3" data-bs-toggle="modal"
+  //   // // data-bs-target="#modal3" data-bs-toggle="modal"
 
-    elemento.classList.add('data-bs-target');
-    elemento.setAttribute('data-bs-target', valorDataBsTarget);
+  //   // elemento.classList.add('data-bs-target');
+  //   // elemento.setAttribute('data-bs-target', valorDataBsTarget);
 
-    elemento.classList.add('data-bs-toggle');
-    elemento.setAttribute('data-bs-toggle', valorDataBsTaoggle);
+  //   // elemento.classList.add('data-bs-toggle');
+  //   // elemento.setAttribute('data-bs-toggle', valorDataBsTaoggle);
   
-    // Aquí puedes agregar la lógica adicional antes de enviar el formulario
-    // ...
-     let userId = document.getElementById("userId").value;    
-     enviarDatos(userId);
+  //   // Aquí puedes agregar la lógica adicional antes de enviar el formulario
+  //   // ...
+  //    let userId = document.getElementById("userId").value;    
+  //    enviarDatos(userId);
 
-    // let datos = enviarDatos(userId);
-    // const recordCount = getRecordCount(userId); // Obtiene la cantidad de registros del usuario
-    // console.log(recordCount);
-    //   if (recordCount > 4) {
-    //     // Mostrar un mensaje de error o tomar alguna acción si hay más de 4 registros
-    //     console.log("¡Ya se han registrado más de 4 veces!");
-    //     return;
-    //   }
+  //   // let datos = enviarDatos(userId);
+  //   // const recordCount = getRecordCount(userId); // Obtiene la cantidad de registros del usuario
+  //   // console.log(recordCount);
+  //   //   if (recordCount > 4) {
+  //   //     // Mostrar un mensaje de error o tomar alguna acción si hay más de 4 registros
+  //   //     console.log("¡Ya se han registrado más de 4 veces!");
+  //   //     return;
+  //   //   }
 
-    //   event.target.submit();
+  //   //   event.target.submit();
     
-    // Ejemplo: Mostrar un mensaje de confirmación
-    // const confirmacion = confirm('¿Estás seguro de enviar el formulario?');
+  //   // Ejemplo: Mostrar un mensaje de confirmación
+  //   // const confirmacion = confirm('¿Estás seguro de enviar el formulario?');
     
-    // if (confirmacion) {
-    //   formulario.submit();
-    // } else {
-    //   // No se hace nada si el usuario cancela
-    // }
-  });
+  //   // if (confirmacion) {
+  //   //   formulario.submit();
+  //   // } else {
+  //   //   // No se hace nada si el usuario cancela
+  //   // }
+  // });
   
   // funcion para contar registros por usuario
   
@@ -306,10 +325,14 @@ for (let i = 0; i < 4; i++) {
     // Definir la función de callback para manejar la respuesta
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        let respuesta = xhr.responseText;
-        if (respuesta) {
-          alert('no puedes enviar mas peticiones para los dias libres')
-        }
+         respuesta = xhr.responseText;
+         registroProfesor = respuesta;
+        // if (respuesta <= 4) {
+        //   alert('Puedes seguir enviando peticiones de dias libres ' + respuesta);
+        // }else{
+        //   alert('no puedes enviar mas peticiones para los dias libres ' + respuesta);
+          
+        // }
       }
     };
   

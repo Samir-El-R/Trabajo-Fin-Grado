@@ -1,25 +1,20 @@
 <?php
-
-
-
 if (isset($_POST['idProfesor'])) {
   $idProfesor = $_POST['idProfesor'];
 
   // Llamar a la función específica con el parámetro
-  miFuncion($idProfesor);
+  recogerRegistrosProfesor($idProfesor);
 }
 
 
-function miFuncion($idProfesor)
+function recogerRegistrosProfesor($idProfesor)
 {
   require_once '../config/connection.php';
 
 
-  $query = "SELECT * FROM diasseleccionados WHERE correo = '$idProfesor'";
+  $query = "SELECT * FROM diasseleccionados WHERE idProfesor = '$idProfesor'";
   $db->consulta($query);
-  if ($registro = $db->extraer_registro() <= 4) {
-  echo true;
-  } else {
-    echo false;
-  }
+  $resultado = $db->numero_filas();
+  echo $resultado;
+
 }

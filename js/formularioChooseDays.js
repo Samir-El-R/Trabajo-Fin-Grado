@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var fechaInputs = document.querySelectorAll('input[id^="fecha"]');
     var imagenOculta = document.getElementById('imagenOculta');
     var botonFirma = document.getElementById('firma');
-
+debugger;
     var camposValidos = Array.from(inputs).every(function(input) {
         return validarCampo(input.id);
     });
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var firmaVacia = imagenOculta.value.trim() === '';
 
-    if (!camposVacios && (camposFechaLlenos || !firmaVacia) && camposValidos) {
+    if (!camposVacios && (camposFechaLlenos || firmaVacia) && camposValidos) {
         botonFirma.style.display = 'inherit';
     } else {
         botonFirma.style.display = 'none';
@@ -123,6 +123,7 @@ function validarCampo(campo) {
         case 'numero':
         case 'puerta':
         case 'tipoDeVia':
+        case 'piso':
             if (valor.value === '') {
                 valor.classList.remove('is-valid');
                 valor.classList.add('is-invalid');

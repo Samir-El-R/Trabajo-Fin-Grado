@@ -21,26 +21,41 @@ class ChooseDayController
     {
 
         $query = "SELECT * FROM profesores WHERE correo = '$correoProfesor'";
-        $resultado = $this->db->consulta($query);
+        $this->db->consulta($query);
         $fila = $this->db->extraer_registro();
         $rutaDirectorio = 'pdfDiasLibres/';
 
         if ($fila) {
-            $idTabla1 = $fila['id'];
+            $idTabla = $fila['id'];
 
-            $query = "SELECT * FROM diasseleccionados WHERE id = $idTabla1";
+            $query = "SELECT * FROM diasseleccionados WHERE idProfesor = $idTabla";
             $this->db->consulta($query);
 
-            if ($registro = $this->db->extraer_registro() <= 4) {
+            if ($registro = $this->db->numero_filas() <= 4) {
                 $archivos = $this->leerDirectorios($correoProfesor);
-            
-            foreach ($data['fecha'] as $fecha) {
+                $query = "SELECT solicitud FROM diasseleccionados WHERE idProfesor = $idTabla";
+                $this->db->consulta($query);
+                
+                $archivosBBDD = array();
+                while ($registro = $this->db->extraer_registro()) {
+                    $archivosBBDD[] = $registro['solicitud'];
+                }
+                
+                
+                foreach ($archivosBBDD as $archivoBBDD) {
+                    $key = array_search($archivoBBDD, $archivos);
+                    if ($key !== false) {
+                        unset($archivos[$key]);
+                    }
+                }
+                $archivos = array_values($archivos);
                 $i = 0;
+            foreach ($data['fecha'] as $fecha) {
+                
                 if ($fecha != null && $fecha != '') {
-                    $pdf = $rutaDirectorio . $archivos[$i];
+                    $pdf = $archivos[$i];
                     $i++;
-
-                    $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES ('$idTabla1', '$fecha', 'Pendiente', '$pdf')";
+                    $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES ('$idTabla', '$fecha', 'Pendiente', '$pdf')";
                     $this->db->consulta($insertBBDD);
 
                 }
@@ -69,7 +84,7 @@ class ChooseDayController
                 if ($archivo != "." && $archivo != "..") {
                     // Filtrar archivos por nombre de usuario
                     if (strpos($archivo, $nombreUsuario) !== false) {
-                        $archivos[] = $archivo;
+                        $archivos[] = $directorio."/".$archivo;
 
                     }
                 }

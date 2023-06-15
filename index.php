@@ -123,7 +123,7 @@ if (isset($_POST['generarPDF'])) {
     $user = $authController->getCurrentUser();
 
     $formFiller->fillForm($data,$user['correo']);
-    $chooseDayController->insertarSolicitudes("test@test",$data);
+    $chooseDayController->insertarSolicitudes($user['correo'],$data);
 
     // Cualquier cosa antes de que se guarde
     // $formFiller->savePDF($user['correo']);

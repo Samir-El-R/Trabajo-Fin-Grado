@@ -78,7 +78,6 @@ if (!$authController->isUserAuthenticated()) {
     </div>
     <div class="texto">
       <p>Empieza a escoger dias libres clickando en los dias del calendario.
-        <br> A la derecha del calendario te encontraras un boton para empezar a rellenar el formulario.
       </p>
     </div>
     <a id="cerrarBienvenida">✖</a>
@@ -87,6 +86,7 @@ if (!$authController->isUserAuthenticated()) {
 
         document.getElementById("bienvenida").style.display = "none";
         document.getElementById("calendar").style.filter = "blur(0px)";
+        document.getElementById("seleccionDeDias").style.filter = "blur(0px)";
 
       })
     </script>
@@ -104,7 +104,7 @@ if (!$authController->isUserAuthenticated()) {
   </div>
 
   <!-- Lista de dias y apertura de formulario -->
-  <div class="container text-center justify-content-center">
+  <div class="container text-center justify-content-center" id="seleccionDeDias">
   <div class="container  row text-center justify-content-center">
     <div class="row col-md-4 justify-content-center text-center">
     <h1>Selección de días</h1>
@@ -196,10 +196,10 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Tipo de Vía</span>
                 <input type="text" aria-label="First name" class="form-control" id="tipoDeVia" name="tipoDeVia"
-                  value="<?php echo $user['tipo_via']; ?>" onblur="validarCampo('tipoDeVia')" required>
+                  value="<?php echo $user['tipo_via']; ?>" onblur="validarCampo('tipoDeVia')" required onkeyup="this.value=NumText(this.value)">
                 <span class="input-group-text">Nombre Vía</span>
                 <input type="text" aria-label="Last name" class="form-control" id="nombreDeVia" name="nombreDeVia"
-                  value="<?php echo $user['nombre_via']; ?>" onblur="validarCampo('nombreDeVia')" required>
+                  value="<?php echo $user['nombre_via']; ?>" onblur="validarCampo('nombreDeVia')" required onkeyup="this.value=NumText(this.value)">
               </div>
               <div class="input-group">
                 <span class="input-group-text">Nº</span>
@@ -276,26 +276,30 @@ if (!$authController->isUserAuthenticated()) {
               <div class="input-group">
                 <span class="input-group-text">Fecha 1</span>
                 <input type="text" class="form-control" id="fecha0" name="fecha0" readonly>
-              </div>
-            </div>
-            <div class="mb-3">
-              <div class="input-group">
                 <span class="input-group-text">Fecha 2</span>
                 <input type="text" class="form-control" id="fecha1" name="fecha1" readonly>
               </div>
             </div>
+            <!-- <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">Fecha 2</span>
+                <input type="text" class="form-control" id="fecha1" name="fecha1" readonly>
+              </div>
+            </div> -->
             <div class="mb-3">
               <div class="input-group">
                 <span class="input-group-text">Fecha 3</span>
                 <input type="text" class="form-control" id="fecha2" name="fecha2" readonly>
-              </div>
-            </div>
-            <div class="mb-3">
-              <div class="input-group">
                 <span class="input-group-text">Fecha 4</span>
                 <input type="text" class="form-control" id="fecha3" name="fecha3" readonly>
               </div>
             </div>
+            <!-- <div class="mb-3">
+              <div class="input-group">
+                <span class="input-group-text">Fecha 4</span>
+                <input type="text" class="form-control" id="fecha3" name="fecha3" readonly>
+              </div>
+            </div> -->
             <!-- Motivo -->
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Informacion Adicional:</label>
@@ -315,7 +319,7 @@ if (!$authController->isUserAuthenticated()) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <input type="submit" class="btn btn-secondary" name="generarPDF" id="generarPDF" >
+          <input type="submit" class="btn btn-secondary" name="generarPDF" id="generarPDF" data-bs-target="#modal3" data-bs-toggle="modal">
         </div>
         <!-- data-bs-target="#modal3" data-bs-toggle="modal" -->
         </form>

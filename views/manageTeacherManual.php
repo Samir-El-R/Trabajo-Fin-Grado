@@ -45,8 +45,7 @@ $teacherManagement = new TeacherManager($db);
                     <input type="submit" value="Buscar" class="btn btn-outline-dark col-3 col-sm-3">
                 </div>
             </form>
-            <div
-                class="d-md-flex d-none justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">
+            <div class="d-md-flex d-none justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">
                 <div class="col-2 text-sm-center text-md-start align-self-center">
                     <h2 class="h5 fw-bold">Nombre</h2>
                 </div>
@@ -94,9 +93,8 @@ $teacherManagement = new TeacherManager($db);
                 $teachers = $teacherManagement->getTeacher($sql);
                 if ($teachers) {
                     foreach ($teachers as $teacher) {
-                        ?>
-                        <div
-                            class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
+            ?>
+                        <div class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
                             <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
                                 <h2 class="h6">
                                     <?php echo $teacher['nombre']; ?>
@@ -126,9 +124,7 @@ $teacherManagement = new TeacherManager($db);
                                 <form action="../admin.php" method="POST">
                                     <input type="hidden" name="id_teacher" value="<?php echo $teacher['id'] ?>">
                                     <button type="submit" class="btn btn-outline-dark w-100" name="delete">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
-                                            width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M4 7l16 0" />
                                             <path d="M10 11l0 6" />
@@ -140,7 +136,7 @@ $teacherManagement = new TeacherManager($db);
                                 </form>
                             </div>
                         </div>
-                        <?php
+                    <?php
                     }
                 } else {
                     ?>
@@ -149,13 +145,11 @@ $teacherManagement = new TeacherManager($db);
                     </div>
                     <?php
                 }
-
             } else {
                 $teachers = $teacherManagement->getAllTeachers();
                 if ($teachers) {
                     foreach ($teachers as $teacher) { ?>
-                        <div
-                            class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
+                        <div class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
                             <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
                                 <h2 class="h6">
                                     <?php echo $teacher['nombre']; ?>
@@ -200,9 +194,7 @@ $teacherManagement = new TeacherManager($db);
                                 s
                                 v
                                 g
-                                " class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round"
-                                            stroke-linejoin="round">
+                                " class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M4 7l16 0" />
                                             <path d="M10 11l0 6" />
@@ -214,14 +206,14 @@ $teacherManagement = new TeacherManager($db);
                                 </form>
                             </div>
                         </div>
-                        <?php
+                    <?php
                     }
                 } else {
                     ?>
                     <div class="alert alert-info mt-2  text-center" role="alert">
                         No hay resultados
                     </div>
-                    <?php
+            <?php
                 }
             }
             ?>
@@ -238,8 +230,7 @@ $teacherManagement = new TeacherManager($db);
                 <form action="../admin.php" method="post" class="csvForm" enctype="multipart/form-data">
                     <div>
                         <label for="formFileLg" class="form-label">Selecciona un archivo CSV:</label>
-                        <input class="form-control form-control-lg" id="csvFile" name="csvFile" type="file"
-                            accept=".csv">
+                        <input class="form-control form-control-lg" id="csvFile" name="csvFile" type="file" accept=".csv">
                     </div>
                     <input type="submit" class="btn btn-primary mt-3 mb-3" name="csvLoad" value="Enviar archivo">
                 </form>
@@ -249,47 +240,27 @@ $teacherManagement = new TeacherManager($db);
             <div class="w-50 p-3">
                 <h2 class="h3 fw-bold text-center ">Descargar archivo CSV</h2>
                 <hr>
-                <div class="text-center">
+                <div class="text-center d-flex  justify-content-around">
+                    <div>
+                        <form action="../admin.php" method="post">
+                            <!-- <input type="text" name="estado" value="Aceptado" hidden> -->
+                            <button type="submit" name="borrar_bd" class="btn btn-danger">Borrar base de datos y descargar csv</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form action="../admin.php" method="post">
+                            <!-- <input type="text" name="estado" hidden value="Denegado"> -->
+                            <button type="submit" name="download_csv_teachers" class="btn btn-primary">Descargar csv </button>
+                        </form>
+                    </div>
+                    <div>
+                        <form action="../admin.php" method="post">
+                            <!-- <input type="text" name="estado" hidden value="Pendiente"> -->
+                            <button type="submit" name="envair_bd_correo" class="btn btn-primary">Envair csv al correo</button>
+                        </form>
 
-                    <button class=" btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Descargar en CSV todos los  profesores</button>
-
+                 
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class=" modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detalles del Elemento</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
-                        onclick="cerrarPDF()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <form action="../admin.php" method="post">
-                        <!-- <input type="text" name="estado" value="Aceptado" hidden> -->
-                        <button type="submit" name="borrar_bd" class="btn btn-danger">borrar_bd</button>
-                    </form>
-                </div>
-                <div>
-                    <form action="../admin.php" method="post">
-                        <!-- <input type="text" name="estado" hidden value="Denegado"> -->
-                        <button type="submit" name="download_csv_teachers" class="btn btn-primary">descargar</button>
-                    </form>
-                </div>
-                <div>
-                    <form action="../admin.php" method="post">
-                        <!-- <input type="text" name="estado" hidden value="Pendiente"> -->
-                        <button type="submit" name="envair_bd_correo" class="btn btn-primary">envair_bd_correo</button>
-                    </form>
-
                 </div>
             </div>
         </div>

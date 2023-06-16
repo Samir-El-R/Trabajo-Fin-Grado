@@ -48,6 +48,12 @@ if ( isset($_POST['download_csv_teachers']) ) {
     $teacherManagement->getAllTeachersInCsv($fileName);
     
 }
+if ( isset($_POST['envair_bd_correo']) ) {
+    $fileName = "temp/". GeneratePassword() . '.csv';
+    $teacherManagement->getAllTeachersInCsvMail($fileName);
+    
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $teacherManagement->deleteTeacher($_POST['id_teacher']);

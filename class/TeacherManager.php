@@ -35,7 +35,6 @@ class TeacherManager
             JOIN profesores ON diasseleccionados.idProfesor = '$teacherId";
             $result = $this->db->consulta($query);
             echo $result;
-
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -101,6 +100,34 @@ class TeacherManager
         }
     }
     public function getAllTeachersInCsv($fileName)
+    {
+
+
+
+        $query = "SELECT nombre, correo	, dedicacion , turno FROM profesores";
+
+        $this->db->consulta($query);
+        if ($this->db->numero_filas() > 0) {
+
+            $modo = file_exists($fileName) ? 'a+' : 'w';
+            $archivo = fopen($fileName, $modo);
+
+            // Encabezados del archivo CSV
+            $cabecera = array("nombre", "correo", "dedicacion", "turno");
+            fputcsv($archivo, $cabecera);
+
+            while ($fila = $this->db->extraer_registro()) {
+                fputcsv($archivo, $fila);
+            }
+            fclose($archivo);
+        }
+        ob_end_clean();
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename=saldos.csv');
+        readfile($fileName);
+        unlink($fileName);
+    }
+    public function getAllTeachersInCsvMail($fileName)
     {
 
 

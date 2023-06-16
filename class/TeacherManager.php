@@ -18,27 +18,7 @@ class TeacherManager
             $query = "INSERT INTO profesores (nombre,turno,dedicacion,correo,contrasena) VALUES ('$nombre','$turno','$dedicacion','$correo','$contrasena')";
             $result = $this->db->consulta($query);
             echo $result;
-            if ($result) {
-            } else {
-                throw new Exception("Error al registrar el profesor");
-            }
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function updateTeacher($nombre, $correo, $teacherId)
-    {
-        try {
-            // Validar los datos antes de actualizar al profesor
-
-            // Actualizar los datos del profesor en la base de datos
-            $query = "UPDATE profesores SET name='$nombre', correo='$correo' WHERE id=$teacherId";
-            $result = $this->db->consulta($query);
-
-            if ($result) {
-            } else {
-                throw new Exception("Error al actualizar el profesor");
+            if ($this->db->numero_filas() > 0) {
             }
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
@@ -50,14 +30,12 @@ class TeacherManager
         echo $teacherId;
         try {
             // Eliminar al profesor de la base de datos
-            $query = "DELETE FROM profesores WHERE id=$teacherId";
+            $query = "DELETE diasseleccionados, profesores
+            FROM diasseleccionados
+            JOIN profesores ON diasseleccionados.idProfesor = '$teacherId";
             $result = $this->db->consulta($query);
             echo $result;
-            // if ($result) {
-            //     echo "profesor eliminado exitosamente";
-            // } else {
-            //     throw new Exception("Error al eliminar el profesor");
-            // }
+
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -73,22 +51,20 @@ class TeacherManager
                 $teachers[] = $fila;
             }
 
-            if ($teachers) {
+            if ($this->db->numero_filas() > 0) {
 
                 return $teachers;
-            } else {
-                throw new Exception("Error al actualizar el profesor");
             }
         } catch (Exception $e) {
 
-            echo "Error: " . $e->getMessage();
+            return false;
         }
     }
     public function getAllRequest($estado = "Pendiente")
     {
         try {
 
-            $query = "SELECT d.*,p.nombre
+            $query = "SELECT d.*,p.nombre,p.correo
             FROM diasseleccionados d
             INNER JOIN profesores p ON p.id = d.idProfesor
             WHERE d.estado = '$estado'";
@@ -101,10 +77,10 @@ class TeacherManager
             if ($this->db->numero_filas() > 0) {
 
                 return $teachers;
-            } 
+            }
         } catch (Exception $e) {
 
-           return false;
+            return false;
         }
     }
     public function getTeacher($query)
@@ -115,15 +91,13 @@ class TeacherManager
             while ($fila = $this->db->extraer_registro()) {
                 $teachers[] = $fila;
             }
-            if ($teachers) {
+            if ($this->db->numero_filas() > 0) {
 
                 return $teachers;
-            } else {
-                throw new Exception("Error al actualizar el profesor");
             }
         } catch (Exception $e) {
 
-            echo "Error: " . $e->getMessage();
+            return false;
         }
     }
     public function getAllTeachersInCsv($fileName)
@@ -148,18 +122,33 @@ class TeacherManager
             }
             fclose($archivo);
         }
-         // Guardar el contenido en el archivo CSV
+        // Guardar el contenido en el archivo CSV
         $authController = new AuthController($this->db);
         $user = $authController->getCurrentUser();
         $senderMail = new Mailer();
-        $senderMail->sendAttachment($user["nombre"],$user["correo"],$fileName);
+        $senderMail->sendAttachment($user["nombre"], $user["correo"], $fileName);
         unlink($fileName);
     }
 
-    public function updateSolicitudes($idProfesor, $myPath,$estado)
+    public function updateSolicitudes($idProfesor, $myPath, $estado)
     {
         $query = "UPDATE diasseleccionados SET estado='$estado' WHERE idProfesor='$idProfesor' AND solicitud='$myPath'";
-      $this->db->consulta($query);
+        $this->db->consulta($query);
+    }
+    public function getSolicitudes($query)
+    {
+
+
+        $result = $this->db->consulta($query);
+        // while ($fila = $this->db->extraer_registro()) {
+        //     $teachers[] = $fila;
+        // }
+        // if ( $this->db->numero_filas() > 0) {
+
+        return $this->db->numero_filas();
+
+        // }
+
     }
 }
 // }

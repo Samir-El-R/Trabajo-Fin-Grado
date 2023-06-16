@@ -22,150 +22,170 @@ $teacherManagement = new TeacherManager($db);
     <title>Gestion Manual</title>
 </head>
 
-<body >
+<body>
     <?php
     $nameView = "";
     $indexPage = "../admin.php";
     include("../views/header.php");
     ?>
-    
+
     <div class="container">
-    <div class="container my-5">
-        <form action="" method="POST" class="d-md-flex d-sm-block justify-content-between">
-            <input type="hidden" name="command" value="select-orders">
-            <h2 class="h5 align-self-center col-3">Busqueda de profesor</h2>
-            <div class="btn-group align-self-center col-12 col-sm-12 col-md-8 col-lg-6">
-                <select name="searchType" class="btn btn-outline-dark col-3 col-sm-3">
-                    <option value="id">Profesor ID</option>
-                    <option value="nombre">Nombre</option>
-                    <option value="correo">Correo</option>
-                    <option value="turno">Turno</option>
-                    <option value="dedicacion">Dedicacion</option>
-                </select>
-                <input type="search" name="searchBy" class="col-6 col-sm-6">
-                <input type="submit" value="Buscar" class="btn btn-outline-dark col-3 col-sm-3">
-            </div>
-        </form>
-        <div class="d-md-flex d-none justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">
-            <div class="col-1 text-sm-center text-md-start align-self-center">
-                <h2 class="h5 fw-bold">Profesor ID</h2>
-            </div>
-            <div class="col-2 text-sm-center text-md-start align-self-center">
-                <h2 class="h5 fw-bold">Nombre</h2>
-            </div>
-            <div class="col-3 align-self-center text-wrap">
-                <h2 class="h5 fw-bold">Correo</h2>
-            </div>
-            <div class="col-1 align-self-center">
-                <h2 class="h5 fw-bold">Turno</h2>
-            </div>
-            <div class="col-1 align-self-center">
-                <h2 class="h5 fw-bold">Rol</h2>
-            </div>
-            <div class="col-2 align-self-center">
-                <h2 class="h5 fw-bold">Dedicación</h2>
-            </div>
-            <div class="col-1 align-self-center">
-                <h2 class="h5 fw-bold">Eliminar</h2>
-            </div>
-
-        </div>
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchType']) && isset($_POST['searchBy'])) {
-            $searchType = $_POST['searchType'];
-            $searchBy = $_POST['searchBy'];
-
-            $sql = "SELECT * FROM profesores WHERE ";
-            switch ($searchType):
-                case "correo":
-                    $sql .= "correo LIKE '%$searchBy%'";
-                    break;
-                case "nombre":
-                    $sql .= "nombre LIKE '%$searchBy%'";
-                    break;
-                case "id":
-                    $sql .= "id LIKE '%$searchBy%'";
-                    break;
-                case "turno":
-                    $sql .= "turno LIKE '%$searchBy%'";
-                    break;
-                case "dedicacion":
-                    $sql .= "dedicacion LIKE '%$searchBy%'";
-                    break;
-                default:
-                    echo "Parámetro de búsqueda inválido";
-                    exit();
-            endswitch;
-
-            $teachers = $teacherManagement->getTeacher($sql);
-
-            foreach ($teachers as $teacher) {
-        ?>
-                <div class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['id']; ?></h2>
-                    </div>
-                    <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['nombre']; ?></h2>
-                    </div>
-                    <div class="col-md-3 text-sm-center text-md-start align-self-center my-2 text-wrap">
-                        <h2 class="h6"> <?php echo $teacher['correo']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['turno']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['roles']; ?></h2>
-                    </div>
-                    <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['dedicacion']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <form action="../admin.php" method="POST">
-                            <input type="hidden" name="id_teacher" value="<?php echo $teacher['id'] ?>">
-                            <button type="submit" class="btn btn-outline-dark w-100" name="delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M4 7l16 0" />
-                                    <path d="M10 11l0 6" />
-                                    <path d="M14 11l0 6" />
-                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
+        <div class="container my-5">
+            <form action="" method="POST" class="d-md-flex d-sm-block justify-content-between">
+                <input type="hidden" name="command" value="select-orders">
+                <h2 class="h5 align-self-center col-3">Busqueda de profesor</h2>
+                <div class="btn-group align-self-center col-12 col-sm-12 col-md-8 col-lg-6">
+                    <select name="searchType" class="btn btn-outline-dark col-3 col-sm-3">
+                        <option value="nombre">Nombre</option>
+                        <option value="correo">Correo</option>
+                        <option value="turno">Turno</option>
+                        <option value="dedicacion">Dedicacion</option>
+                    </select>
+                    <input type="search" name="searchBy" class="col-6 col-sm-6">
+                    <input type="submit" value="Buscar" class="btn btn-outline-dark col-3 col-sm-3">
                 </div>
-            <?php
-            }
-        } else {
-            $teachers = $teacherManagement->getAllTeachers();
+            </form>
+            <div
+                class="d-md-flex d-none justify-content-md-between justify-content-sm-center align-content-center border-bottom border-2 my-2 bg-dark text-light p-3 rounded-3">
+                <div class="col-2 text-sm-center text-md-start align-self-center">
+                    <h2 class="h5 fw-bold">Nombre</h2>
+                </div>
+                <div class="col-3 align-self-center text-wrap">
+                    <h2 class="h5 fw-bold">Correo</h2>
+                </div>
+                <div class="col-1 align-self-center">
+                    <h2 class="h5 fw-bold">Turno</h2>
+                </div>
+                <div class="col-1 align-self-center">
+                    <h2 class="h5 fw-bold">Rol</h2>
+                </div>
+                <div class="col-2 align-self-center">
+                    <h2 class="h5 fw-bold">Dedicación</h2>
+                </div>
+                <div class="col-1 align-self-center">
+                    <h2 class="h5 fw-bold">Eliminar</h2>
+                </div>
 
-            foreach ($teachers as $teacher) { ?>
-                <div class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['id']; ?></h2>
+            </div>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['searchType']) && isset($_POST['searchBy'])) {
+                $searchType = $_POST['searchType'];
+                $searchBy = $_POST['searchBy'];
+
+                $sql = "SELECT * FROM profesores WHERE ";
+                switch ($searchType):
+                    case "correo":
+                        $sql .= "correo LIKE '%$searchBy%'";
+                        break;
+                    case "nombre":
+                        $sql .= "nombre LIKE '%$searchBy%'";
+                        break;
+                    case "turno":
+                        $sql .= "turno LIKE '%$searchBy%'";
+                        break;
+                    case "dedicacion":
+                        $sql .= "dedicacion LIKE '%$searchBy%'";
+                        break;
+                    default:
+                        echo "Parámetro de búsqueda inválido";
+                        exit();
+                endswitch;
+
+                $teachers = $teacherManagement->getTeacher($sql);
+                if ($teachers) {
+                    foreach ($teachers as $teacher) {
+                        ?>
+                        <div
+                            class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
+                            <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['nombre']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-3 text-sm-center text-md-start align-self-center my-2 text-wrap">
+                                <h2 class="h6">
+                                    <?php echo $teacher['correo']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['turno']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['roles']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['dedicacion']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <form action="../admin.php" method="POST">
+                                    <input type="hidden" name="id_teacher" value="<?php echo $teacher['id'] ?>">
+                                    <button type="submit" class="btn btn-outline-dark w-100" name="delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                                            width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M4 7l16 0" />
+                                            <path d="M10 11l0 6" />
+                                            <path d="M14 11l0 6" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <div class="alert alert-info mt-2  text-center" role="alert">
+                        No hay resultados
                     </div>
-                    <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['nombre']; ?></h2>
-                    </div>
-                    <div class="col-md-3 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['correo']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['turno']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['roles']; ?></h2>
-                    </div>
-                    <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
-                        <h2 class="h6"> <?php echo $teacher['dedicacion']; ?></h2>
-                    </div>
-                    <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
-                        <form action="../admin.php" method="POST">
-                            <input type="hidden" name="id_teacher" value="<?php echo $teacher['id']; ?>">
-                            <button type="submit" class="btn btn-outline-dark w-100 " name="delete">
-                                <svg xmlns="
+                    <?php
+                }
+
+            } else {
+                $teachers = $teacherManagement->getAllTeachers();
+                if ($teachers) {
+                    foreach ($teachers as $teacher) { ?>
+                        <div
+                            class="d-md-flex d-sm-block justify-content-md-between justify-content-sm-center text-center border-bottom border-2 my-2 bg-light p-2 rounded-3">
+                            <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['nombre']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-3 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['correo']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['turno']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['roles']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-2 text-sm-center text-md-start align-self-center my-2">
+                                <h2 class="h6">
+                                    <?php echo $teacher['dedicacion']; ?>
+                                </h2>
+                            </div>
+                            <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
+                                <form action="../admin.php" method="POST">
+                                    <input type="hidden" name="id_teacher" value="<?php echo $teacher['id']; ?>">
+                                    <button type="submit" class="btn btn-outline-dark w-100 " name="delete">
+                                        <svg xmlns="
                                 ht
                                 t
                                 p:
@@ -180,54 +200,101 @@ $teacherManagement = new TeacherManager($db);
                                 s
                                 v
                                 g
-                                " class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M4 7l16 0" />
-                                    <path d="M10 11l0 6" />
-                                    <path d="M14 11l0 6" />
-                                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                </svg>
-                            </button>
-                        </form>
+                                " class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M4 7l16 0" />
+                                            <path d="M10 11l0 6" />
+                                            <path d="M14 11l0 6" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <div class="alert alert-info mt-2  text-center" role="alert">
+                        No hay resultados
                     </div>
-                </div>
-        <?php
+                    <?php
+                }
             }
-        }
-        ?>
-    </div>
-    <br>
-
-
-
-
-    <div class=" row d-xl-flex justify-content-center ">
-        <div class="w-50 p-3">
-            <h2 class="h3 fw-bold text-center ">Enviar archivo CSV</h2>
-            <hr>
-            <form action="../admin.php" method="post" class="csvForm" enctype="multipart/form-data">
-                <div>
-                    <label for="formFileLg" class="form-label">Selecciona un archivo CSV:</label>
-                    <input class="form-control form-control-lg" id="csvFile" name="csvFile" type="file" accept=".csv">
-                </div>
-                <input type="submit" class="btn btn-primary mt-3 mb-3" name="csvLoad" value="Enviar archivo">
-            </form>
+            ?>
         </div>
-    </div>
-    <div class="row mt-3 mb-3 justify-content-center ">
-        <div class="w-50 p-3">
-            <h2 class="h3 fw-bold text-center ">Descargar archivo CSV</h2>
-            <hr>
-            <div class="text-center">
-                <form action="../admin.php" method="post">
-                    <button class=" btn btn-primary" name="download_csv_teachers">Descargar en CSV todos los profesores</button>
+        <br>
+
+
+
+
+        <div class=" row d-xl-flex justify-content-center ">
+            <div class="w-50 p-3">
+                <h2 class="h3 fw-bold text-center ">Enviar archivo CSV</h2>
+                <hr>
+                <form action="../admin.php" method="post" class="csvForm" enctype="multipart/form-data">
+                    <div>
+                        <label for="formFileLg" class="form-label">Selecciona un archivo CSV:</label>
+                        <input class="form-control form-control-lg" id="csvFile" name="csvFile" type="file"
+                            accept=".csv">
+                    </div>
+                    <input type="submit" class="btn btn-primary mt-3 mb-3" name="csvLoad" value="Enviar archivo">
                 </form>
             </div>
-        </div>           
+        </div>
+        <div class="row mt-3 mb-3 justify-content-center ">
+            <div class="w-50 p-3">
+                <h2 class="h3 fw-bold text-center ">Descargar archivo CSV</h2>
+                <hr>
+                <div class="text-center">
+
+                    <button class=" btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Descargar en CSV todos los  profesores</button>
+
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Modal -->
+    <div class=" modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalles del Elemento</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="cerrarPDF()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <form action="../admin.php" method="post">
+                        <!-- <input type="text" name="estado" value="Aceptado" hidden> -->
+                        <button type="submit" name="borrar_bd" class="btn btn-danger">borrar_bd</button>
+                    </form>
+                </div>
+                <div>
+                    <form action="../admin.php" method="post">
+                        <!-- <input type="text" name="estado" hidden value="Denegado"> -->
+                        <button type="submit" name="download_csv_teachers" class="btn btn-primary">descargar</button>
+                    </form>
+                </div>
+                <div>
+                    <form action="../admin.php" method="post">
+                        <!-- <input type="text" name="estado" hidden value="Pendiente"> -->
+                        <button type="submit" name="envair_bd_correo" class="btn btn-primary">envair_bd_correo</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
-    
+
 
 </body>
 

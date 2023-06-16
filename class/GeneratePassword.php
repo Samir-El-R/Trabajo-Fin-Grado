@@ -5,6 +5,6 @@ function GeneratePassword() {
     // Remover caracteres no deseados
     $contrasena = str_replace(array('/', '+', '=',','), '', $contrasena);
     // Recortar la contraseña a la longitud deseada
-    $contrasena = substr($contrasena, 0, 4);
+    $contrasena = substr($contrasena, 0, 8);
     return $contrasena;
 }

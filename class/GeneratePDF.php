@@ -5,6 +5,7 @@
 require_once('libraries/fpdf185/fpdf.php');
 require_once('libraries/FPDI-2.3.7/src/autoload.php');
 require_once('controllers/ChooseDayController.php');
+require_once('class/TeacherManager.php');
 
 
 
@@ -22,9 +23,18 @@ class FormFiller
 
     public function fillForm($data, $correoProfesor)
     {
+        $myfileNames =[];
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
-            if ($this->data['fecha'][$i] == "") {
+            if ($data['fecha'][$i] === "") {
+                // $pdf = new Fpdi();
+                // $pdf->AddPage();
+                // $pdf->setSourceFile($this->pdfTemplate);
+                // $tplIdx = $pdf->importPage(1);
+                // $pdf->useTemplate($tplIdx, 0, 0);
+                // $pdf->SetFont('Arial', '', 9);
+                // $resultado = $this->leerDirectorios($correoProfesor);
+                // $pdf->Output('pdfDiasLibres/' . $data['fecha'] . " i=" . $i . $correoProfesor . $resultado . '.pdf', 'F');
                 break;
             }
             $pdf = new Fpdi();
@@ -72,11 +82,11 @@ class FormFiller
             if ($this->data['periodo'] == "lectivo") {
                 $pdf->SetXY(73.6, 107.3);
                 $pdf->SetFont('Arial', 'B', 34);
-                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0);
             } else {
                 $pdf->SetXY(145.7, 107.3);
                 $pdf->SetFont('Arial', 'B', 34);
-                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
+                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0);
             }
 
             $pdf->SetFillColor(255, 255, 255);
@@ -110,22 +120,25 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-            $resultado = $this->leerDirectorios($correoProfesor);
+             $resultado = $this->leerDirectorios($correoProfesor);
             // foreach ($resultado as $key) {
-
+                
+                array_push($myfileNames , 'pdfDiasLibres/DiasLibres_' .$resultado. '.pdf');
             //     if ($key == $i) {
             //     $i++;
             //     }
 
             // }
+            // $nombreUsuario = strstr($correoProfesor, '@', true);
 
-            $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . count($resultado) . '.pdf', 'F');
+            $pdf->Output('pdfDiasLibres/DiasLibres_' .$resultado. '.pdf', 'F');
+            
         }
-        $this->savePDF($correoProfesor);
+        return $myfileNames;
     }
 
 
-    public function savePDF($correoProfesor)
+    public function savePDF($myfileNames)
     {
         $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
         $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
@@ -193,7 +206,7 @@ class FormFiller
         }
     }
 
-    public function chengePDF($motivo = "", $myPath,$firma)
+    public function chengePDF($motivo = "", $myPath, $firma)
     {
 
         $pdf = new Fpdi();
@@ -212,21 +225,21 @@ class FormFiller
         if ($motivo == "") {
             $pdf->SetXY(25, 32.3);
             $pdf->SetFont('Arial', 'B', 18);
-            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0);
         } else {
             $pdf->SetXY(42.3, 32.3);
             $pdf->SetFont('Arial', 'B', 18);
-            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0);
         }
         $pdf->SetFont('Arial', '', 9);
         $pdf->SetXY(22, 63);
-        $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1',$motivo), 0, 'J');
-        
+        $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1', $motivo), 0, 'J');
+
         $pdf->Image($firma, 126, 110, 50, 0);
 
 
 
-        $pdf->AddPage(); 
+        $pdf->AddPage();
         $pdf->setSourceFile($myPath);
         $tplIdx = $pdf->importPage(3);
         $pdf->useTemplate($tplIdx, 0, 0);
@@ -238,30 +251,53 @@ class FormFiller
 
     public function leerDirectorios($correoProfesor)
     {
-        $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
-        $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
+        // $host = "localhost";
+        // $user = "root";
+        // $password = "";
+        // $dbname = "app";
+        // // $port = 14000;
+        // $port = 3306;
+        // $socket = "";
 
-        if (!is_readable($directorio)) {
-            exit;
-        }
+        // $db = new BBDD($host, $user, $password, $dbname, $port, $socket);
 
-        $archivos = array(); // Array para almacenar los nombres de los archivos
+        // $teacherManager = new TeacherManager($db);
+        // $query = "SELECT d.*,p.id,p.correo
+        // FROM diasseleccionados d
+        // INNER JOIN profesores p ON p.id = d.idProfesor
+        // WHERE p.correo = '$correoProfesor'";
+        // $resultado = $teacherManager->getSolicitudes($query);
+        $resultado = GeneratePassword();
 
-        // Recorrer el directorio y almacenar los archivos en el array
-        if ($handle = opendir($directorio)) {
-            $i = 0;
-            while (false !== ($archivo = readdir($handle))) {
+        return $resultado;
 
-                if ($archivo != "." && $archivo != "..") {
-                    // Filtrar archivos por nombre de usuario
-                    if (strpos($archivo, $nombreUsuario . $i) !== false) {
-                        $archivos[] = $i;
-                    }
-                    $i++;
-                }
-            }
-            closedir($handle);
-            return $archivos;
-        }
+        // $directorio = 'pdfDiasLibres';
+        // $nombreUsuario = strstr($correoProfesor, '@', true);
+
+        //  // Ruta del directorio a recorrer
+        //   // Nombre de usuario para filtrar los archivos
+
+        // if (!is_readable($directorio)) {
+        //     exit;
+        // }
+
+
+        // $archivos = array(); // Array para almacenar los nombres de los archivos
+
+        // // Recorrer el directorio y almacenar los archivos en el array
+        // if ($handle = opendir($directorio)) {
+        //     $i = 0;
+        //     while (false !== ($archivo = readdir($handle))) {
+
+        //         if ($archivo != "." && $archivo != "..") {
+        //             // Filtrar archivos por nombre de usuario
+        //             if (strpos($archivo, $nombreUsuario.$i) !== false) {
+        //                 $archivos[] = $i;
+        //             }
+        //             $i++;
+        //         }
+        //     }
+        //     closedir($handle);
+        //     return $archivos;
     }
 }

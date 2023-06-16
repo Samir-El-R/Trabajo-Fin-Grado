@@ -8,52 +8,52 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   formulario.addEventListener('input', function () {
-      validarInputs();
-    });
+    validarInputs();
+  });
 });
 
-  
+
 function validarInputs() {
   let motivo = document.getElementById('motivo');
   let imagenOculta = document.getElementById('imagenOculta');
-  let botonFirma = document.getElementById('firma'); 
+  let botonFirma = document.getElementById('firma');
 
-    let camposValidos =  validarCampo(motivo.id);
+  let camposValidos = validarCampo(motivo.id);
 
-    let camposVacios = motivo.value.trim() === "";
+  let camposVacios = motivo.value.trim() === "";
 
-    let firmaVacia = imagenOculta.value.trim() === '';
+  let firmaVacia = imagenOculta.value.trim() === '';
 
   if (!camposVacios && firmaVacia && camposValidos) {
-      botonFirma.style.display = 'inherit';
+    botonFirma.style.display = 'inherit';
   } else {
-      botonFirma.style.display = 'none';
+    botonFirma.style.display = 'none';
   }
 }
 
 function cambiarTipo($tipo) {
-  if ($tipo) {  
-     document.getElementById("motivo").style.display = "block";
-     document.getElementById("motivo").required = true;
-     document.getElementById('firma').style.display = 'none';
-     document.getElementById('contenedorDeMotivo').style.display = 'inherit';
-     document.getElementById('modal1Label1').style.display="inherit";
-     document.getElementById('modal1Label2').style.display="none";
-      
-    }else{
-       document.getElementById("motivo").style.display = "none";
-       document.getElementById("motivo").required = false;
-       document.getElementById('firma').style.display = 'inherit';
-       document.getElementById('contenedorDeMotivo').style.display = 'none';
-       document.getElementById('modal1Label1').style.display="none";
-       document.getElementById('modal1Label2').style.display="inherit";
-    }
+  if ($tipo) {
+    document.getElementById("motivo").style.display = "block";
+    document.getElementById("motivo").required = true;
+    document.getElementById('firma').style.display = 'none';
+    document.getElementById('contenedorDeMotivo').style.display = 'inherit';
+    document.getElementById('modal1Label1').style.display = "inherit";
+    document.getElementById('modal1Label2').style.display = "none";
+
+  } else {
+    document.getElementById("motivo").style.display = "none";
+    document.getElementById("motivo").required = false;
+    document.getElementById('firma').style.display = 'inherit';
+    document.getElementById('contenedorDeMotivo').style.display = 'none';
+    document.getElementById('modal1Label1').style.display = "none";
+    document.getElementById('modal1Label2').style.display = "inherit";
+  }
 }
 
 
 
 
-function mostrarInformacionUsuario(name, date, status, path,idProfesor) {
+function mostrarInformacionUsuario(name, date, status, path, idProfesor) {
   document.getElementById("elementName").innerText = name;
   document.getElementById("idProfesor").value = idProfesor;
   document.getElementById("elementDate").innerText = date;
@@ -70,7 +70,9 @@ function mostrarInformacionUsuario(name, date, status, path,idProfesor) {
 
   document.getElementById("pdfIframe").src = path;
   document.getElementById("path").value = path;
-  // document.getElementById("path2").value = path;
+  document.getElementById("correo").value = mail;
+  document.getElementById("fecha_profesor").value = date;
+  document.getElementById("nombre_profesor").value = name;
 }
 let bool = true;
 function mostrarPDF() {
@@ -86,14 +88,14 @@ function cerrarPDF() {
 }
 
 function validarCampo(campo) {
-   
+
   let valor = document.getElementById(campo);
 
-  if (valor.value.length > 10){
-        return true
-      }else{
-        return false
-      
- }
+  if (valor.value.length > 10) {
+    return true
+  } else {
+    return false
+
+  }
 
 }

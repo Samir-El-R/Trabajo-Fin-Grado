@@ -14,7 +14,7 @@
 <body>
 
   <?php
-
+  require_once('class/Mailer.php');
   require_once('config/connection.php');
   require_once('class/TeacherManager.php');
   require_once('class/CsvManager.php');
@@ -22,7 +22,7 @@
   $csvManager = new CsvManager($db);
   $teacherManagement = new TeacherManager($db);
   $formFiller = new FormFiller();
-
+  $senderMail = new Mailer();
   $nameView = "";
   $indexPage = "index.php";
   include("views/header.php");
@@ -73,7 +73,7 @@
       foreach ($teachers as $teacher) { ?>
 
         <div class="row justify-content-center m-2 w-100" data-bs-toggle="modal" data-bs-target="#myModal"
-          onclick="mostrarInformacionUsuario('<?php echo $teacher['nombre']; ?>', '<?php echo $teacher['fechaEscogida']; ?>', '<?php echo $teacher['estado']; ?>','<?php echo $teacher['solicitud']; ?>','<?php echo $teacher['idProfesor']; ?>')">
+          onclick="mostrarInformacionUsuario('<?php echo $teacher['nombre']; ?>', '<?php echo $teacher['fechaEscogida']; ?>', '<?php echo $teacher['estado']; ?>','<?php echo $teacher['solicitud']; ?>','<?php echo $teacher['idProfesor']; ?>','<?php echo $teacher['correo']; ?>')">
           <div class="col-md-6 w-75">
 
             <div class="card">
@@ -146,9 +146,7 @@
 
           <button type="button" name="aceptar" class="btn btn-success" onclick="cambiarTipo(false)"
             data-bs-target="#modal1" data-bs-toggle="modal" id="aceptar_Solicitud">Aceptar Solicitud</button>
-          <?php
-
-          ?>
+ 
 
         </div>
       </div>
@@ -221,6 +219,9 @@
             <input type="text" name="path" id="path" hidden>
             <input type="text" name="idProfesor" id="idProfesor" hidden>
             <input type="text" name="imagen" id="imagenOculta" hidden>
+            <input type="text" name="correo" id="correo" hidden>
+            <input type="text" name="nombre_profesor" id="nombre_profesor" hidden>
+            <input type="text" name="fecha_profesor" id="fecha_profesor" hidden>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -234,55 +235,19 @@
     </div>
   </div>
 
-  <!-- Modal de recarga de Pagina -->
-  <!-- <div class="modal fade" id="modal3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
-    data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Solicitud de Dias Libres</h1>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-          <div class="mb-3">
-              <h4 class="modal-title" id="modal1Label">Datos del solicitante</h4>
-              <p>Los datos se han enviado correctamente y se han descargado en tu navegador</p>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" id="aceptarTercerModal" data-bs-target="#modal1" data-bs-toggle="modal">Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
   <?php
 
-  // if (isset($_POST['aceptar'])) {
-  
-  // $imageData = $_POST['imagen'];
-  
-  // // Decodificar la imagen desde formato base64
-  // $imageData = str_replace('data:image/png;base64,', '', $imageData);
-  // $imageData = str_replace(' ', '+', $imageData);
-  // $imageData = base64_decode($imageData);
-  
-  // // Ruta y nombre de archivo donde se guardará la imagen
-  // $archivoImagen = 'assets/imagen.png';
-  
-  // file_put_contents($archivoImagen, $imageData);
-  
-  // $myPath = $_POST['path'];
-  // $formFiller->chengePDF("", $myPath, $archivoImagen);
-  // }
-  
+
+
   if (isset($_POST['gestionarSolicitud'])) {
 
     $imageData = $_POST['imagen'];
     $motivo = $_POST['motivo'];
     $idProfesor = $_POST['idProfesor'];
-
+    $correo = $_POST['correo'];
+    $nombreProfesor = $_POST['nombre_profesor'];
+    $fechaProfesor = $_POST['fecha_profesor'];
     // Decodificar la imagen desde formato base64
     $imageData = str_replace('data:image/png;base64,', '', $imageData);
     $imageData = str_replace(' ', '+', $imageData);
@@ -297,8 +262,11 @@
     $formFiller->chengePDF($motivo, $myPath, $archivoImagen);
     if ($motivo == "") {
       $teacherManagement->updateSolicitudes($idProfesor, $myPath, "Aceptado");
+
+      $senderMail->sendNotificationAndAttachment($nombreProfesor,$correo, $myPath,"tu solicitud para coger el dia ".$fechaProfesor." ha sido aprobada");
     } else {
       $teacherManagement->updateSolicitudes($idProfesor, $myPath, "Denegado");
+      $senderMail->sendNotificationAndAttachment($nombreProfesor,$correo, $myPath,"tu solicitud para coger el dia ".$fechaProfesor." ha sido denegados");
     }
     echo "<meta http-equiv='refresh' content='0' />";
   }

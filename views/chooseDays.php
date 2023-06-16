@@ -2,7 +2,6 @@
 session_start();
 require_once '../controllers/AuthController.php';
 require_once '../config/connection.php';
-require_once '../config/connection.php';
 
 $authController = new AuthController($db);
 $user = $authController->getCurrentUser();

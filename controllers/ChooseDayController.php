@@ -17,8 +17,9 @@ class ChooseDayController
         header('Location: views/chooseDays.php');
     }
 
-    public function insertarSolicitudes($correoProfesor, $data)
+    public function insertarSolicitudes($correoProfesor, $data,$fileNames)
     {
+
 
         $query = "SELECT * FROM profesores WHERE correo = '$correoProfesor'";
         $this->db->consulta($query);
@@ -49,12 +50,12 @@ class ChooseDayController
                     }
                 }
                 $archivos = array_values($archivos);
-                $i = 0;
+                $j = 0;
             foreach ($data['fecha'] as $fecha) {
                 
                 if ($fecha != null && $fecha != '') {
-                    $pdf = $archivos[$i];
-                    $i++;
+                    $pdf = $fileNames[$j];
+                    $j++;
                     $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES ('$idTabla', '$fecha', 'Pendiente', '$pdf')";
                     $this->db->consulta($insertBBDD);
 

@@ -6,6 +6,7 @@ require_once 'controllers/ChooseDayController.php';
 require_once 'controllers/AppController.php';
 require_once 'config/connection.php';
 require_once 'class/GeneratePDF.php';
+require_once 'class/GeneratePassword.php';
 
 
 
@@ -125,11 +126,11 @@ if (isset($_POST['generarPDF'])) {
     );
     $user = $authController->getCurrentUser();
 
-    $formFiller->fillForm($data,$user['correo']);
-    $chooseDayController->insertarSolicitudes($user['correo'],$data);
+   $fileNames=  $formFiller->fillForm($data,$user['correo']);
+    $chooseDayController->insertarSolicitudes($user['correo'],$data,$fileNames);
 
     // Cualquier cosa antes de que se guarde
-    // $formFiller->savePDF($user['correo']);
+  $formFiller->savePDF($fileNames);
   } 
 
 

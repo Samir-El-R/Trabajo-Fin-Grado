@@ -54,7 +54,7 @@ class ChooseDayController
             foreach ($data['fecha'] as $fecha) {
                 
                 if ($fecha != null && $fecha != '') {
-                    $pdf = $fileNames[$j];
+                    $pdf = "pdfDiasLibres/".$fileNames[$j] . '.pdf';
                     $j++;
                     $insertBBDD = "INSERT INTO diasseleccionados (idProfesor, fechaEscogida, estado, solicitud) VALUES ('$idTabla', '$fecha', 'Pendiente', '$pdf')";
                     $this->db->consulta($insertBBDD);

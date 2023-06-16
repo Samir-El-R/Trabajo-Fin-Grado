@@ -23,7 +23,7 @@ class FormFiller
 
     public function fillForm($data, $correoProfesor)
     {
-        $myfileNames =[];
+        $myfileNames = [];
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
             if ($data['fecha'][$i] === "") {
@@ -120,10 +120,10 @@ class FormFiller
             $pdf->useTemplate($tplIdx, 0, 0);
 
             // Guardar el archivo PDF rellenado
-             $resultado = $this->leerDirectorios($correoProfesor);
+            $resultado = $this->leerDirectorios($correoProfesor);
             // foreach ($resultado as $key) {
-                
-                array_push($myfileNames , 'pdfDiasLibres/DiasLibres_' .$resultado. '.pdf');
+
+            array_push($myfileNames, 'DiasLibres_' . $resultado);
             //     if ($key == $i) {
             //     $i++;
             //     }
@@ -131,17 +131,18 @@ class FormFiller
             // }
             // $nombreUsuario = strstr($correoProfesor, '@', true);
 
-            $pdf->Output('pdfDiasLibres/DiasLibres_' .$resultado. '.pdf', 'F');
-            
+            $pdf->Output('pdfDiasLibres/DiasLibres_' . $resultado . '.pdf', 'F');
+
         }
+        $this->savePDF($myfileNames);
         return $myfileNames;
     }
 
 
     public function savePDF($myfileNames)
     {
-        $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
-        $nombreUsuario = $correoProfesor; // Nombre de usuario para filtrar los archivos
+        $directorio = 'pdfDiasLibres/'; // Ruta del directorio a recorrer
+        $nombreUsuario = $myfileNames; // Nombre de usuario para filtrar los archivos
 
         if (!is_readable($directorio)) {
             echo '<script>console.log("No se puede leer el directorio. Verifica los permisos de archivo y directorio.");</script>';
@@ -158,54 +159,59 @@ class FormFiller
             while (false !== ($archivo = readdir($handle))) {
 
                 if ($archivo != "." && $archivo != "..") {
-                    // Filtrar archivos por nombre de usuario
-                    if (strpos($archivo, $nombreUsuario) !== false) {
-                        $archivos[] = $archivo;
+                    foreach ($nombreUsuario as $key) {
+                        if (strpos($archivo, $key) !== false) {
+                            $archivos[] = $archivo;
+                        }
+                    }
                     }
                 }
+                closedir($handle);
             }
-            closedir($handle);
-        }
 
-        // Comprobar si se encontraron archivos
-        if (!empty($archivos)) {
-            // Nombre del archivo ZIP
-            $nombreZip = 'DiasLibres.zip';
+            // Comprobar si se encontraron archivos
+            if (!empty($archivos)) {
+                // Nombre del archivo ZIP
+                $nombreZip = 'DiasLibres.zip';
 
-            // Crear objeto ZipArchive
-            $zip = new ZipArchive();
+                // Crear objeto ZipArchive
+                $zip = new ZipArchive();
 
-            // Crear archivo ZIP
-            if ($zip->open($nombreZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-                // Agregar los archivos al archivo ZIP
-                foreach ($archivos as $archivo) {
-                    $rutaArchivo = $directorio . '/' . $archivo;
-                    $nombreArchivoZip = basename($archivo); // Obtener el nombre del archivo sin la ruta
-                    $zip->addFile($rutaArchivo, $nombreArchivoZip); // Especificar el nombre interno del archivo
+                // Crear archivo ZIP
+                if ($zip->open($nombreZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+
+                    // Agregar los archivos al archivo ZIP
+                    foreach ($archivos as $archivo) {
+
+                        $rutaArchivo = $directorio . $archivo;
+
+                        $nombreArchivoZip = basename($archivo); // Obtener el nombre del archivo sin la ruta
+                        $zip->addFile($rutaArchivo, $nombreArchivoZip); // Especificar el nombre interno del archivo
+                    }
+
+                    // Cerrar el archivo ZIP
+                    $zip->close();
+
+                    // Descargar el archivo ZIP
+                    header('Content-Type: application/zip');
+                    header('Content-Disposition: attachment; filename="' . $nombreZip . '"');
+                    header('Content-Length: ' . filesize($nombreZip));
+                    readfile($nombreZip);
+
+                    // Eliminar el archivo ZIP después de la descarga
+                    unlink($nombreZip);
+
+                    // Reiniciar la página usando JavaScript
+
+                } else {
+                    echo '<script>console.log("No se pudo crear el archivo ZIP.");</script>';
                 }
-
-                // Cerrar el archivo ZIP
-                $zip->close();
-
-                // Descargar el archivo ZIP
-                header('Content-Type: application/zip');
-                header('Content-Disposition: attachment; filename="' . $nombreZip . '"');
-                header('Content-Length: ' . filesize($nombreZip));
-                readfile($nombreZip);
-
-                // Eliminar el archivo ZIP después de la descarga
-                unlink($nombreZip);
-
-                // Reiniciar la página usando JavaScript
-
             } else {
-                echo '<script>console.log("No se pudo crear el archivo ZIP.");</script>';
+                echo '<script>console.log("No hay archivos en ese directorio para el usuario especificado.");</script>';
             }
-        } else {
-            echo '<script>console.log("No hay archivos en ese directorio para el usuario especificado.");</script>';
         }
-    }
 
+    
     public function chengePDF($motivo = "", $myPath, $firma)
     {
 

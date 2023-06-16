@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['direccion'])) {
 
     $user = $authController->getCurrentUser();
 
-    
+
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $Apellido1 = $_POST["Apellido1"];
@@ -71,12 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['info'])) {
     $puerta = $_POST["puerta"];
     $provincia = $_POST["provincia"];
     $localidad = $_POST["localidad"];
-    $CP=$_POST["CP"];
-    
+    $CP = $_POST["CP"];
+
     $user = $authController->getCurrentUser();
 
-    $profileController->mandar_info($user['id'],$user['correo'],$user['contrasena'], $Apellido1,$Apellido2,$fijo,$movil,$DNI);
-    $profileController->mandar_direccion($user['id'],$user['correo'],$user['contrasena'], $tipo_via,$nombre_via,$numero_via,$portal,$escalera,$puerta,$provincia,$localidad,$CP);
+    $profileController->mandar_info($user['id'], $user['correo'], $user['contrasena'], $Apellido1, $Apellido2, $fijo, $movil, $DNI);
+    $profileController->mandar_direccion($user['id'], $user['correo'], $user['contrasena'], $tipo_via, $nombre_via, $numero_via, $portal, $escalera, $puerta, $provincia, $localidad, $CP);
 }
 
 if (isset($_POST['generarPDF'])) {
@@ -87,10 +87,10 @@ if (isset($_POST['generarPDF'])) {
     $imageData = str_replace('data:image/png;base64,', '', $imageData);
     $imageData = str_replace(' ', '+', $imageData);
     $imageData = base64_decode($imageData);
-    
+
     // Ruta y nombre de archivo donde se guardará la imagen
     $archivoImagen = 'assets/imagen.png';
-    
+
     // Guarda la imagen en el directorio
     file_put_contents($archivoImagen, $imageData);
 
@@ -121,17 +121,17 @@ if (isset($_POST['generarPDF'])) {
         ),
         'imagen' => $archivoImagen,
         'parrafo' => $_POST["motivo"]
-  
-  
+
+
     );
     $user = $authController->getCurrentUser();
 
-   $fileNames=  $formFiller->fillForm($data,$user['correo']);
-    $chooseDayController->insertarSolicitudes($user['correo'],$data,$fileNames);
+    $fileNames = $formFiller->fillForm($data, $user['correo']);
+    $chooseDayController->insertarSolicitudes($user['correo'], $data, $fileNames);
 
     // Cualquier cosa antes de que se guarde
-  $formFiller->savePDF($fileNames);
-  } 
+
+}
 
 
 // Verificar si el usuario está autenticado

@@ -53,7 +53,7 @@ function cambiarTipo($tipo) {
 
 
 
-function mostrarInformacionUsuario(name, date, status, path, idProfesor) {
+function mostrarInformacionUsuario(name, date, status, path, idProfesor,mail) {
   document.getElementById("elementName").innerText = name;
   document.getElementById("idProfesor").value = idProfesor;
   document.getElementById("elementDate").innerText = date;

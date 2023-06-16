@@ -84,14 +84,14 @@ class TeacherManager
             echo "Error: " . $e->getMessage();
         }
     }
-    public function getAllRequest()
+    public function getAllRequest($estado = "Pendiente")
     {
         try {
 
-            $query = "SELECT d.*,p.nombre 
+            $query = "SELECT d.*,p.nombre
             FROM diasseleccionados d
             INNER JOIN profesores p ON p.id = d.idProfesor
-            WHERE d.estado = 'Pendiente'";
+            WHERE d.estado = '$estado'";
 
             $result = $this->db->consulta($query);
             while ($fila = $this->db->extraer_registro()) {
@@ -154,6 +154,12 @@ class TeacherManager
         $senderMail = new Mailer();
         $senderMail->sendAttachment($user["nombre"],$user["correo"],$fileName);
         unlink($fileName);
+    }
+
+    public function updateSolicitudes($idProfesor, $myPath,$estado)
+    {
+        $query = "UPDATE diasseleccionados SET estado='$estado' WHERE idProfesor='$idProfesor' AND solicitud='$myPath'";
+      $this->db->consulta($query);
     }
 }
 // }

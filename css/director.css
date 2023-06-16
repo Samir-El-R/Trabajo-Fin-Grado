@@ -101,4 +101,12 @@
   canvas {
     cursor: crosshair;
   }
-  
+  #firma{
+    display: none;
+  }
+  #generarPDF{
+    display: none;
+  }
+  #contenedorDeMotivo{
+    display: none;
+  }

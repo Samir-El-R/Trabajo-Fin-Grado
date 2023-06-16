@@ -63,7 +63,7 @@ function saveSignature() {
     imagenOculta.value = imagen;
     var fechaInputs = document.querySelectorAll('input[id="imagenOculta"]');
     var campoImagen = Array.from(fechaInputs).some(input => input.value.trim() !== '');
-
+    debugger;
     if (campoImagen) {
       document.getElementById("generarPDF").style.display="inherit"
     } else {

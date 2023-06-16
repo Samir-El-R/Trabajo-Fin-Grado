@@ -178,8 +178,6 @@ console.log(fechasEscogidas);
     }
   });
 
-// Funcion provisional y a completar por que las propias funciones internas no estan creadas, lo que haria seria al darle submit para mandar los dias a la base de datos comprobaria si ya hay 4 campos a ese usuario y de ser asi aborta el submit
-
 
   calendar.render();
 });
@@ -260,54 +258,6 @@ for (let i = 0; i < 4; i++) {
     }
   }
 
-
-
-
-
-
-
-
-  
-    
-  // document.getElementById('miFormulario').addEventListener('submit', function(event) {
-  //   event.preventDefault();
-  //   var elemento = document.getElementById('generarPDF');
-  //   // var valorDataBsTarget = '#modal3'; // El valor que deseas asignar
-  //   // var valorDataBsTaoggle = 'modal'; // El valor que deseas asignar
-
-  //   // // data-bs-target="#modal3" data-bs-toggle="modal"
-
-  //   // elemento.classList.add('data-bs-target');
-  //   // elemento.setAttribute('data-bs-target', valorDataBsTarget);
-
-  //   // elemento.classList.add('data-bs-toggle');
-  //   // elemento.setAttribute('data-bs-toggle', valorDataBsTaoggle);
-  
-  //   // Aquí puedes agregar la lógica adicional antes de enviar el formulario
-  //   // ...
-  //    let userId = document.getElementById("userId").value;    
-  //    enviarDatos(userId);
-
-  //   // let datos = enviarDatos(userId);
-  //   // const recordCount = getRecordCount(userId); // Obtiene la cantidad de registros del usuario
-  //   // console.log(recordCount);
-  //   //   if (recordCount > 4) {
-  //   //     // Mostrar un mensaje de error o tomar alguna acción si hay más de 4 registros
-  //   //     console.log("¡Ya se han registrado más de 4 veces!");
-  //   //     return;
-  //   //   }
-
-  //   //   event.target.submit();
-    
-  //   // Ejemplo: Mostrar un mensaje de confirmación
-  //   // const confirmacion = confirm('¿Estás seguro de enviar el formulario?');
-    
-  //   // if (confirmacion) {
-  //   //   formulario.submit();
-  //   // } else {
-  //   //   // No se hace nada si el usuario cancela
-  //   // }
-  // });
   
   // funcion para contar registros por usuario
   
@@ -327,12 +277,6 @@ for (let i = 0; i < 4; i++) {
       if (xhr.readyState === 4 && xhr.status === 200) {
          respuesta = xhr.responseText;
          registroProfesor = respuesta;
-        // if (respuesta <= 4) {
-        //   alert('Puedes seguir enviando peticiones de dias libres ' + respuesta);
-        // }else{
-        //   alert('no puedes enviar mas peticiones para los dias libres ' + respuesta);
-          
-        // }
       }
     };
   
@@ -340,50 +284,3 @@ for (let i = 0; i < 4; i++) {
     xhr.send(parametroCadena);
   }
   
-
-
-  // function isset(event) {
-  //   event.preventDefault(); // Evita que el formulario se envíe automáticamente
-  
-  //   // Obtén el ID de usuario del formulario (debe estar en un campo hidden con el nombre "userId")
-
-  //   // Realiza una petición a la base de datos para obtener la cantidad de registros del usuario
-  //   // Puedes usar tu propio método para realizar la petición a la base de datos aquí
-  //   // Supongamos que tienes una función llamada getRecordCount(userId) que devuelve la cantidad de registros
-  
-  //   const recordCount = getRecordCount(userId); // Obtiene la cantidad de registros del usuario
-  // console.log(recordCount);
-  //   if (recordCount > 4) {
-  //     // Mostrar un mensaje de error o tomar alguna acción si hay más de 4 registros
-  //     console.log("¡Ya se han registrado más de 4 veces!");
-  //     return;
-  //   }
-  
-  //   // Si no hay más de 4 registros, continúa con el envío de datos del formulario
-  //   event.target.submit();
-  // }
-  // function enviarDatos() {
-  //   var xhr = new XMLHttpRequest();
-  
-  //   var parametro = 'mi_parametro';
-  
-  //   xhr.open('POST', 'tu_archivo_php.php', true);
-  //   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  
-  //   var parametroCadena = 'parametro=' + encodeURIComponent(parametro);
-  
-  //   xhr.onreadystatechange = function() {
-  //     if (xhr.readyState === XMLHttpRequest.DONE) {
-  //       if (xhr.status === 200) {
-  //         // La solicitud se completó correctamente
-  //         var respuesta = xhr.responseText;
-  //         console.log(respuesta);
-  //       } else {
-  //         // Ocurrió un error durante la solicitud
-  //         console.error('Error en la solicitud:', xhr.status);
-  //       }
-  //     }
-  //   };
-  
-  //   xhr.send(parametroCadena);
-  // }

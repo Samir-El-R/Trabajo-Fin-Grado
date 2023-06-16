@@ -23,6 +23,10 @@ class FormFiller
 
     public function fillForm($data, $correoProfesor)
     {
+        $dia = date('d');
+        $mes = date('m');
+         $anio = date('Y');
+
         $myfileNames = [];
         $this->data = $data;
         for ($i = 0; $i < count($this->data['fecha']); $i++) {
@@ -105,6 +109,15 @@ class FormFiller
             $pdf->SetFont('Arial', '', 9);
             $pdf->SetXY(22, 131);
             $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1', $this->data['parrafo']), 0, 'J');
+
+            $pdf->SetXY(135, 210.3);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $dia));
+
+            $pdf->SetXY(155, 210.3);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $mes));
+
+            $pdf->SetXY(188, 210.3);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', $anio));
 
             $pdf->SetXY(22, 131);
             $pdf->Image($this->data['imagen'], 130, 218, 50, 0);

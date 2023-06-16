@@ -360,7 +360,7 @@ if (!$authController->isUserAuthenticated()) {
     </div>
   </div>
 
-    <!-- Tercer modal -->
+    <!-- Tercer modal-->
     <div class="modal fade" id="modal3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1"
     data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered">

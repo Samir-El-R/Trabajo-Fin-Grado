@@ -92,3 +92,13 @@
     overflow: visible;
     -webkit-appearance: button;
   }
+  #signature-container {
+    width: 400px;
+    height: 200px;
+    border: 1px solid #000;
+  }
+  
+  canvas {
+    cursor: crosshair;
+  }
+  

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/loginStyle.css">
     <link href="libraries/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="libraries/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <title>Días libres</title>
 </head>
+
 <body>
     <div class="login-box">
         <h2>Inicio de sesión</h2>
         <form action="index.php" method="POST">
-        <input type="hidden" name="login" value="true">
+            <input type="hidden" name="login" value="true">
             <div class="user-box">
                 <input type="text" name="email" id="email" required="true">
                 <label>Correo</label>
@@ -26,13 +26,16 @@
                 <label>Contraseña</label>
             </div>
 
-            <a href="">
+            <!-- <a href="">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
                 <input type="submit" required name="submit">
-            </a>
+            </a> -->
+            <button id="btn" class="boton_enviar" type="submit" required name="submit">
+                Button
+            </button>
         </form>
     </div>
 </body>

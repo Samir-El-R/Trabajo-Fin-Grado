@@ -88,25 +88,23 @@ class TeacherManager
     {
         try {
 
-            $query = "SELECT d.*, p.nombre
-            FROM diasseleccionados AS d
-            JOIN profesores AS p ON d.idProfesor = p.id
-            ";
+            $query = "SELECT d.*,p.nombre 
+            FROM diasseleccionados d
+            INNER JOIN profesores p ON p.id = d.idProfesor
+            WHERE d.estado = 'Pendiente'";
 
             $result = $this->db->consulta($query);
             while ($fila = $this->db->extraer_registro()) {
                 $teachers[] = $fila;
             }
 
-            if ($teachers) {
+            if ($this->db->numero_filas() > 0) {
 
                 return $teachers;
-            } else {
-                throw new Exception("Error al actualizar el profesor");
-            }
+            } 
         } catch (Exception $e) {
 
-            echo "Error: " . $e->getMessage();
+           return false;
         }
     }
     public function getTeacher($query)

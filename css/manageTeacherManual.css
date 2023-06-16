@@ -30,3 +30,6 @@ label {
   display: block;
   margin-bottom: 10px;
 }
+.btn:hover svg path {
+  filter: brightness(0) saturate(100%) invert(100%); /* Cambia la opacidad del trazo al hacer hover */
+}

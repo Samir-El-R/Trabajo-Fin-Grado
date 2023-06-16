@@ -25,7 +25,7 @@ $teacherManagement = new TeacherManager($db);
 <body >
     <?php
     $nameView = "";
-    $indexPage = "admin.php";
+    $indexPage = "../admin.php";
     include("../views/header.php");
     ?>
     
@@ -164,7 +164,7 @@ $teacherManagement = new TeacherManager($db);
                     <div class="col-md-1 text-sm-center text-md-start align-self-center my-2">
                         <form action="../admin.php" method="POST">
                             <input type="hidden" name="id_teacher" value="<?php echo $teacher['id']; ?>">
-                            <button type="submit" class="btn btn-outline-dark w-100" name="delete">
+                            <button type="submit" class="btn btn-outline-dark w-100 " name="delete">
                                 <svg xmlns="
                                 ht
                                 t

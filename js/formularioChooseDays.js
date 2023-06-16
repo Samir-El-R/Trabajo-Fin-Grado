@@ -34,7 +34,7 @@ debugger;
     });
 
     var firmaVacia = imagenOculta.value.trim() === '';
-
+    debugger;
     if (!camposVacios && (camposFechaLlenos || firmaVacia) && camposValidos) {
         botonFirma.style.display = 'inherit';
     } else {

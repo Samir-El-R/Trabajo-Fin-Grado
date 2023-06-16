@@ -79,6 +79,14 @@ class FormFiller
                 $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', '.'), 0, 1);
             }
 
+            $pdf->SetFillColor(255, 255, 255);
+
+            // Dibujar una caja blanca en las coordenadas (x, y) con un ancho y alto específicos
+
+            $ancho = 30; // Ancho de la caja
+            $alto = 4.2; // Alto de la caja
+
+            $pdf->Rect(113, 114, $ancho, $alto, 'F');
             // Fecha solicitada para el permiso
             $pdf->SetFont('Arial', 'B', 9);
             $pdf->SetXY(113, 116);
@@ -104,7 +112,7 @@ class FormFiller
             // Guardar el archivo PDF rellenado
             $resultado = $this->leerDirectorios($correoProfesor);
             // foreach ($resultado as $key) {
-                
+
             //     if ($key == $i) {
             //     $i++;
             //     }
@@ -112,7 +120,6 @@ class FormFiller
             // }
 
             $pdf->Output('pdfDiasLibres/DiasLibres_' . $correoProfesor . count($resultado) . '.pdf', 'F');
-            
         }
         $this->savePDF($correoProfesor);
     }
@@ -186,43 +193,49 @@ class FormFiller
         }
     }
 
-    public function chengePDF($motivo = "",$myPath)
+    public function chengePDF($motivo = "", $myPath,$firma)
     {
+
+        $pdf = new Fpdi();
+        $pdf->AddPage();
+        $pdf->setSourceFile($myPath);
+        $tplIdx = $pdf->importPage(1);
+        $pdf->useTemplate($tplIdx, 0, 0);
+
+
+        $pdf->AddPage();
+        $pdf->setSourceFile($myPath);
+        $tplIdx = $pdf->importPage(2);
+        $pdf->useTemplate($tplIdx, 0, 0);
+        $pdf->SetFont('Arial', '', 9);
+
+        if ($motivo == "") {
+            $pdf->SetXY(25, 32.3);
+            $pdf->SetFont('Arial', 'B', 18);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+        } else {
+            $pdf->SetXY(42.3, 32.3);
+            $pdf->SetFont('Arial', 'B', 18);
+            $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
+        }
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->SetXY(22, 63);
+        $pdf->MultiCell(155, 5, iconv('UTF-8', 'ISO-8859-1',$motivo), 0, 'J');
         
+        $pdf->Image($firma, 126, 110, 50, 0);
 
 
-            $pdf = new Fpdi();
-            $pdf->AddPage();
-            $pdf->setSourceFile($myPath);
-            $tplIdx = $pdf->importPage(1);
-            $pdf->useTemplate($tplIdx, 0, 0);
-        
 
-            $pdf->AddPage();
-            $pdf->setSourceFile($myPath);
-            $tplIdx = $pdf->importPage(2);
-            $pdf->useTemplate($tplIdx, 0, 0);
-            $pdf->SetFont('Arial', '', 9);
+        $pdf->AddPage(); 
+        $pdf->setSourceFile($myPath);
+        $tplIdx = $pdf->importPage(3);
+        $pdf->useTemplate($tplIdx, 0, 0);
 
-            if ($motivo == "") {
-                $pdf->SetXY(25, 32.3);
-                $pdf->SetFont('Arial', 'B', 18);
-                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
-            } else {
-                $pdf->SetXY(42.3, 32.3);
-                $pdf->SetFont('Arial', 'B', 18);
-                $pdf->Write(0, iconv('UTF-8', 'ISO-8859-1', 'X'), 0, 1);
-            }
+        // Guardar el archivo PDF rellenado
 
-            $pdf->AddPage();
-            $pdf->setSourceFile($myPath);
-            $tplIdx = $pdf->importPage(3);
-            $pdf->useTemplate($tplIdx, 0, 0);
-
-            // Guardar el archivo PDF rellenado
-         
-            $pdf->Output($myPath, 'F');
+        $pdf->Output($myPath, 'F');
     }
+
     public function leerDirectorios($correoProfesor)
     {
         $directorio = 'pdfDiasLibres'; // Ruta del directorio a recorrer
@@ -241,17 +254,14 @@ class FormFiller
 
                 if ($archivo != "." && $archivo != "..") {
                     // Filtrar archivos por nombre de usuario
-                    if (strpos($archivo, $nombreUsuario.$i) !== false) {
+                    if (strpos($archivo, $nombreUsuario . $i) !== false) {
                         $archivos[] = $i;
-
                     }
                     $i++;
                 }
             }
             closedir($handle);
             return $archivos;
-
         }
     }
-
 }
